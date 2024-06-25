@@ -5,16 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحه یافت نشد !</title>
+    <link rel="shortcut icon" href="https://service.tccim.ir/css/favicon.png">
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet");
 
         @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700");
+
         @font-face {
             font-family: "iran_sans";
             font-display: block;
             src: local("IRANSansWeb_Light"),
                 url("/fonts/IRANSansWeb_Light.ttf") format("truetype"), url("/fonts/IRANSansWeb_Light.otf") format("opentype");
         }
+
         * {
             margin: 0;
             padding: 0;
@@ -148,7 +151,7 @@
             z-index: -1;
             font-size: 40vmin;
         }
-      
+
         .wrong-para {
             font-family: "iran_sans";
             position: absolute;
@@ -156,14 +159,23 @@
             padding: 3vmin 12vmin 3vmin 3vmin;
             font-weight: 600;
             color: #092532;
-            text-align: right;
+            text-align: center;
             direction: rtl !important;
         }
 
-    
-
+        body {
+            background: #f9f390;
+        }
+        .link_home {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            background: #5677bc;
+            padding: 8px;
+            max-width: 20px;
+            border-radius: 10px;
+        }
     </style>
-    <link rel="shortcut icon" href="https://service.tccim.ir/css/favicon.png">
 </head>
 
 <body>
@@ -195,7 +207,12 @@
             </div>
         </div>
         <h1 class="second-four">4</h1>
-        <p class="wrong-para">صفحه مورد نظر یافت نشد !</p>
+        <p class="wrong-para">
+            صفحه مورد نظر یافت نشد ! <br>
+            امکان دارد آیتم یا فایل مورد نظر شما از دیتابیس پاک شده باشد یا اصلا آدرس مسیر فعلی موجود نباشد !
+            <br> <br>
+            <a class="link_home" href="{{url('')}}">خانه</a>
+        </p>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/gsap.min.js"></script>
     <script>
