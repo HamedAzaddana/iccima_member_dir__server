@@ -2,7 +2,10 @@
     font-family: "iran_sans";
     font-display: block;
     src: local("IRANSansWeb_Light"),
-        url("../fonts/IRANSansWeb_Light.ttf") format("truetype"), url("../fonts/IRANSansWeb_Light.otf") format("opentype");
+        url("../fonts/IRANSansWeb_Light.ttf") format("truetype");
+    src: url("../fonts/IRANSansWeb_Light.eot");
+    src: url("../fonts/IRANSansWeb_Light.eot?#iefix}") format("eot"), url("../fonts/IRANSansWeb_Light.woff") format("woff");
+
 }
 
 body {
