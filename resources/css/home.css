@@ -1,0 +1,98 @@
+@font-face {
+    font-family: "iran_sans";
+    font-display: block;
+    src: local("IRANSansWeb_Light"),
+        url("../fonts/IRANSansWeb_Light.ttf") format("truetype"), url("../fonts/IRANSansWeb_Light.otf") format("opentype");
+}
+
+body {
+    font-family: "iran_sans" !important;
+    text-align: right;
+    direction: rtl !important;
+}
+
+input[type="text"],
+span,
+.navbar-nav .nav-link,
+.site-footer-links .site-footer-link,
+.site-footer-title,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+    font-family: "iran_sans" !important;
+}
+
+nav {
+    background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%) !important;
+}
+
+.site-footer-link {
+    color: #4b1414 !important
+}
+
+.custom-block-image {
+    object-fit: contain !important;
+}
+
+.custom-block-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 15px;
+}
+
+.custom-block h5 {
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+.custom-block-contact {
+    font-size: 14px;
+    text-decoration: underline;
+    padding: 5px;
+}
+
+.top_nav_app .nav-link:hover {
+    color: rgb(0, 208, 255) !important;
+    transition: 0.5s !important;
+}
+
+.modal-header .btn-close {
+    margin: 0 !important;
+}
+
+.layout-overlay-loading img {
+    width: 12%;
+    filter: saturate(330%) contrast(500%) brightness(120%);
+}
+
+.layout-overlay-loading {
+    z-index: 1099;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100% !important;
+    left: 0;
+    background: white;
+    opacity: .8;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width:500px) {
+    .layout-overlay-loading img {
+        width: 35%;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    footer .container .row {
+        margin-right: 23%;
+    }
+}
