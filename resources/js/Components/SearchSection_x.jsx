@@ -1,9 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import Form from 'react-bootstrap/Form';
 
 export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataToIndex }) {
     let default_filters = {
@@ -81,92 +80,16 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
     }
 
     return (
-        <section style={
-            {
-                paddingTop: '0',
-            }
-        } className="hero-section d-flex justify-content-center align-items-center" id="section_1">
-
-            <form style={{
-                width: "100%"
-            }} onSubmit={handleSearch} className="mt-4 pt-2 mb-lg-0 mb-5">
-                <div className='p-3'>
-                    <div className="row">
-                        <div className="col-md-3 col-lg-3 col-sm-12">
-                            <div className="input-group input-group-lg">
-                                <span className="input-group-text bi-search">
-                                </span>
-                                <input type="search" className="form-control" id="kws"
-                                    placeholder="کلمه کلیدی + Enter" aria-label="Search"
-                                    value={values.kws} onChange={handleChangeVs}
-                                />
-
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-lg-3 col-sm-12 low-level-filter">
-                            <div className="input-group input-group-lg">
-                                <span className="input-group-text bi-globe">
-                                </span>
-                                <Form.Select style={{
-                                    height: '100%',
-                                    borderRadius: '30px',
-                                    cursor: 'pointer',
-                                }} onChange={handleChangeVs} defaultValue="null" id="province">
-                                    <option value={"null"} disabled> همه استان ها  </option>
-                                    {(filters?.provinces?.length) ?
-                                        (
-                                            <>
-                                                {filters?.provinces?.map((item, item_index) => (
-                                                    <option key={item_index} value={item.value}>{item.label}</option>
-                                                ))}
-                                            </>
-                                        )
-                                        :
-                                        (
-                                            <></>
-                                        )
-                                    }
-                                </Form.Select>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-lg-3 col-sm-12 low-level-filter">
-                            <div className="input-group input-group-lg">
-                                <span className="input-group-text bi-universal-access">
-                                </span>
-                                <Form.Select style={{
-                                    height: '100%',
-                                    borderRadius: '30px',
-                                    cursor: 'pointer',
-                                }} onChange={handleChangeVs} defaultValue="null" id="rank">
-                                    <option value={"null"} disabled> همه رتبه ها </option>
-                                    {(filters?.ranks?.length) ?
-                                        (
-                                            <>
-                                                {filters?.ranks?.map((item, item_index) => (
-                                                    <option style={
-                                                        {
-                                                            fontFamily: "iran_sans"
-                                                        }
-                                                    } key={item_index} value={item.value}>{item.label}</option>
-                                                ))}
-                                            </>
-                                        )
-                                        :
-                                        (
-                                            <></>
-                                        )
-                                    }
-                                </Form.Select>
-                            </div>
-                        </div>
-
-                        <div className="col-md-3 col-lg-3 col-sm-12">
-                            <button id='btn-do-search' ref={SubmitBtn} type="submit" className="form-control btn btn-success"> جستجو <i className='fa fa-search'></i></button>
-                        </div>
-                        <div className="col-md-3 col-lg-3 col-sm-12 mt-3">
-                            <Button id='btn-adv-search' type="button" variant="dark" onClick={handleShowSV} className="form-control btn btn-success">
+        <section className="hero-section d-flex justify-content-center align-items-center" id="section_1">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-8 col-12 mx-auto">
+                        <h2 className="text-white text-center">دایرکتوری اعضای اتاق بازرگانی، صنایع، معادن و کشاورزی ایران</h2>
+                        <center>
+                            <Button variant="dark" onClick={handleShowSV}>
                                 جستجو پیشرفته <i className='fa fa-cogs'></i>
                             </Button>
+
                             <Modal centered size="lg" show={showAdvance} onHide={handleCloseSV}>
                                 <Modal.Header closeButton>
                                     <Modal.Title>جستجوی پیشرفته</Modal.Title>
@@ -193,7 +116,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                             </Form.Select>
                                         </div>
                                         <div className="col-lg-6 col-md-6 col-sm-12"></div>
-
+                                        
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
                                             <Form.Group className="mb-3">
                                                 <Form.Label>نام : </Form.Label>
@@ -210,8 +133,8 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                                 <Form.Control value={values.last_name} onChange={handleChangeVs} id="last_name" type="text" placeholder="" />
                                             </Form.Group>
                                         </div>
-
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4 low-level-filter-modal">
+                                        
+                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
                                             <label className='m-1 p-1'> استان : </label>
                                             <Form.Select onChange={handleChangeVs} defaultValue="null" id="province">
                                                 <option value={"null"} disabled> انتخاب کنید ...</option>
@@ -230,7 +153,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                                 }
                                             </Form.Select>
                                         </div>
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4 low-level-filter-modal">
+                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
                                             <label className='m-1 p-1'> رتبه : </label>
                                             <Form.Select onChange={handleChangeVs} defaultValue="null" id="rank">
                                                 <option value={"null"} disabled> انتخاب کنید ...</option>
@@ -249,7 +172,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                                 }
                                             </Form.Select>
                                         </div>
-
+                                        
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
                                             <Form.Group className="mb-3">
                                                 <Form.Label>نام کالا : </Form.Label>
@@ -262,7 +185,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                                 <Form.Control value={values.hs_code} onChange={handleChangeVs} id="hs_code" type="text" placeholder="" />
                                             </Form.Group>
                                         </div>
-
+                                       
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
                                             <label className='p-1 m-1'>نوع فعالیت : </label>
                                             {(filters?.activity_types?.length) ?
@@ -290,7 +213,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
 
                                         </div>
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4"></div>
-
+                                        
                                     </div>
                                 </Modal.Body>
                                 <Modal.Footer>
@@ -302,11 +225,23 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                     </Button>
                                 </Modal.Footer>
                             </Modal>
-                        </div>
-                    </div>
-                </div>
-            </form>
+                        </center>
+                        <form onSubmit={handleSearch} className="mt-4 pt-2 mb-lg-0 mb-5">
+                            <div className="input-group input-group-lg">
+                                <span className="input-group-text bi-search" id="basic-addon1">
+                                </span>
+                                <input type="search" className="form-control" id="kws"
+                                    placeholder="کلمه کلیدی + Enter" aria-label="Search"
+                                    value={values.kws} onChange={handleChangeVs}
+                                />
+                                <button ref={SubmitBtn} type="submit" className="form-control btn btn-success"> جستجو <i className='fa fa-search'></i></button>
 
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
         </section >
     );
 }

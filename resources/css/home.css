@@ -25,7 +25,8 @@ h3,
 h4,
 h5,
 h6,
-button {
+button,
+option {
     font-family: "iran_sans" !important;
 }
 
@@ -88,11 +89,76 @@ nav {
     justify-content: center;
 }
 
+.form-select {
+    -moz-padding-start: 35px !important;
+}
+
+
+
+.form-control::placeholder {
+    color: #080909;
+    opacity: 1;
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+}
+
+.input-group> :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    height: 100%;
+    cursor: pointer;
+    border: 0;
+    font-size: 13px;
+}
+
+.input-group-lg>.input-group-text {
+    padding: 5px !important;
+    font-size: 16px !important;
+}
+
+.input-group.input-group-lg {
+    border-radius: 10px !important;
+}
+
+#btn-do-search {
+    height: 100%;
+    background: #ffcd70;
+    border-radius: 10px !important;
+    color: black;
+}
+
+#btn-adv-search {
+    background: #77e97e;
+    color: black;
+    margin-right: 20px;
+    margin-top: 20px;
+    height: 100%;
+}
+
+
+.low-level-filter-modal {
+    display: none;
+}
 @media only screen and (max-width:500px) {
     .layout-overlay-loading img {
         width: 35%;
     }
 }
+
+@media only screen and (max-width:758px) {
+    .low-level-filter {
+        display: none;
+    }
+
+    .low-level-filter-modal {
+        display: block;
+    }
+
+    #btn-do-search {
+        margin-right: 20px;
+        margin-top: 20px;
+    }
+}
+
 
 @media screen and (max-width: 950px) {
     footer .container .row {
