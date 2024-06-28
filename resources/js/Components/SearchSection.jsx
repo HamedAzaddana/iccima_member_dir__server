@@ -3,7 +3,7 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataToIndex }) {
     let default_filters = {
@@ -22,14 +22,17 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
     const [filters, setFilters] = useState([]);
     const fetchDatafilters = async () => {
         try {
-            const response = await axios.post(`${ws_search_get_fv}`, {});
+            const response = await axios.post(`${ws_search_get_fv}`, {})
             setFilters(response.data.data);
         } catch (error) {
-            console.error("Error fetching data:", error);
+            document.getElementById('loading-page-iccima').style.display = "none";
+            toast.error(`Error fetching data : ${error.message}`);
         }
     };
     useEffect(() => {
         fetchDatafilters()
+
+
     }, []);
     const handleCloseSV = () => setShowAdvance(false);
     const handleShowSV = () => setShowAdvance(true);
@@ -71,15 +74,18 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
         e.preventDefault();
         // console.log(values);
         // set loading on !
-
+        document.getElementById('loading-page-iccima').style.display = "inline-flex";
         handleCloseSV();
         axios.post(`${ws_s_route}`, values)
             .then(res => {
                 sendDataToIndex(res.data);
-                setValues(default_filters);
+                // setValues(default_filters);
+            })
+            .catch((err) => {
+                document.getElementById('loading-page-iccima').style.display = "none";
+                toast.error(`${err.message}`);
             });
     }
-
     return (
         <section style={
             {
@@ -306,6 +312,10 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                     </div>
                 </div>
             </form>
+            <div><Toaster
+                position="top-left"
+                reverseOrder={true}
+            /></div>
 
         </section >
     );

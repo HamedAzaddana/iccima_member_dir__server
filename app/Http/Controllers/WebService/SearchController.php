@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WebService;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\MerchantCorp as MerchantCorpModel;
 
 
 class SearchController extends Controller

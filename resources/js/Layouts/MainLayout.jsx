@@ -7,6 +7,7 @@ import NavBar from '../Components/NavBar';
 import FooterBar from '../Components/FooterBar';
 import { useRef } from 'react';
 
+
 export default function Main({ children }) {
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     const loadingPageRef = useRef(null);
@@ -16,11 +17,11 @@ export default function Main({ children }) {
                 <main>
                     <NavBar />
                     {children}
-                    {/* <div ref={loadingPageRef} className="layout-overlay-loading layout-menu-toggle d-none" style={{
-                        display: 'inline-flex'
+                    <div ref={loadingPageRef} id='loading-page-iccima' className="layout-overlay-loading layout-menu-toggle" style={{
+                        display: 'none'
                     }}>
                         <img src={`${appUrl}/images/loading-loader-fst2.gif`} alt="لطفا منتظر بمانید ..." />
-                    </div> */}
+                    </div>
                 </main>
                 <FooterBar />
             </div>

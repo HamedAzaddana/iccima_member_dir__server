@@ -138,6 +138,24 @@ nav {
 .low-level-filter-modal {
     display: none;
 }
+
+.box-shadow-iccima-1 {
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(173, 173, 173, 1);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(173, 173, 173, 1);
+    box-shadow: 10px 10px 5px 0px rgba(173, 173, 173, 1);
+}
+
+.box-gif-help {
+    justify-content: center;
+    display: inline-flex;
+    width: 100%;
+}
+
+.box-gif-help img {
+    width: 60%;
+    height: 60%;
+}
+
 @media only screen and (max-width:500px) {
     .layout-overlay-loading img {
         width: 35%;
