@@ -15,10 +15,13 @@ export default function Index({ ws_s_route, ws_search_get_fv }) {
 
 
 
-    function handleDataSearch(data) {
+    function handleDataSearch(data,is_more) {
         setDataSearch(data);
         console.log(data);
-        TopClickRef.current.click();
+        if(!is_more){
+            TopClickRef.current.click();
+        }
+       
     }
     useEffect(() => {
         // set loading off !

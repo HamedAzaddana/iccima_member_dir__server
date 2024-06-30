@@ -99,7 +99,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
             }
         })
             .then(res => {
-                sendDataToIndex(res.data);
+                sendDataToIndex(res.data,is_more);
                 // setValues(default_filters);
             })
             .catch((err) => {

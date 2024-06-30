@@ -1,6 +1,6 @@
 import SearchResultCard from "./SearchResultCard";
 
-export default function SearchResults({ dataSearch, kws,loadMoreTrigger }) {
+export default function SearchResults({ dataSearch, kws }) {
 
     function handleClickMore(e){
         document.getElementById('getMoreApiBtn').click();
