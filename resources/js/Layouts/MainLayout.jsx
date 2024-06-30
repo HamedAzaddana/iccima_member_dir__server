@@ -20,7 +20,7 @@ export default function Main({ children }) {
                     <div ref={loadingPageRef} id='loading-page-iccima' className="layout-overlay-loading layout-menu-toggle" style={{
                         display: 'none'
                     }}>
-                        <img src={`${appUrl}/images/loading-loader-fst2.gif`} alt="لطفا منتظر بمانید ..." />
+                        <img src={`https://static.spotapps.co/assets/widgets/loading.gif`} alt="لطفا منتظر بمانید ..." />
                     </div>
                 </main>
                 <FooterBar />

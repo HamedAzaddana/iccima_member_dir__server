@@ -1,6 +1,10 @@
 import SearchResultCard from "./SearchResultCard";
 
-export default function SearchResults({ dataSearch, kws }) {
+export default function SearchResults({ dataSearch, kws,loadMoreTrigger }) {
+
+    function handleClickMore(e){
+        document.getElementById('getMoreApiBtn').click();
+    }
     return (
         <section className="explore-section section-padding" id="section_2">
             <div className='container'>
@@ -13,10 +17,18 @@ export default function SearchResults({ dataSearch, kws }) {
                                 </div>
                             </div>
                             {(dataSearch.length) ?
-                                (<div>
-                                    {dataSearch.map((info,ik_loop) => (
-                                        <SearchResultCard key={ik_loop} info={info}  />
+                                (<div className="row" id="box-search-results">
+                                    {dataSearch.map((info, ik_loop) => (
+                                        <SearchResultCard key={ik_loop} info={info} />
                                     ))}
+                                    <div className="mt-5 p-2">
+                                        <center>
+                                            <button onClick={handleClickMore} style={{
+                                                fontSize: '20px',
+                                                padding: '12px',
+                                            }} type="button" className="btn btn-warning"> <i className="fa fa-search-plus"></i> بیشتر </button>
+                                        </center>
+                                    </div>
                                 </div>)
                                 :
                                 (<div>

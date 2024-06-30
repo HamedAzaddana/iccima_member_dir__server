@@ -24,14 +24,14 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
     const [filters, setFilters] = useState([]);
     const fetchDatafilters = async () => {
         try {
-            const response = await axios.post(`${ws_search_get_fv}`,{}, {
+            const response = await axios.post(`${ws_search_get_fv}`, {}, {
                 headers: {
                     'ICCIMA-AUTH-USERNAME': `${ws_username}`,
                     'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
                 }
             });
             setFilters(response.data.data);
-        } catch (error) {        
+        } catch (error) {
             document.getElementById('loading-page-iccima').style.display = "none";
             toast.error(`Error fetching data : ${error.message}`);
             console.log(error)
@@ -45,6 +45,9 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
 
     const [values, setValues] = useState(default_filters);
     const SubmitBtn = useRef(null);
+    function getMoreRApi(e) {
+        getDataPrepare(e, 1);
+    }
     function handleChangeVs(e) {
         const key = e.target.id;
         const value = e.target.value;
@@ -76,13 +79,20 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
         }
 
     }
-    function handleSearch(e) {
+    function getDataPrepare(e, is_more = 0) {
+        let _post_data = values;
+        if (is_more) {
+            _post_data = {
+                ..._post_data,
+                more: 1
+            }
+        }
         e.preventDefault();
-        // console.log(values);
+        console.log(_post_data);
         // set loading on !
         document.getElementById('loading-page-iccima').style.display = "inline-flex";
         handleCloseSV();
-        axios.post(`${ws_s_route}`, values, {
+        axios.post(`${ws_s_route}`, _post_data, {
             headers: {
                 'ICCIMA-AUTH-USERNAME': `${ws_username}`,
                 'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
@@ -97,13 +107,16 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                 toast.error(`${err.message}`);
             });
     }
+    function handleSearch(e) {
+        getDataPrepare(e);
+    }
     return (
         <section style={
             {
                 paddingTop: '0',
             }
         } className="hero-section d-flex justify-content-center align-items-center" id="section_1">
-
+            <button onClick={getMoreRApi} id='getMoreApiBtn' className='d-none'></button>
             <form style={{
                 width: "100%"
             }} onSubmit={handleSearch} className="mt-4 pt-2 mb-lg-0 mb-5">

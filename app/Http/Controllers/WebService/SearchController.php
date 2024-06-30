@@ -2,61 +2,55 @@
 
 namespace App\Http\Controllers\WebService;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MerchantCorp as MerchantCorpModel;
 use App\Models\Preset as PresetModel;
 use App\Helpers\Pdate;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
     public function index()
     {
-        // $appender = array(
-        //     [
-        //         'logo_corp' => '',
-        //         'user_image' => '',
-        //         'first_name' => '',
-        //         'last_name' => '',
-        //         'corp_name' => '',
-        //         'year_created' => '',
-        //         'province' => '',
-        //         'province_id' => '',
-        //         'city' => '',
-        //         'address' => '',
-        //         'phone' => '',
-        //         'fax' => '',
-        //         'website' => '',
-        //         'activity' => '',
-        //         'activity_type' => '',
-        //         'activity_type_id' => '',
-        //         'orders_registered' => '',
-        //         'imports_done' => '',
-        //         'certificate_issued' => '',
-        //         'common_rooms' => '',
-        //         'spec_commissions' => '',
-        //         'organizations' => '',
-        //         'person_type' => '',
-        //         'person_type_id' => '',
-        //         'hs_code' => '',
-        //         'products' => '',
-        //         'rank' => '',
-        //         'rank_id' => '',
-        //         'last_updated_at' => Pdate::persianTimeStampNow(),
-        //     ]
-        // );
-        // $data = [];
-        // for ($i = 0; $i <= 2; $i++) {
-        //     $data = array_merge($data, $appender);
-        // }
+        $last_params = (array)request()->session()->get('params_filter_user');
+        $last_more_loaded = (int)@$last_params['loaded_cnt'];
+        $load_more = (int)env("LOAD_MORE_DATA", 30);
+        $params = request()->all();
+        if (@$params['more']) {
+            $now_loading = $last_more_loaded + $load_more;
+        } else {
+            $now_loading = $load_more;
+        }
+        $params['loaded_cnt'] = $now_loading;
+        request()->session()->put('params_filter_user', $params);
+        //query filtering must be done !
+        $records_load = DB::table('merchant_corporation')
+        //querying !!
+        ->limit($now_loading)->get()->toArray();
 
-        // return response()->json([
-        //     'data' => $data,
-        //     'req' => request()->all(),
-        // ], 200);
+
+        // dd($records_load);
+
+        // kws : کلمه کلیدی
+        // activity_type : نوع فعالیت آیدی آرایه
+        // corp_name : نام شرکت
+        // first_name
+        // last_name
+        // hs_code : کد HS
+        // person_type :  نوع شخص آیدی
+        // product_name : نام کالا
+        // province :  استان آیدی
+        // rank : رتبه آیدی
+
+        return response()->json([
+            'data' => $records_load,
+            'req' => $params,
+            'req' => $params,
+        ], 200);
     }
     public function get_filters_var()
     {
+        request()->session()->put('params_filter_user', []);
         $presets = PresetModel::select('value', 'title', 'type')
             ->get()->toArray();
         $person_types = [];
@@ -94,6 +88,7 @@ class SearchController extends Controller
     }
     public function makeFake()
     {
+        dd('no !');
         $row1 = [
             'logo_corp' => 'https://cdn-icons-png.flaticon.com/512/9371/9371369.png',
             'user_image' => 'https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkzNy1hZXctMTY1LWtsaGN3ZWNtLmpwZw.jpg',
@@ -217,7 +212,9 @@ class SearchController extends Controller
             $id = $i + 6;
             $row1['id'] = $id;
             $appender[] = $row1;
+            MerchantCorpModel::create($row1);
         }
-        // dd($appender);
+        // MerchantCorpModel::insert($appender);
+        dd('Done !');
     }
 }
