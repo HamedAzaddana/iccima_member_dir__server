@@ -6,6 +6,8 @@ import Modal from 'react-bootstrap/Modal';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataToIndex }) {
+    const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
+    const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
     let default_filters = {
         kws: "",
         person_type: "",
@@ -22,17 +24,21 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
     const [filters, setFilters] = useState([]);
     const fetchDatafilters = async () => {
         try {
-            const response = await axios.post(`${ws_search_get_fv}`, {})
+            const response = await axios.post(`${ws_search_get_fv}`,{}, {
+                headers: {
+                    'ICCIMA-AUTH-USERNAME': `${ws_username}`,
+                    'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
+                }
+            });
             setFilters(response.data.data);
-        } catch (error) {
+        } catch (error) {        
             document.getElementById('loading-page-iccima').style.display = "none";
             toast.error(`Error fetching data : ${error.message}`);
+            console.log(error)
         }
     };
     useEffect(() => {
         fetchDatafilters()
-
-
     }, []);
     const handleCloseSV = () => setShowAdvance(false);
     const handleShowSV = () => setShowAdvance(true);
@@ -76,7 +82,12 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
         // set loading on !
         document.getElementById('loading-page-iccima').style.display = "inline-flex";
         handleCloseSV();
-        axios.post(`${ws_s_route}`, values)
+        axios.post(`${ws_s_route}`, values, {
+            headers: {
+                'ICCIMA-AUTH-USERNAME': `${ws_username}`,
+                'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
+            }
+        })
             .then(res => {
                 sendDataToIndex(res.data);
                 // setValues(default_filters);
@@ -118,7 +129,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                     borderRadius: '30px',
                                     cursor: 'pointer',
                                 }} onChange={handleChangeVs} defaultValue="null" id="province">
-                                    <option value={"null"} disabled> همه استان ها  </option>
+                                    <option value={"all"}> همه استان ها  </option>
                                     {(filters?.provinces?.length) ?
                                         (
                                             <>
@@ -144,7 +155,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                     borderRadius: '30px',
                                     cursor: 'pointer',
                                 }} onChange={handleChangeVs} defaultValue="null" id="rank">
-                                    <option value={"null"} disabled> همه رتبه ها </option>
+                                    <option value={"all"}> همه رتبه ها </option>
                                     {(filters?.ranks?.length) ?
                                         (
                                             <>
@@ -180,9 +191,9 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                 <Modal.Body>
                                     <div className="row">
                                         <div className="col-lg-6 col-md-6 col-sm-12">
-                                            <label className='m-1 p-1'> نوع شخص : </label>
+                                            <label className='m-1 p-1'> <i className='fa fa-address-card'></i> نوع شخص : </label>
                                             <Form.Select onChange={handleChangeVs} defaultValue="null" id="person_type">
-                                                <option value={"null"} disabled> انتخاب کنید ...</option>
+                                                <option value={"all"}> همه نوع </option>
                                                 {(filters?.person_types?.length) ?
                                                     (
                                                         <>
@@ -202,25 +213,25 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
 
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
                                             <Form.Group className="mb-3">
-                                                <Form.Label>نام : </Form.Label>
+                                                <Form.Label> <i className='fa fa-user'></i> نام : </Form.Label>
                                                 <Form.Control value={values.first_name} onChange={handleChangeVs} id="first_name" type="text" placeholder="" />
                                             </Form.Group>
                                             <Form.Group className="mb-3">
-                                                <Form.Label>نام شرکت : </Form.Label>
+                                                <Form.Label> <i className='fa fa-university'></i>  نام شرکت : </Form.Label>
                                                 <Form.Control value={values.corp_name} onChange={handleChangeVs} id="corp_name" type="text" placeholder="" />
                                             </Form.Group>
                                         </div>
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
                                             <Form.Group className="mb-3">
-                                                <Form.Label>نام خانوادگی : </Form.Label>
+                                                <Form.Label> <i className='fa fa-user-circle'></i> نام خانوادگی : </Form.Label>
                                                 <Form.Control value={values.last_name} onChange={handleChangeVs} id="last_name" type="text" placeholder="" />
                                             </Form.Group>
                                         </div>
 
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4 low-level-filter-modal">
-                                            <label className='m-1 p-1'> استان : </label>
+                                            <label className='m-1 p-1'> <i className='fa fa-globe'></i> استان : </label>
                                             <Form.Select onChange={handleChangeVs} defaultValue="null" id="province">
-                                                <option value={"null"} disabled> انتخاب کنید ...</option>
+                                                <option value={"all"}> همه استان ها</option>
                                                 {(filters?.provinces?.length) ?
                                                     (
                                                         <>
@@ -237,9 +248,9 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                             </Form.Select>
                                         </div>
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4 low-level-filter-modal">
-                                            <label className='m-1 p-1'> رتبه : </label>
+                                            <label className='m-1 p-1'> <i className='fa fa-universal-access'></i> رتبه : </label>
                                             <Form.Select onChange={handleChangeVs} defaultValue="null" id="rank">
-                                                <option value={"null"} disabled> انتخاب کنید ...</option>
+                                                <option value={"all"}> همه رتبه ها</option>
                                                 {(filters?.ranks?.length) ?
                                                     (
                                                         <>
@@ -258,19 +269,19 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
 
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
                                             <Form.Group className="mb-3">
-                                                <Form.Label>نام کالا : </Form.Label>
+                                                <Form.Label> <i className='fa fa-area-chart'></i> نام کالا : </Form.Label>
                                                 <Form.Control value={values.product_name} onChange={handleChangeVs} id="product_name" type="text" placeholder="" />
                                             </Form.Group>
                                         </div>
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
                                             <Form.Group className="mb-3">
-                                                <Form.Label>کد HS : </Form.Label>
+                                                <Form.Label> <i className='fa fa-barcode'></i> کد HS : </Form.Label>
                                                 <Form.Control value={values.hs_code} onChange={handleChangeVs} id="hs_code" type="text" placeholder="" />
                                             </Form.Group>
                                         </div>
 
                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
-                                            <label className='p-1 m-1'>نوع فعالیت : </label>
+                                            <label className='p-1 m-1'> <i className='fa fa-shopping-basket'></i> نوع فعالیت : </label>
                                             {(filters?.activity_types?.length) ?
                                                 (
                                                     <>

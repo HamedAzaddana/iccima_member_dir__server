@@ -182,4 +182,8 @@ nav {
     footer .container .row {
         margin-right: 23%;
     }
+    .box-gif-help img {
+        width: 100%;
+        height: 60%;
+    }
 }
