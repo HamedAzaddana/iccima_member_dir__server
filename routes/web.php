@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomePageController;
 use App\Helpers\Pdate;
+use Elastic\Elasticsearch\ClientBuilder;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,12 @@ use App\Helpers\Pdate;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 Route::get('/test', function () {
-    dd(Pdate::persianTimeStampNow());
+    // dd(config('database.connections.elasticsearch.hosts'));
+
+    // $client = ClientBuilder::create()
+    //     ->setHosts([env("ELASTICSEARCH_URL")])
+    //     ->setApiKey(env("ELASTICSEARCH_API_KEY"))
+    //     ->build();
 });
 
 
