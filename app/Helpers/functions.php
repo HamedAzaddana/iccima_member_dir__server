@@ -11,3 +11,9 @@ function prepareSelect($arr)
     }
     return $output;
 }
+function iccima_arabicToPers_conv($string)
+{
+    $arabic = array('ي', 'ك', 'ة');
+    $farsi = array('ی', 'ک', 'ه');
+    return str_replace($arabic, $farsi, $string);
+}
