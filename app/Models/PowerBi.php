@@ -110,4 +110,5 @@ class PowerBi extends Model
      public static function prepare_save_db_elastic($data){
 
      }
+
 }
