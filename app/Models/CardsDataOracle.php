@@ -9,7 +9,7 @@ class CardsDataOracle extends Eloquent
      protected $connection = 'oracle';
      
      protected $binaries = [];
-     protected $table = "CARD_FIN_COMMITMENT_VIEW";
+     protected $table = "MV_MEMBER_DIRECTORY";
      public $sequence = null;
 
 

@@ -26,9 +26,10 @@ Route::get('/test', function () {
     $data = App\Models\CardsDataOracle::get()->toArray();
     $end = microtime(true);
     $elapsed = $end - $start;
-    dd($data,$elapsed);
-    echo "Script executed in $elapsed seconds";
-    // 6 min for 14203 records
+    // dd($data,$elapsed);
+    echo "Script executed in $elapsed seconds <br>";
+    echo "Number of records : " .count($data)."<br>";
+    // 35 sec for 337625 records
 });
 
 
