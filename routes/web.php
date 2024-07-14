@@ -23,12 +23,12 @@ Route::get('/test2', function () {
 });
 Route::get('/test', function () {
     $start = microtime(true);
-    $data = App\Models\PowerBiOracle::get()->toArray();
+    $data = App\Models\CardsDataOracle::get()->toArray();
     $end = microtime(true);
     $elapsed = $end - $start;
-    // dd($data);
+    dd($data,$elapsed);
     echo "Script executed in $elapsed seconds";
-    // 6 min for all records
+    // 6 min for 14203 records
 });
 
 

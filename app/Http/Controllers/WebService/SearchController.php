@@ -79,10 +79,10 @@ class SearchController extends Controller
 
         return response()->json([
             'data' => [
-                'person_types' => prepareSelect($person_types),
-                'provinces' => prepareSelect($province),
-                'ranks' => prepareSelect($rank),
-                'activity_types' => prepareSelect($activity_type),
+                'person_types' => iccima_prepareSelect($person_types),
+                'provinces' => iccima_prepareSelect($province),
+                'ranks' => iccima_prepareSelect($rank),
+                'activity_types' => iccima_prepareSelect($activity_type),
             ],
         ], 200);
     }
