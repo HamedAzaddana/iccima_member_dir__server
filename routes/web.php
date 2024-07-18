@@ -19,15 +19,59 @@ use Elastic\Elasticsearch\ClientBuilder;
 Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 
 Route::get('/test2', function () {
- dd(base_path());
+    $client = iccima_els_client();
+
+    $params = [
+        'index' => 'sokanacademy_sample_data_2',
+        "body" => [
+            "query" => [
+                "bool" => [
+                    "must" => [
+                        "multi_match" => [
+                            'query' => "کتاب",
+                            'fields' => ['title', 'description', 'body'],
+                        ],
+                    ],
+                    "filter" => [
+                        // [
+                        //     'match' => [
+                        //         'title' => [
+                        //             "query" => 'سرمایه GSAP',
+                        //             "operator" => "or",
+                        //         ]
+                        //     ]
+                        // ],
+                        // ["match" => ["title" => "سرمایه"]],
+                        // ["term" => ["rank" => 1005]],
+                        // ["terms" => ["activity_type" => [
+                        //     76000,
+                        //     76003,
+                        //     75000
+                        // ]]],
+                    ],
+                ],
+            ],
+        ],
+
+        "size" => 30,
+    ];
+
+    $response = $client->search($params);
+    dd($response->asArray());
+    // dd(iccima_prepare_get_db_elastic($response->asArray()));
+
+    // $response = $client->info();
+    // echo $response->getStatusCode();
+    // echo (string) $response->getBody();
+    // dd();
 });
 Route::get('/test', function () {
     $start = microtime(true);
-    $data = App\Models\CardsDataOracle::where("is_marked_as_delete",0)->get()->toArray();
+    $data = App\Models\CardsDataOracle::where("is_marked_as_delete", 0)->get()->toArray();
     $end = microtime(true);
     $elapsed = $end - $start;
     // $data = array_slice($data,3,5);
-    dd($data,$elapsed);
+    dd($data, $elapsed);
     // echo "Script executed in $elapsed seconds <br>";
     // echo "Number of records : " .count($data)."<br>";
     // 35 sec for 337625 records

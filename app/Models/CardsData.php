@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Elastic\Elasticsearch\ClientBuilder;
 
 class CardsData extends Model
 {
@@ -58,10 +58,30 @@ class CardsData extends Model
      }
      public static function sync_data_oracle()
      {
-          // throw new \Exception("Value must be 1 or below");
+
+          $start = microtime(true);
+          $oracle_data = CardsDataOracle::get()->toArray();
+          $end = microtime(true);
+          $elapsed = $end - $start;
           return [
-               'elapsed_secs' => 30,
-               'num_records' => 400000,
+               'elapsed_secs' =>  $elapsed,
+               'num_records' => count($oracle_data),
           ];
+     }
+     public static function get_els_client()
+     {
+          return ClientBuilder::create()
+               ->setHosts([env('ELASTICSEARCH_URL', '')])
+               ->setApiKey(env('ELASTICSEARCH_API_KEY', ''))
+               ->build();
+     }
+     public static function prepare_get_db_elastic($data)
+     {
+          $array = [];
+          $hits__hits = @$data['hits']['hits'];
+          foreach($hits__hits as $hits__hit){
+               $array[$hits__hit['_id']]=$hits__hit['_source'];
+          }
+          return $array;
      }
 }

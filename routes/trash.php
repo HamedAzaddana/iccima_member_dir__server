@@ -2,6 +2,54 @@
 
 
 use Illuminate\Support\Facades\Route;
+
+Route::get('/test-els-search', function () {
+    $client = iccima_els_client();
+
+    $params = [
+        'index' => 'sokanacademy_sample_data_2',
+        "body" => [
+            "query" => [
+                "bool" => [
+                    "must" => [
+                        "multi_match" => [
+                            'query' => "کتاب",
+                            'fields' => ['title', 'description', 'body'],
+                        ],
+                    ],
+                    "filter" => [
+                        // [
+                        //     'match' => [
+                        //         'title' => [
+                        //             "query" => 'سرمایه GSAP',
+                        //             "operator" => "or",
+                        //         ]
+                        //     ]
+                        // ],
+                        // ["match" => ["title" => "سرمایه"]],
+                        // ["term" => ["rank" => 1005]],
+                        // ["terms" => ["activity_type" => [
+                        //     76000,
+                        //     76003,
+                        //     75000
+                        // ]]],
+                    ],
+                ],
+            ],
+        ],
+
+        "size" => 30,
+    ];
+
+    $response = $client->search($params);
+    dd($response->asArray());
+    // dd(iccima_prepare_get_db_elastic($response->asArray()));
+
+    // $response = $client->info();
+    // echo $response->getStatusCode();
+    // echo (string) $response->getBody();
+    // dd();
+});
 Route::get('/test-pdo-oci', function () {
     $host = env("ORACLE_DB_HOST", "");
     $dbname = env("ORACLE_DB_NAME", "");
@@ -14,10 +62,9 @@ Route::get('/test-pdo-oci', function () {
     $db_username = $user;
     $db_password = $pass;
     $db = "oci:dbname=$tns";
-    $conn = new PDO($db,$db_username,$db_password);
+    $conn = new PDO($db, $db_username, $db_password);
     $stmt = $conn->prepare('SELECT * FROM ICCIM.TEMP_POWER_BI_VIEW');
     $stmt->execute();
-    
 });
 Route::get('/test-oci', function () {
     $start = microtime(true);
