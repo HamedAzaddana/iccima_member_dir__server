@@ -13,7 +13,8 @@ class CardsDataObserver
     {
         $data = $card_data->toArray();
         $data = CardsData::prepare_save_db_elastic($data);
-        dispatch(new IndexCardDataElsJob($card_data));
+        iccima_log_custom("created : ".$data['card_no']);
+        dispatch(new IndexCardDataElsJob($data));
     }
 
  
@@ -21,7 +22,8 @@ class CardsDataObserver
     {
         $data = $card_data->toArray();
         $data = CardsData::prepare_save_db_elastic($data);
-        dispatch(new IndexCardDataElsJob($card_data));
+        iccima_log_custom("updated : ".$data['card_no']);
+        dispatch(new IndexCardDataElsJob($data));
     }
 
   

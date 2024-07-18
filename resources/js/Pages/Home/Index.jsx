@@ -5,7 +5,7 @@ import MainLayout from '@/Layouts/MainLayout';
 import SearchSection from "../../Components/SearchSection";
 import SearchResults from '../../Components/SearchResults';
 import HelpSection from '../../Components/HelpSection';
-
+import MatchHeight from 'matchheight';
 
 export default function Index({ ws_s_route, ws_search_get_fv }) {
 
@@ -15,17 +15,19 @@ export default function Index({ ws_s_route, ws_search_get_fv }) {
 
 
 
-    function handleDataSearch(data,is_more) {
+    function handleDataSearch(data, is_more) {
         setDataSearch(data);
         console.log(data);
-        if(!is_more){
+        if (!is_more) {
             TopClickRef.current.click();
         }
-       
+     
+
     }
     useEffect(() => {
         // set loading off !
         document.getElementById('loading-page-iccima').style.display = "none";
+        new MatchHeight();
     }, [dataSearch]);
     return (
         <MainLayout>
@@ -81,7 +83,7 @@ export default function Index({ ws_s_route, ws_search_get_fv }) {
                         </div>
                     </div>
                 </section>
-                <SearchResults dataSearch={dataSearch.data} kws={dataSearch.req}  />
+                <SearchResults dataSearch={dataSearch.data} req_params={dataSearch.req} />
                 <HelpSection />
             </div>
         </MainLayout >

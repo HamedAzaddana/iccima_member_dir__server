@@ -20,7 +20,16 @@ use Elastic\Elasticsearch\ClientBuilder;
 Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 
 Route::get('/test2', function () {
-    // dd(App\Models\CardsData::createIndexEls());
+    $client = iccima_els_client();
+    $params = [
+         'index' => 'iccima_cards_data_merchants',
+         "body" => [
+          
+         ],
+         "size" => 30,
+    ];
+    $response = $client->search($params);
+     dd(iccima_prepare_get_db_elastic($response->asArray()));
 });
 Route::get('/test', function () {
     $start = microtime(true);

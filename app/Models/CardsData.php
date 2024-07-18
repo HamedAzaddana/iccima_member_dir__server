@@ -251,14 +251,14 @@ class CardsData extends Model
      }
      public static function sync_data_oracle()
      {
-         
           $start_process = microtime(true);
+          self::createIndexEls();
           $oracle_data = CardsDataOracle::where("is_marked_as_delete", "0")->get()->toArray();
           foreach ($oracle_data as $oracle_elem) {
                $oracle_elem = (array)$oracle_elem;
                self::updateOrCreate([
                     'card_no'   => $oracle_elem['card_no'],
-                ],$oracle_elem);
+               ], $oracle_elem);
           }
           $end_process = microtime(true);
           $elapsed_process = $end_process - $start_process;
@@ -267,6 +267,9 @@ class CardsData extends Model
                'num_records' => count($oracle_data),
           ];
      }
+     public static function trucate_data_els()
+     {
+     }
      public static function get_els_client()
      {
           return ClientBuilder::create()
@@ -274,12 +277,27 @@ class CardsData extends Model
                ->setApiKey(env('ELASTICSEARCH_API_KEY', ''))
                ->build();
      }
+     public static function get_data_els_filter($filters_req, $size)
+     {
+          $client = iccima_els_client();
+          $params = [
+               'index' => 'iccima_cards_data_merchants',
+               "body" => [
+                
+               ],
+               "size" => $size,
+          ];
+          $response = $client->search($params);
+          return iccima_prepare_get_db_elastic($response->asArray());
+     }
      public static function prepare_get_db_elastic($data)
      {
           $array = [];
           $hits__hits = @$data['hits']['hits'];
           foreach ($hits__hits as $hits__hit) {
-               $array[$hits__hit['_id']] = $hits__hit['_source'];
+               $dt_els = $hits__hit['_source'];
+               $dt_els['__id'] = $hits__hit['_id'];
+               $array[] = $dt_els;
           }
           return $array;
      }

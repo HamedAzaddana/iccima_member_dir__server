@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WebService;
 
 use App\Http\Controllers\Controller;
 use App\Models\MerchantCorp as MerchantCorpModel;
+use App\Models\CardsData as CardsDataModel;
 use App\Models\Preset as PresetModel;
 use App\Helpers\Pdate;
 use Illuminate\Support\Facades\DB;
@@ -23,11 +24,10 @@ class SearchController extends Controller
         }
         $params['loaded_cnt'] = $now_loading;
         request()->session()->put('params_filter_user', $params);
-        //query filtering must be done !
-        $records_load = DB::table('merchant_corporation')
-        //querying !!
-        ->limit($now_loading)->get()->toArray();
-
+       
+        // $records_load = DB::table('merchant_corporation')
+        //     ->limit($now_loading)->get()->toArray();
+        $records_load = CardsDataModel::get_data_els_filter($params,$now_loading);
 
         // dd($records_load);
 
@@ -44,7 +44,6 @@ class SearchController extends Controller
 
         return response()->json([
             'data' => $records_load,
-            'req' => $params,
             'req' => $params,
         ], 200);
     }
