@@ -19,16 +19,17 @@ use Elastic\Elasticsearch\ClientBuilder;
 Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 
 Route::get('/test2', function () {
-   
+ dd(base_path());
 });
 Route::get('/test', function () {
     $start = microtime(true);
-    $data = App\Models\CardsDataOracle::get()->toArray();
+    $data = App\Models\CardsDataOracle::where("is_marked_as_delete",0)->get()->toArray();
     $end = microtime(true);
     $elapsed = $end - $start;
-    // dd($data,$elapsed);
-    echo "Script executed in $elapsed seconds <br>";
-    echo "Number of records : " .count($data)."<br>";
+    // $data = array_slice($data,3,5);
+    dd($data,$elapsed);
+    // echo "Script executed in $elapsed seconds <br>";
+    // echo "Number of records : " .count($data)."<br>";
     // 35 sec for 337625 records
 });
 
