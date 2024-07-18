@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\CardsData;
+use App\Helpers\Logger;
 
 function iccima_prepareSelect($arr)
 {
@@ -32,4 +33,8 @@ function iccima_els_client()
 function iccima_prepare_get_db_elastic($data)
 {
     return CardsData::prepare_get_db_elastic($data);
+}
+function iccima_log_custom($data)
+{
+    Logger::LogCustom($data);
 }

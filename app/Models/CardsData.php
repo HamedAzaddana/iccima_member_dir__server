@@ -229,16 +229,16 @@ class CardsData extends Model
      public static function prepare_save_db_elastic($data)
      {
           $valid__keys = [
-               "id","bizactivities_en","bizactivities_fa","card_no","companyname_en","companyname_fa",
-               "corporationestablishdate_en","corporationestablishdate_fa","gregorian_expire_date","jalaly_expire_date","mainaddress_en","mainaddress_fa",
-               "guild_types","mobile_no","phone_no","email","ownerfirstname_en","ownerfirstname_fa","ownerlastname_en",
-               "ownerlastname_fa","shared_chambers","specialized_committees","website","organization_branch_id","card_type_id","city_id","person_type_id",
-                "province_id","rating_type_id","status","specializedcommittees_en","specializedcommittees_fa","fax_no","mobile_no_main",
-                "biz_activities_ids","isicactroots_en","isicactroots_fa","postal_code","rownumber","is_marked_as_delete"
+               "id", "bizactivities_en", "bizactivities_fa", "card_no", "companyname_en", "companyname_fa",
+               "corporationestablishdate_en", "corporationestablishdate_fa", "gregorian_expire_date", "jalaly_expire_date", "mainaddress_en", "mainaddress_fa",
+               "guild_types", "mobile_no", "phone_no", "email", "ownerfirstname_en", "ownerfirstname_fa", "ownerlastname_en",
+               "ownerlastname_fa", "shared_chambers", "specialized_committees", "website", "organization_branch_id", "card_type_id", "city_id", "person_type_id",
+               "province_id", "rating_type_id", "status", "specializedcommittees_en", "specializedcommittees_fa", "fax_no", "mobile_no_main",
+               "biz_activities_ids", "isicactroots_en", "isicactroots_fa", "postal_code", "rownumber", "is_marked_as_delete"
           ];
           $data_filtered = [];
           foreach ($data as $_K => $_V) {
-               if(in_array($_K,$valid__keys)){
+               if (in_array($_K, $valid__keys)) {
                     $data_filtered[$_K] = $_V;
                }
           }
@@ -251,12 +251,19 @@ class CardsData extends Model
      }
      public static function sync_data_oracle()
      {
-          $start = microtime(true);
+         
+          $start_process = microtime(true);
           $oracle_data = CardsDataOracle::where("is_marked_as_delete", "0")->get()->toArray();
-          $end = microtime(true);
-          $elapsed = $end - $start;
+          foreach ($oracle_data as $oracle_elem) {
+               $oracle_elem = (array)$oracle_elem;
+               self::updateOrCreate([
+                    'card_no'   => $oracle_elem['card_no'],
+                ],$oracle_elem);
+          }
+          $end_process = microtime(true);
+          $elapsed_process = $end_process - $start_process;
           return [
-               'elapsed_secs' =>  $elapsed,
+               'elapsed_secs' =>  $elapsed_process,
                'num_records' => count($oracle_data),
           ];
      }
