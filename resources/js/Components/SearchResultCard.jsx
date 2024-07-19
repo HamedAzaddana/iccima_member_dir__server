@@ -23,7 +23,9 @@ export default function SearchResultCard({ info }) {
                             fontSize: '15px',
                             lineHeight: '1.5',
                         }} className="text-dark">
-                            {info.bizactivities_fa}
+                            {info.bizactivities_fa ? info.bizactivities_fa : (
+                                <p className='p-1 m-1'> * اطلاعاتی از فعالیت شرکت موجود نیست !</p>
+                            )}
                         </div>
 
                         <div style={{
@@ -34,12 +36,14 @@ export default function SearchResultCard({ info }) {
                     </div>
                 </div>
                 <ul className="list-group list-group-flush">
-                    <li className="list-group-item list-group-item-contact"><i className="fa fa-phone"></i> <strong className="custom-block-contact">{info.phone}</strong></li>
-                    <li className="list-group-item list-group-item-contact"><i className="fa fa-fax"></i><strong className="custom-block-contact">{info.fax_no}</strong></li>
-                    <li className="list-group-item list-group-item-contact"><i className="fa fa-globe"></i><strong className="custom-block-contact">{info.phone_no}</strong></li>
+                    <li className="list-group-item list-group-item-contact"><i className="fa fa-phone"></i> <strong className="custom-block-contact">{info.phone_no ? info.phone_no : ( <span> ------- </span>)}</strong></li>
+                    <li className="list-group-item list-group-item-contact"><i className="fa fa-fax"></i><strong className="custom-block-contact">{info.fax_no ? info.fax_no : ( <span> ------- </span>)}</strong></li>
+                    <li className="list-group-item list-group-item-contact"><i className="fa fa-globe"></i><strong className="custom-block-contact">{info.website ? info.website.toLowerCase() : ( <span> ------- </span>)}</strong></li>
                 </ul>
                 <br /> 
-                <div className="card-body">
+                <div style={{
+                    padding: '30px',
+                }} className="card-body">
                     <Link className="btn btn-primary btn-more-detail" href={`${appUrl}/#section_1`}> <i className='fa fa-exclamation-circle'></i> جزئیات</Link>
                 </div>
             </div>
