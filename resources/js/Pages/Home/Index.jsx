@@ -6,28 +6,25 @@ import SearchSection from "../../Components/SearchSection";
 import SearchResults from '../../Components/SearchResults';
 import HelpSection from '../../Components/HelpSection';
 import MatchHeight from 'matchheight';
+import 'animate.css';
+import WOW from 'wow.js/src/WOW';
 
 export default function Index({ ws_s_route, ws_search_get_fv }) {
 
     const TopClickRef = useRef(null);
     const [dataSearch, setDataSearch] = useState([]);
-
-
-
-
     function handleDataSearch(data, is_more) {
         setDataSearch(data);
         console.log(data);
         if (!is_more) {
             TopClickRef.current.click();
         }
-     
-
     }
     useEffect(() => {
         // set loading off !
         document.getElementById('loading-page-iccima').style.display = "none";
         new MatchHeight();
+        new WOW().init();
     }, [dataSearch]);
     return (
         <MainLayout>

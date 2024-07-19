@@ -3,7 +3,8 @@ import { Link } from '@inertiajs/react'
 export default function SearchResultCard({ info }) {
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     return (
-        <div className="col-md-4 col-lg-4 col-sm-12 mb-2">
+        
+        <div className="col-md-4 col-lg-4 col-sm-12 mb-2 animate__animated animate__backInRight animate__delay-0.7s wow">
             <div data-mh className="card card-sr-iccima">
                 <img style={{
                     height: '200px',
