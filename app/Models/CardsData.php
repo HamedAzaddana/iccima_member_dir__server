@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Elastic\Elasticsearch\ClientBuilder;
+use App\Helpers\Pdate;
 
 class CardsData extends Model
 {
@@ -256,6 +257,7 @@ class CardsData extends Model
           $oracle_data = CardsDataOracle::where("is_marked_as_delete", "0")->get()->toArray();
           foreach ($oracle_data as $oracle_elem) {
                $oracle_elem = (array)$oracle_elem;
+               $oracle_elem['last_updated_at'] = Pdate::persianTimeStampNow();
                self::updateOrCreate([
                     'card_no'   => $oracle_elem['card_no'],
                ], $oracle_elem);
@@ -282,9 +284,7 @@ class CardsData extends Model
           $client = iccima_els_client();
           $params = [
                'index' => 'iccima_cards_data_merchants',
-               "body" => [
-                
-               ],
+               "body" => [],
                "size" => $size,
           ];
           $response = $client->search($params);

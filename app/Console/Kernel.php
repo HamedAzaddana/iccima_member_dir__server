@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('tables:reset_iccima')
             ->dailyAt('1:30');
         $schedule->command('oracle_data:sync')
-            ->dailyAt('2:00');
+            ->dailyAt('1:00');
     }
 
     /**
