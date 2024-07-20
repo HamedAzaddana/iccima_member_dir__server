@@ -259,6 +259,7 @@ class CardsData extends Model
           foreach ($oracle_data as $oracle_elem) {
                $oracle_elem = (array)$oracle_elem;
                $oracle_elem['last_updated_at'] = Pdate::persianTimeStampNow();
+               //do some modification !
                self::updateOrCreate([
                     self::$unique_base_orc   => $oracle_elem[self::$unique_base_orc],
                ], $oracle_elem);
@@ -269,9 +270,6 @@ class CardsData extends Model
                'elapsed_secs' =>  $elapsed_process,
                'num_records' => count($oracle_data),
           ];
-     }
-     public static function trucate_data_els()
-     {
      }
      public static function get_els_client()
      {

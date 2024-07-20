@@ -3,6 +3,35 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/test-els-search-main', function () {
+
+    $client = iccima_els_client();
+    $params = [
+        'index' => 'iccima_cards_data_merchants',
+        "body" => [
+            "query" => [
+                "bool" => [
+                    "must" => [
+                        "multi_match" => [
+                            'query' => "درسا سبک",
+                            'fields' => [
+                                'companyname_fa',
+                                // 'mainaddress_fa',
+                                // 'isicactroots_fa'
+                            ],
+                        ],
+                    ],
+                    "filter" => [
+                        ["match" => ["isicactroots_fa" => "عمران نقلیه"]],
+                    ],
+                ],
+            ],
+        ],
+        "size" => 50,
+    ];
+    $response = $client->search($params);
+    dd(iccima_prepare_get_db_elastic($response->asArray()));
+});
 Route::get('/test-els-search', function () {
     $client = iccima_els_client();
 
@@ -27,12 +56,6 @@ Route::get('/test-els-search', function () {
                         //     ]
                         // ],
                         // ["match" => ["title" => "سرمایه"]],
-                        // ["term" => ["rank" => 1005]],
-                        // ["terms" => ["activity_type" => [
-                        //     76000,
-                        //     76003,
-                        //     75000
-                        // ]]],
                     ],
                 ],
             ],

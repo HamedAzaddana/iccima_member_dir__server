@@ -21,12 +21,8 @@ use App\Models\CardsDataOracle;
 Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 
 Route::get('/test2', function () {
-    // $oracle_data = CardsDataOracle::where("is_marked_as_delete", "0")
-    //     ->where('card_no', '2471651887')
-    //     ->get()
-    //     ->toArray();
 
-    // dd($oracle_data);
+
 });
 Route::get('/test', function () {
     // $oracle_data = CardsDataOracle::where("is_marked_as_delete", "0")
@@ -39,14 +35,7 @@ Route::get('/test', function () {
 
     // $oracle_data_uniq = array_unique($oracle_data);
     // dd(count($oracle_data), count($oracle_data_uniq));
-    //mv_member_directory_id :  156348 -> 156348 *****
 
-    //card_no :  156348 -> 92819
-    //rownumber :  156348 -> 1
-    //root_id :  156348 -> 156339
-    //email :  156348 -> 91884
-    //companyname_fa :  156348 -> 63787
-    //mobile_no_main :  156348 -> 92009
 
 });
 
