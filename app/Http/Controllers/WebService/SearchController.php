@@ -25,8 +25,6 @@ class SearchController extends Controller
         $params['loaded_cnt'] = $now_loading;
         request()->session()->put('params_filter_user', $params);
        
-        // $records_load = DB::table('merchant_corporation')
-        //     ->limit($now_loading)->get()->toArray();
         $records_load = CardsDataModel::get_data_els_filter($params,$now_loading);
 
         // dd($records_load);

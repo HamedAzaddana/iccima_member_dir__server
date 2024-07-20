@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomePageController;
 use App\Helpers\Pdate;
 use Elastic\Elasticsearch\ClientBuilder;
+use App\Models\CardsDataOracle;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,27 +21,33 @@ use Elastic\Elasticsearch\ClientBuilder;
 Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 
 Route::get('/test2', function () {
-    $client = iccima_els_client();
-    $params = [
-         'index' => 'iccima_cards_data_merchants',
-         "body" => [
-          
-         ],
-         "size" => 30,
-    ];
-    $response = $client->search($params);
-     dd(iccima_prepare_get_db_elastic($response->asArray()));
+    // $oracle_data = CardsDataOracle::where("is_marked_as_delete", "0")
+    //     ->where('card_no', '2471651887')
+    //     ->get()
+    //     ->toArray();
+
+    // dd($oracle_data);
 });
 Route::get('/test', function () {
-    $start = microtime(true);
-    $data = App\Models\CardsDataOracle::where("is_marked_as_delete", 0)->get()->toArray();
-    $end = microtime(true);
-    $elapsed = $end - $start;
-    // $data = array_slice($data,3,5);
-    dd($data, $elapsed);
-    // echo "Script executed in $elapsed seconds <br>";
-    // echo "Number of records : " .count($data)."<br>";
-    // 35 sec for 337625 records
+    // $oracle_data = CardsDataOracle::where("is_marked_as_delete", "0")
+    //     ->pluck('card_no', 'mv_member_directory_id')
+    //     ->toArray();
+    // $duplicate_card_nos = array_values(iccima_get_duplicate_vals($oracle_data));
+    // $dup_str = implode(" , ", $duplicate_card_nos);
+    // iccima_log_custom($dup_str);
+    // echo count($duplicate_card_nos);
+
+    // $oracle_data_uniq = array_unique($oracle_data);
+    // dd(count($oracle_data), count($oracle_data_uniq));
+    //mv_member_directory_id :  156348 -> 156348 *****
+
+    //card_no :  156348 -> 92819
+    //rownumber :  156348 -> 1
+    //root_id :  156348 -> 156339
+    //email :  156348 -> 91884
+    //companyname_fa :  156348 -> 63787
+    //mobile_no_main :  156348 -> 92009
+
 });
 
 

@@ -38,3 +38,10 @@ function iccima_log_custom($data)
 {
     Logger::LogCustom($data);
 }
+function iccima_get_duplicate_vals($arr)
+{
+    return array_diff_assoc( 
+        $arr, 
+        array_unique($arr) 
+    ); 
+}

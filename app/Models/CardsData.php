@@ -23,9 +23,10 @@ class CardsData extends Model
      //person_type_id
      //ownerfirstname_fa , ownerlastname_fa , companyname_fa
 
-     //LOST: goodsName , hsCode , activityTypeId
+     //LOST (for filter): goodsName , hsCode , activityTypeId 
      use HasFactory;
      protected $table = "cards_data_merchants";
+     protected static $unique_base_orc = "card_no";
      public $timestamps = false;
      protected  $fillable = [
           "mv_member_directory_id", "bizactivities_en", "bizactivities_fa", "card_no", "companyname_en", "companyname_fa",
@@ -259,11 +260,11 @@ class CardsData extends Model
                $oracle_elem = (array)$oracle_elem;
                $oracle_elem['last_updated_at'] = Pdate::persianTimeStampNow();
                self::updateOrCreate([
-                    'card_no'   => $oracle_elem['card_no'],
+                    self::$unique_base_orc   => $oracle_elem[self::$unique_base_orc],
                ], $oracle_elem);
           }
           $end_process = microtime(true);
-          $elapsed_process = $end_process - $start_process;
+          $elapsed_process = (int)($end_process - $start_process) + 1;
           return [
                'elapsed_secs' =>  $elapsed_process,
                'num_records' => count($oracle_data),
@@ -287,6 +288,8 @@ class CardsData extends Model
                "body" => [],
                "size" => $size,
           ];
+          //process $filters_req to add filters
+          
           $response = $client->search($params);
           return iccima_prepare_get_db_elastic($response->asArray());
      }
