@@ -39,7 +39,7 @@ export default function Index({ ws_s_route, ws_search_get_fv }) {
                 <section className="featured-section">
                     <div className="container">
                         <div className="row justify-content-center">
-                            <div className="col-lg-4 col-12 mb-4 mb-lg-0">
+                            <div className="col-lg-4 col-12 mb-4 mb-lg-0 d-none">
                                 <div className="custom-block bg-white shadow-lg">
                                     <a href="https://otaghiranonline.ir/">
                                         <div className="d-flex">
@@ -55,8 +55,7 @@ export default function Index({ ws_s_route, ws_search_get_fv }) {
                                     </a>
                                 </div>
                             </div>
-
-                            <div className="col-lg-6 col-12">
+                            <div className="col-lg-6 col-12 d-none">
                                 <div className="custom-block custom-block-overlay">
                                     <div className="d-flex flex-column h-100">
                                         <img src="images/businesswoman-using-tablet-analysis.jpg"
@@ -76,7 +75,6 @@ export default function Index({ ws_s_route, ws_search_get_fv }) {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </section>

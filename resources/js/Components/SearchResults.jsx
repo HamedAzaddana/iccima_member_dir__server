@@ -23,9 +23,7 @@ export default function SearchResults({ dataSearch, req_params }) {
                                     <div className="row" id="box-search-results">
                                         
                                             {dataSearch.map((info, ik_loop) => (
-                                                
                                                     <SearchResultCard key={ik_loop} info={info} />
-                                              
                                             ))}
                                       
                                         <div className="mt-5 p-2">

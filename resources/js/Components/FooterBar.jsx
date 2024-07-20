@@ -32,9 +32,6 @@ export default function FooterBar({ }) {
                                 <Link className="site-footer-link" href={`${appUrl}/#section_1`}>خانه</Link>
                             </li>
                             <li className="site-footer-link-item">
-                                <Link className="site-footer-link" href={`${appUrl}/#section_2`}>نتایج جستجو</Link>
-                            </li>
-                            <li className="site-footer-link-item">
                                 <Link className="site-footer-link" href={`${appUrl}/#section_3`}>راهنما</Link>
                             </li>
                         </ul>
@@ -55,11 +52,7 @@ export default function FooterBar({ }) {
                             </a>
                         </p>
                     </div>
-
-
-
                 </div>
-
             </div>
         </footer>
     );

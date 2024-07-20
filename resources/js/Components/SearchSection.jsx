@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import toast, { Toaster } from 'react-hot-toast';
+import Accordion from 'react-bootstrap/Accordion';
 
 export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataToIndex }) {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
@@ -22,6 +23,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
     };
     const [showAdvance, setShowAdvance] = useState(false);
     const [filters, setFilters] = useState([]);
+    const [hiddenMoreFlds, setHiddenMoreFlds] = useState(`fade-dnone`);
     const fetchDatafilters = async () => {
         try {
             const response = await axios.post(`${ws_search_get_fv}`, {}, {
@@ -48,6 +50,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
     function getMoreRApi(e) {
         getDataPrepare(e, 1);
     }
+    
     function handleChangeVs(e) {
         const key = e.target.id;
         const value = e.target.value;
@@ -79,6 +82,13 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
         }
 
     }
+    function changeViewMoreFlds(e){
+         let _new_val = ``;
+         if(hiddenMoreFlds !=`fade-dnone`){
+            _new_val = 'fade-dnone'
+         }
+         setHiddenMoreFlds(_new_val)
+    }
     function getDataPrepare(e, is_more = 0) {
         let _post_data = values;
         if (is_more) {
@@ -99,7 +109,7 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
             }
         })
             .then(res => {
-                sendDataToIndex(res.data,is_more);
+                sendDataToIndex(res.data, is_more);
                 // setValues(default_filters);
             })
             .catch((err) => {
@@ -189,158 +199,142 @@ export default function SearchSection({ ws_s_route, ws_search_get_fv, sendDataTo
                                 </Form.Select>
                             </div>
                         </div>
-
                         <div className="col-md-3 col-lg-3 col-sm-12">
                             <button id='btn-do-search' ref={SubmitBtn} type="submit" className="form-control btn btn-success"> جستجو <i className='fa fa-search'></i></button>
                         </div>
-                        <div className="col-md-3 col-lg-3 col-sm-12 mt-3">
-                            <Button id='btn-adv-search' type="button" variant="dark" onClick={handleShowSV} className="form-control btn btn-success">
-                                جستجو پیشرفته <i className='fa fa-cogs'></i>
-                            </Button>
-                            <Modal centered size="lg" show={showAdvance} onHide={handleCloseSV}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>جستجوی پیشرفته</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <div className="row">
-                                        <div className="col-lg-6 col-md-6 col-sm-12">
-                                            <label className='m-1 p-1'> <i className='fa fa-address-card'></i> نوع شخص : </label>
-                                            <Form.Select onChange={handleChangeVs} defaultValue="null" id="person_type">
-                                                <option value={"all"}> همه نوع </option>
-                                                {(filters?.person_types?.length) ?
-                                                    (
-                                                        <>
-                                                            {filters?.person_types?.map((item, item_index) => (
-                                                                <option key={item_index} value={item.value}>{item.label}</option>
-                                                            ))}
-                                                        </>
-                                                    )
-                                                    :
-                                                    (
-                                                        <></>
-                                                    )
-                                                }
-                                            </Form.Select>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-sm-12"></div>
+                        <button onClick={changeViewMoreFlds} id='btn-adv-search' type='button' className='btn btn-success form-control'>جستجو پیشرفته <i className='fa fa-cogs'></i></button>
 
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
-                                            <Form.Group className="mb-3">
-                                                <Form.Label> <i className='fa fa-user'></i> نام : </Form.Label>
-                                                <Form.Control value={values.first_name} onChange={handleChangeVs} id="first_name" type="text" placeholder="" />
-                                            </Form.Group>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label> <i className='fa fa-university'></i>  نام شرکت : </Form.Label>
-                                                <Form.Control value={values.corp_name} onChange={handleChangeVs} id="corp_name" type="text" placeholder="" />
-                                            </Form.Group>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
-                                            <Form.Group className="mb-3">
-                                                <Form.Label> <i className='fa fa-user-circle'></i> نام خانوادگی : </Form.Label>
-                                                <Form.Control value={values.last_name} onChange={handleChangeVs} id="last_name" type="text" placeholder="" />
-                                            </Form.Group>
-                                        </div>
+                        <div id='MoreFileds' className={`col-md-12 col-lg-12 col-sm-12 mt-3 ${hiddenMoreFlds}`}>
+                            <div className="row p-4" id="card-more-flds">
+                                <div className="col-lg-6 col-md-6 col-sm-12">
+                                    <label className='m-1 p-1'> <i className='fa fa-address-card'></i> نوع شخص : </label>
+                                    <Form.Select onChange={handleChangeVs} defaultValue="null" id="person_type">
+                                        <option value={"all"}> همه نوع </option>
+                                        {(filters?.person_types?.length) ?
+                                            (
+                                                <>
+                                                    {filters?.person_types?.map((item, item_index) => (
+                                                        <option key={item_index} value={item.value}>{item.label}</option>
+                                                    ))}
+                                                </>
+                                            )
+                                            :
+                                            (
+                                                <></>
+                                            )
+                                        }
+                                    </Form.Select>
+                                </div>
+                                <div className="col-lg-6 col-md-6 col-sm-12"></div>
 
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4 low-level-filter-modal">
-                                            <label className='m-1 p-1'> <i className='fa fa-globe'></i> استان : </label>
-                                            <Form.Select onChange={handleChangeVs} defaultValue="null" id="province">
-                                                <option value={"all"}> همه استان ها</option>
-                                                {(filters?.provinces?.length) ?
-                                                    (
-                                                        <>
-                                                            {filters?.provinces?.map((item, item_index) => (
-                                                                <option key={item_index} value={item.value}>{item.label}</option>
-                                                            ))}
-                                                        </>
-                                                    )
-                                                    :
-                                                    (
-                                                        <></>
-                                                    )
-                                                }
-                                            </Form.Select>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4 low-level-filter-modal">
-                                            <label className='m-1 p-1'> <i className='fa fa-universal-access'></i> رتبه : </label>
-                                            <Form.Select onChange={handleChangeVs} defaultValue="null" id="rank">
-                                                <option value={"all"}> همه رتبه ها</option>
-                                                {(filters?.ranks?.length) ?
-                                                    (
-                                                        <>
-                                                            {filters?.ranks?.map((item, item_index) => (
-                                                                <option key={item_index} value={item.value}>{item.label}</option>
-                                                            ))}
-                                                        </>
-                                                    )
-                                                    :
-                                                    (
-                                                        <></>
-                                                    )
-                                                }
-                                            </Form.Select>
-                                        </div>
+                                <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
+                                    <Form.Group className="mb-3">
+                                        <Form.Label> <i className='fa fa-user'></i> نام : </Form.Label>
+                                        <Form.Control value={values.first_name} onChange={handleChangeVs} id="first_name" type="text" placeholder="" />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label> <i className='fa fa-university'></i>  نام شرکت : </Form.Label>
+                                        <Form.Control value={values.corp_name} onChange={handleChangeVs} id="corp_name" type="text" placeholder="" />
+                                    </Form.Group>
+                                </div>
+                                <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
+                                    <Form.Group className="mb-3">
+                                        <Form.Label> <i className='fa fa-user-circle'></i> نام خانوادگی : </Form.Label>
+                                        <Form.Control value={values.last_name} onChange={handleChangeVs} id="last_name" type="text" placeholder="" />
+                                    </Form.Group>
+                                </div>
 
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
-                                            <Form.Group className="mb-3">
-                                                <Form.Label> <i className='fa fa-area-chart'></i> نام کالا : </Form.Label>
-                                                <Form.Control value={values.product_name} onChange={handleChangeVs} id="product_name" type="text" placeholder="" />
-                                            </Form.Group>
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
-                                            <Form.Group className="mb-3">
-                                                <Form.Label> <i className='fa fa-barcode'></i> کد HS : </Form.Label>
-                                                <Form.Control value={values.hs_code} onChange={handleChangeVs} id="hs_code" type="text" placeholder="" />
-                                            </Form.Group>
-                                        </div>
+                                <div className="col-lg-6 col-md-6 col-sm-12 mt-4 low-level-filter-modal">
+                                    <label className='m-1 p-1'> <i className='fa fa-globe'></i> استان : </label>
+                                    <Form.Select onChange={handleChangeVs} defaultValue="null" id="province">
+                                        <option value={"all"}> همه استان ها</option>
+                                        {(filters?.provinces?.length) ?
+                                            (
+                                                <>
+                                                    {filters?.provinces?.map((item, item_index) => (
+                                                        <option key={item_index} value={item.value}>{item.label}</option>
+                                                    ))}
+                                                </>
+                                            )
+                                            :
+                                            (
+                                                <></>
+                                            )
+                                        }
+                                    </Form.Select>
+                                </div>
+                                <div className="col-lg-6 col-md-6 col-sm-12 mt-4 low-level-filter-modal">
+                                    <label className='m-1 p-1'> <i className='fa fa-universal-access'></i> رتبه : </label>
+                                    <Form.Select onChange={handleChangeVs} defaultValue="null" id="rank">
+                                        <option value={"all"}> همه رتبه ها</option>
+                                        {(filters?.ranks?.length) ?
+                                            (
+                                                <>
+                                                    {filters?.ranks?.map((item, item_index) => (
+                                                        <option key={item_index} value={item.value}>{item.label}</option>
+                                                    ))}
+                                                </>
+                                            )
+                                            :
+                                            (
+                                                <></>
+                                            )
+                                        }
+                                    </Form.Select>
+                                </div>
 
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
-                                            <label className='p-1 m-1'> <i className='fa fa-shopping-basket'></i> نوع فعالیت : </label>
-                                            {(filters?.activity_types?.length) ?
-                                                (
-                                                    <>
-                                                        {filters?.activity_types?.map((item, item_index) => (
-                                                            <Form.Check
-                                                                onChange={handleCheckVs}
-                                                                key={item_index}
-                                                                type="checkbox"
-                                                                id={`activity_type-opt`}
-                                                                name="activity_type"
-                                                                label={item.label}
-                                                                value={item.value}
-                                                                reverse
-                                                            />
-                                                        ))}
-                                                    </>
-                                                )
-                                                :
-                                                (
-                                                    <></>
-                                                )
-                                            }
+                                <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
+                                    <Form.Group className="mb-3">
+                                        <Form.Label> <i className='fa fa-area-chart'></i> نام کالا : </Form.Label>
+                                        <Form.Control value={values.product_name} onChange={handleChangeVs} id="product_name" type="text" placeholder="" />
+                                    </Form.Group>
+                                </div>
+                                <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
+                                    <Form.Group className="mb-3">
+                                        <Form.Label> <i className='fa fa-barcode'></i> کد HS : </Form.Label>
+                                        <Form.Control value={values.hs_code} onChange={handleChangeVs} id="hs_code" type="text" placeholder="" />
+                                    </Form.Group>
+                                </div>
 
-                                        </div>
-                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-4"></div>
+                                <div className="col-lg-6 col-md-6 col-sm-12 mt-4">
+                                    <label className='p-1 m-1'> <i className='fa fa-shopping-basket'></i> نوع فعالیت : </label>
+                                    {(filters?.activity_types?.length) ?
+                                        (
+                                            <>
+                                                {filters?.activity_types?.map((item, item_index) => (
+                                                    <Form.Check
+                                                        onChange={handleCheckVs}
+                                                        key={item_index}
+                                                        type="checkbox"
+                                                        id={`activity_type-opt`}
+                                                        name="activity_type"
+                                                        label={item.label}
+                                                        value={item.value}
+                                                        reverse
+                                                    />
+                                                ))}
+                                            </>
+                                        )
+                                        :
+                                        (
+                                            <></>
+                                        )
+                                    }
 
-                                    </div>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={handleCloseSV}>
-                                        بستن <i className='fa fa-times'></i>
-                                    </Button>
-                                    <Button variant="primary" onClick={handleSearch}>
-                                        اعمال فیلتر <i className='fa fa-search-plus'></i>
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
+                                </div>
+                                <div className="col-lg-6 col-md-6 col-sm-12 mt-4"></div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </form>
             <div><Toaster
                 position="top-left"
                 reverseOrder={true}
             /></div>
 
-        </section >
+        </section>
     );
 }

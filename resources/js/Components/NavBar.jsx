@@ -26,7 +26,6 @@ export default function TopNav({ }) {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto top_nav_app">
                         <Link className="nav-link" href={`${appUrl}/#section_1`}>خانه</Link>
-                        <Link className="nav-link" href={`${appUrl}/#section_2`}>نتایج جستجو</Link>
                         <Link className="nav-link" href={`${appUrl}/#section_3`}>راهنما</Link>
                     </Nav>
                 </Navbar.Collapse>
