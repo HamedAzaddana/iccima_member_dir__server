@@ -17,7 +17,7 @@ class CardsData extends Model
      //-----
      //filters : 
 
-     //kws -> bizactivities_fa , specializedcommittees_fa ,specialized_committees , shared_chambers , guild_types ,companyname_fa
+     //kws -> bizactivities_fa , specializedcommittees_fa ,specialized_committees , shared_chambers , guild_types ,companyname_fa, isicactroots_fa ,mainaddress_fa
      //province_id
      //rating_type_id
      //person_type_id
