@@ -23,33 +23,23 @@ Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 Route::get('/test2', function () {
 });
 Route::get('/test', function () {
+    // $route = "https://cscs.chambertrust.ir:8443/services/rest/cardServiceV3/getCardInfoModelByCardNoByCardTypeV3/10320281775/2";
+    // $headers = [
+    //     "Content-Type" => "application/json",
+    //     "userName" => "iccima-next",
+    //     "password" => "txIXYr25VYPk",
+    // ];
+    // $r = @iccima_request_http([], $route, "GET", $headers)['response_object'];
+    // $r__keys = array_keys($r);
 
-    $body = json_encode([]);
-
-    $route = "https://cscs.chambertrust.ir:8443/services/rest/cardServiceV3/getCardInfoModelByCardNoByCardTypeV3/10320281775/2";
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_URL => $route,
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_SSL_VERIFYHOST => 0,
-        CURLOPT_SSL_VERIFYPEER => 0,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_POSTFIELDS => $body,
-        CURLOPT_HTTPHEADER => array(
-            'Content-Type:application/json',
-            'userName:iccima-next',
-            'password:txIXYr25VYPk',
-        )
-    ));
-    $response = curl_exec($curl);
-    $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    $error = curl_error($curl);
-    curl_close($curl);
-    $response_object = json_decode(preg_replace('/\s+/', ' ', $response));
-    $response_object = (array)$response_object;
-    dd($response_object, $status_code, $error);
+    // $migrate_note = "";
+    // foreach ($r__keys as $rk) {
+    //     $migrate_note.='$table->string("'.$rk.'")->nullable();'." \n";
+    // }
+    // dd(
+    //     json_encode($r__keys),
+    //     $migrate_note,
+    // );
 });
 
 

@@ -40,8 +40,38 @@ function iccima_log_custom($data)
 }
 function iccima_get_duplicate_vals($arr)
 {
-    return array_diff_assoc( 
-        $arr, 
-        array_unique($arr) 
-    ); 
+    return array_diff_assoc(
+        $arr,
+        array_unique($arr)
+    );
+}
+function iccima_request_http($body, $route, $method, $headers = [])
+{
+    $curl = curl_init();
+    $_headers = [];
+    foreach ($headers as $header_K => $header_V) {
+        $_headers[] = "$header_K:$header_V";
+    }
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $route,
+        CURLOPT_CUSTOMREQUEST => $method,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_POSTFIELDS => json_encode($body),
+        CURLOPT_HTTPHEADER => $_headers
+    ));
+    $response = curl_exec($curl);
+    $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $error = curl_error($curl);
+    curl_close($curl);
+    $response_object = json_decode(preg_replace('/\s+/', ' ', $response));
+    $response_object = (array)$response_object;
+    return [
+        'response_object' => $response_object,
+        'status_code' => $status_code,
+        'error' => $error,
+    ];
 }
