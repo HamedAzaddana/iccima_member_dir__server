@@ -20,7 +20,7 @@ export default function SearchResults({ dataSearch, req_params }) {
                             {(dataSearch.length) ?
                                 (
 
-                                    <div className="row" id="box-search-results">
+                                    <div className="row mr-5 ml-5" id="box-search-results">
                                         
                                             {dataSearch.map((info, ik_loop) => (
                                                     <SearchResultCard key={ik_loop} info={info} />

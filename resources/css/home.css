@@ -191,10 +191,17 @@ nav {
     border-radius: 16px;
     margin: 20px;
 }
-.fade-dnone{
+
+.fade-dnone {
     display: none;
     transition: 1s;
 }
+
+#box-search-results {
+    /* margin-right: 5%;
+    margin-left: 5%; */
+}
+
 @media only screen and (max-width:500px) {
     .layout-overlay-loading img {
         width: 35%;
