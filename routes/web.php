@@ -21,25 +21,36 @@ use App\Models\CardsDataOracle;
 Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 
 Route::get('/test2', function () {
+    $route = "https://cscs.chambertrust.ir:8443/services/rest/cardService/fullMemberDirectoryInfo/612001";
+    $headers = [
+        "Content-Type" => "application/json",
+        "userName" => "MemberDirectoryReader",
+        "password" => "yA'wk`5sL=Y189kG|2|;",
+    ];
+    $r = @iccima_request_http([], $route, "GET", $headers)['response_object'];
+
+
+    dd($r);
 });
 Route::get('/test', function () {
-    // $route = "https://cscs.chambertrust.ir:8443/services/rest/cardServiceV3/getCardInfoModelByCardNoByCardTypeV3/10320281775/2";
-    // $headers = [
-    //     "Content-Type" => "application/json",
-    //     "userName" => "iccima-next",
-    //     "password" => "txIXYr25VYPk",
-    // ];
-    // $r = @iccima_request_http([], $route, "GET", $headers)['response_object'];
-    // $r__keys = array_keys($r);
+  
+    $route = "https://cscs.chambertrust.ir:8443/services/rest/cardService/memberDirectoryIndexes";
+    $headers = [
+        "Content-Type" => "application/json",
+        "userName" => "MemberDirectoryReader",
+        "password" => "yA'wk`5sL=Y189kG|2|;",
+    ];
+    $body = [
+        "fromDate" => "1396/01/01",
+        "toDate" => "1398/04/28",
+        "lastIndex" => 40,
+        "pageSize" => 10,
+    ];
 
-    // $migrate_note = "";
-    // foreach ($r__keys as $rk) {
-    //     $migrate_note.='$table->string("'.$rk.'")->nullable();'." \n";
-    // }
-    // dd(
-    //     json_encode($r__keys),
-    //     $migrate_note,
-    // );
+    $r = @iccima_request_http($body, $route, "GET", $headers)['response_object'];
+
+
+    dd($r);
 });
 
 
