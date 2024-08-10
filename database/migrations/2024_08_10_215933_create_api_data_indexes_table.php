@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('card_corps', function (Blueprint $table) {
+        Schema::create('api_data_indexes', function (Blueprint $table) {
             $table->bigIncrements('id');
-
+            $table->string('index_number');
+            $table->tinyInteger('status');
             $table->timestamp('last_updated_at')->nullable();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('card_corps');
+        Schema::dropIfExists('api_data_indexes');
     }
 };

@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomePageController;
-use App\Helpers\Pdate;
-use Elastic\Elasticsearch\ClientBuilder;
-use App\Models\CardsDataOracle;
+// use App\Helpers\Pdate;
+// use Elastic\Elasticsearch\ClientBuilder;
+// use App\Models\CardsDataOracle;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +33,8 @@ Route::get('/test2', function () {
     dd($r);
 });
 Route::get('/test', function () {
-  
+    // 332082 -> 411120 -> 422779
+    //total : 159358
     $route = "https://cscs.chambertrust.ir:8443/services/rest/cardService/memberDirectoryIndexes";
     $headers = [
         "Content-Type" => "application/json",
@@ -42,9 +43,9 @@ Route::get('/test', function () {
     ];
     $body = [
         "fromDate" => "1396/01/01",
-        "toDate" => "1398/04/28",
-        "lastIndex" => 40,
-        "pageSize" => 10,
+        "toDate" => "1403/06/01",
+        "lastIndex" => 200,
+        "pageSize" => 150,
     ];
 
     $r = @iccima_request_http($body, $route, "GET", $headers)['response_object'];
