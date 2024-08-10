@@ -47,7 +47,7 @@ class CardsData
         $r = @iccima_request_http([], $route, "GET", $headers)['response_object'];
 
         return [
-            "__index" => $index,
+            "index_number" => $index,
             "owner_fullname" => @$r['MemberDirectoryBriefModel']->OwnerFullName,
             "card_type_id" => @$r['MemberDirectoryBriefModel']->CardTypeId,
             "person_type_id" => @$r['MemberDirectoryBriefModel']->PersonTypeId,
@@ -72,7 +72,6 @@ class CardsData
             "shared_chambers" => @$r['SharedChambers'],
             "specialized_committees" => @$r['SpecializedCommittees'],
             "guild_types" => @$r['GuildTypes'],
-            "last_updated_at" => Pdate::persianTimeStampNow(),
         ];
     }
     public static function updateDataIndexes()

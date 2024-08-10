@@ -25,21 +25,12 @@ use App\Services\CardsData as CardsDataService;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 
-Route::get('/test2', function () {
-    $route = "https://cscs.chambertrust.ir:8443/services/rest/cardService/fullMemberDirectoryInfo/612001";
-    $headers = [
-        "Content-Type" => "application/json",
-        "userName" => "MemberDirectoryReader",
-        "password" => "yA'wk`5sL=Y189kG|2|;",
-    ];
-    $r = @iccima_request_http([], $route, "GET", $headers)['response_object'];
-
-    // dd(json_encode($r['MemberDirectoryBriefModel']->BizActivities,JSON_UNESCAPED_UNICODE));
-
-    dd($r);
-});
+Route::get('/test2', function () {});
 Route::get('/test', function () {
-   dd(CardsDataService::getDataByIndex("612001"));
+    //    dd(MerchantUser::prepare_save_db_sql(CardsDataService::getDataByIndex("612001")));
+    // MerchantUser::createIndexEls();
+    // MerchantUser::sync_data_indexes();
+    dd(MerchantUser::get_data_els_filter([],1));
 });
 
 

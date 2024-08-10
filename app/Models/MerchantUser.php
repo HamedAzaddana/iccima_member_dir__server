@@ -14,12 +14,34 @@ class MerchantUser extends Model
     use HasFactory;
     protected $table = "merchants";
     public $timestamps = false;
+    protected static $unique_base_orc = "card_no";
     protected $fillable = [
-        "owner_fullname", "card_type_id", "person_type_id",
-        "group_activity_type", "card_no", "co_title", "co_type", "co_establish_date",
-        "co_image", "owner_image", "city", "co_phone", "co_fax", "co_website", "co_main_address",
-        "co_email", "postal_code", "biz_activities", "biz_activitiy_goods", "coo_biz_activities",
-        "biz_act_goods_hs_codes", "shared_chambers", "specialized_committees", "guild_types", "last_updated_at"
+        "index_number",
+        "owner_fullname",
+        "card_type_id",
+        "person_type_id",
+        "group_activity_type",
+        "card_no",
+        "co_title",
+        "co_type",
+        "co_establish_date",
+        "co_image",
+        "owner_image",
+        "city",
+        "co_phone",
+        "co_fax",
+        "co_website",
+        "co_main_address",
+        "co_email",
+        "postal_code",
+        "biz_activities",
+        "biz_activitiy_goods",
+        "coo_biz_activities",
+        "biz_act_goods_hs_codes",
+        "shared_chambers",
+        "specialized_committees",
+        "guild_types",
+        "last_updated_at"
     ];
     public function editable_user(): HasOne
     {
@@ -36,6 +58,9 @@ class MerchantUser extends Model
                         "owner_fullname" => [
                             "type" => "text",
                             "analyzer" => "rebuilt_persian"
+                        ],
+                        "index_number" => [
+                            "type" => "keyword",
                         ],
                         "card_type_id" => [
                             "type" => "keyword",
@@ -173,6 +198,21 @@ class MerchantUser extends Model
     {
         return  iccima_array_map_assoc(
             function ($key, $value) {
+                if (!is_string($value)) {
+                    $value = json_encode($value, JSON_UNESCAPED_UNICODE);
+                }
+                return iccima_arabicToPers_conv($value);
+            },
+            $data
+        );
+    }
+    public static function prepare_save_db_elastic($data)
+    {
+        return  iccima_array_map_assoc(
+            function ($key, $value) {
+                if (!is_string($value)) {
+                    $value = json_encode($value, JSON_UNESCAPED_UNICODE);
+                }
                 return iccima_arabicToPers_conv($value);
             },
             $data
@@ -191,15 +231,7 @@ class MerchantUser extends Model
         $response = $client->search($params);
         return iccima_prepare_get_db_elastic($response->asArray());
     }
-    public static function prepare_save_db_elastic($data)
-    {
-        return  iccima_array_map_assoc(
-            function ($key, $value) {
-                return iccima_arabicToPers_conv($value);
-            },
-            $data
-        );
-    }
+
     public static function sync_data_indexes()
     {
         //called evenry 5 seconds !
@@ -210,6 +242,14 @@ class MerchantUser extends Model
         if ($row_index) {
             $index_number_updated = $row_index['index_number'];
             $_data = CardsDataService::getDataByIndex($index_number_updated);
+            $_data_sql = self::prepare_save_db_sql($_data);
+            $_data_sql['last_updated_at'] = Pdate::persianTimeStampNow();
+            self::updateOrCreate([
+                self::$unique_base_orc   => $_data_sql[self::$unique_base_orc],
+            ], $_data_sql);
+            IndexNumberApi::where('index_number', $index_number_updated)->update([
+                'status' => 1
+            ]);
         }
         $end_process = microtime(true);
         $elapsed_process = (int)($end_process - $start_process) + 1;

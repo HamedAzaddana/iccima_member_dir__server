@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
-// use App\Models\CardsData;
-// use App\Observers\CardsDataObserver;
+use App\Models\MerchantUser;
+use App\Observers\MerchantUserObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
         if (env('ENVIRONMENT_APP') !== 'development') {
             URL::forceScheme('https');
         }
-        // CardsData::observe(CardsDataObserver::class);
+        MerchantUser::observe(MerchantUserObserver::class);
     }
 }

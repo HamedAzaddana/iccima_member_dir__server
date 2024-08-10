@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\WebService;
 
 use App\Http\Controllers\Controller;
-use App\Models\MerchantCorp as MerchantCorpModel;
-use App\Models\CardsData as CardsDataModel;
+use App\Models\MerchantUser as MerchantUserModel;
 use App\Models\Preset as PresetModel;
-use App\Helpers\Pdate;
-use Illuminate\Support\Facades\DB;
+
 
 class SearchController extends Controller
 {
@@ -25,7 +23,7 @@ class SearchController extends Controller
         $params['loaded_cnt'] = $now_loading;
         request()->session()->put('params_filter_user', $params);
        
-        $records_load = CardsDataModel::get_data_els_filter($params,$now_loading);
+        $records_load = MerchantUserModel::get_data_els_filter($params,$now_loading);
 
         // dd($records_load);
 
