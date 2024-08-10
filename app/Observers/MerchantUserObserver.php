@@ -2,34 +2,34 @@
 
 namespace App\Observers;
 
-use App\Models\CardsData;
+use App\Models\MerchantUser;
 use App\Jobs\IndexCardDataElsJob;
 use App\Jobs\RemoveCardDataElsJob;
 
-class CardsDataObserver
+class MerchantUserObserver
 {
  
-    public function created(CardsData $card_data)
+    public function created(MerchantUser $card_data)
     {
         $data = $card_data->toArray();
-        $data = CardsData::prepare_save_db_elastic($data);
+        $data = MerchantUser::prepare_save_db_elastic($data);
         // iccima_log_custom("created : ".$data['card_no']);
         dispatch(new IndexCardDataElsJob($data));
     }
 
  
-    public function updated(CardsData $card_data)
+    public function updated(MerchantUser $card_data)
     {
         $data = $card_data->toArray();
-        $data = CardsData::prepare_save_db_elastic($data);
+        $data = MerchantUser::prepare_save_db_elastic($data);
         dispatch(new IndexCardDataElsJob($data));
     }
 
   
-    public function deleted(CardsData $card_data)
+    public function deleted(MerchantUser $card_data)
     {
         $data = $card_data->toArray();
-        $data = CardsData::prepare_save_db_elastic($data);
+        $data = MerchantUser::prepare_save_db_elastic($data);
         dispatch(new RemoveCardDataElsJob($data['id']));
     }
 }

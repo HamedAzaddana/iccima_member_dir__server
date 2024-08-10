@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         Commands\ResetTables::class,
+        Commands\SyncDataIndex::class,
     ];
     /**
      * Define the application's command schedule.
@@ -18,8 +19,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('tables:reset_iccima')
             ->dailyAt('1:00');
-        // $schedule->command('oracle_data:sync')
-        //     ->dailyAt('1:30');
+        // $schedule->command('index_data_cards:sync')
+        //     ->everyFiveSeconds();
     }
 
     /**

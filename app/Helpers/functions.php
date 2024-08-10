@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\CardsData;
+use App\Models\MerchantUser;
 use App\Helpers\Logger;
 
 function iccima_prepareSelect($arr)
@@ -28,11 +28,11 @@ function iccima_array_map_assoc(callable $callback, array $array, array ...$arra
 }
 function iccima_els_client()
 {
-    return CardsData::get_els_client();
+    return MerchantUser::get_els_client();
 }
 function iccima_prepare_get_db_elastic($data)
 {
-    return CardsData::prepare_get_db_elastic($data);
+    return MerchantUser::prepare_get_db_elastic($data);
 }
 function iccima_log_custom($data)
 {

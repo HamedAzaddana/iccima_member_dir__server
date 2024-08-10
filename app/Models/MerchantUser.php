@@ -1,0 +1,221 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Elastic\Elasticsearch\ClientBuilder;
+use App\Helpers\Pdate;
+use App\Services\CardsData as CardsDataService;
+
+class MerchantUser extends Model
+{
+    use HasFactory;
+    protected $table = "merchants";
+    public $timestamps = false;
+    protected $fillable = [
+        "owner_fullname", "card_type_id", "person_type_id",
+        "group_activity_type", "card_no", "co_title", "co_type", "co_establish_date",
+        "co_image", "owner_image", "city", "co_phone", "co_fax", "co_website", "co_main_address",
+        "co_email", "postal_code", "biz_activities", "biz_activitiy_goods", "coo_biz_activities",
+        "biz_act_goods_hs_codes", "shared_chambers", "specialized_committees", "guild_types", "last_updated_at"
+    ];
+    public function editable_user(): HasOne
+    {
+        return $this->hasOne(MerchantEUser::class, 'card_no', 'card_no');
+    }
+    public static function createIndexEls()
+    {
+        $client = iccima_els_client();
+        $params = [
+            'index' => 'iccima_cards_data_merchants',
+            'body' => [
+                "mappings" => [
+                    "properties" => [
+                        "owner_fullname" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "card_type_id" => [
+                            "type" => "keyword",
+                        ],
+                        "person_type_id" => [
+                            "type" => "keyword",
+                        ],
+                        "group_activity_type" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "card_no" => [
+                            "type" => "keyword",
+                        ],
+                        "co_title" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "co_type" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "co_establish_date" => [
+                            "type" => "keyword",
+                        ],
+                        "city" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "co_phone" => [
+                            "type" => "keyword",
+                        ],
+                        "co_fax" => [
+                            "type" => "keyword",
+                        ],
+                        "co_website" => [
+                            "type" => "keyword",
+                        ],
+                        "co_main_address" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "co_email" => [
+                            "type" => "keyword",
+                        ],
+                        "biz_activities" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "biz_activitiy_goods" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "coo_biz_activities" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "biz_act_goods_hs_codes" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "shared_chambers" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "specialized_committees" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "guild_types" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                    ]
+                ],
+                "settings" => [
+                    "analysis" => [
+                        "char_filter" => [
+                            "zero_width_spaces" => [
+                                "type" => "mapping",
+                                "mappings" => [
+                                    "\u200C=>\u0020"
+                                ]
+                            ]
+                        ],
+                        "filter" => [
+                            "persian_stop" => [
+                                "type" => "stop",
+                                "stopwords" => "_persian_"
+                            ]
+                        ],
+                        "analyzer" => [
+                            "rebuilt_persian" => [
+                                "tokenizer" => "standard",
+                                "char_filter" => [
+                                    "zero_width_spaces"
+                                ],
+                                "filter" => [
+                                    "lowercase",
+                                    "decimal_digit",
+                                    "arabic_normalization",
+                                    "persian_normalization",
+                                    "persian_stop"
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+            ]
+        ];
+        $exists_index = $client->indices()->exists(['index' => 'iccima_cards_data_merchants'])->asBool();
+        if (!$exists_index) {
+            $client->indices()->create($params);
+        }
+    }
+    public static function get_els_client()
+    {
+        return ClientBuilder::create()
+            ->setHosts([env('ELASTICSEARCH_URL', '')])
+            ->setApiKey(env('ELASTICSEARCH_API_KEY', ''))
+            ->build();
+    }
+    public static function prepare_get_db_elastic($data)
+    {
+        $array = [];
+        $hits__hits = @$data['hits']['hits'];
+        foreach ($hits__hits as $hits__hit) {
+            $dt_els = $hits__hit['_source'];
+            $dt_els['__id'] = $hits__hit['_id'];
+            $array[] = $dt_els;
+        }
+        return $array;
+    }
+    public static function prepare_save_db_sql($data)
+    {
+        return  iccima_array_map_assoc(
+            function ($key, $value) {
+                return iccima_arabicToPers_conv($value);
+            },
+            $data
+        );
+    }
+    public static function get_data_els_filter($filters_req, $size)
+    {
+        $client = iccima_els_client();
+        $params = [
+            'index' => 'iccima_cards_data_merchants',
+            "body" => [],
+            "size" => $size,
+        ];
+        //process $filters_req to add filters
+
+        $response = $client->search($params);
+        return iccima_prepare_get_db_elastic($response->asArray());
+    }
+    public static function prepare_save_db_elastic($data)
+    {
+        return  iccima_array_map_assoc(
+            function ($key, $value) {
+                return iccima_arabicToPers_conv($value);
+            },
+            $data
+        );
+    }
+    public static function sync_data_indexes()
+    {
+        //called evenry 5 seconds !
+        $start_process = microtime(true);
+        self::createIndexEls();
+        $row_index = IndexNumberApi::where('status', 0)->first()->toArray();
+        $index_number_updated = 0;
+        if ($row_index) {
+            $index_number_updated = $row_index['index_number'];
+            $_data = CardsDataService::getDataByIndex($index_number_updated);
+        }
+        $end_process = microtime(true);
+        $elapsed_process = (int)($end_process - $start_process) + 1;
+        return [
+            'elapsed_secs' =>  $elapsed_process,
+            'index_created' => $index_number_updated,
+        ];
+    }
+}
