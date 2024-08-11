@@ -248,7 +248,8 @@ class MerchantUser extends Model
                 self::$unique_base_orc   => $_data_sql[self::$unique_base_orc],
             ], $_data_sql);
             IndexNumberApi::where('index_number', $index_number_updated)->update([
-                'status' => 1
+                'status' => 1,
+                'last_updated_at' => Pdate::persianTimeStampNow(),
             ]);
         }
         $end_process = microtime(true);

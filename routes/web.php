@@ -30,7 +30,7 @@ Route::get('/test', function () {
     //    dd(MerchantUser::prepare_save_db_sql(CardsDataService::getDataByIndex("612001")));
     // MerchantUser::createIndexEls();
     // MerchantUser::sync_data_indexes();
-    dd(MerchantUser::get_data_els_filter([],1));
+    // dd(MerchantUser::get_data_els_filter([],20));
 });
 
 

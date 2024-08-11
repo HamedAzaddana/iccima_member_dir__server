@@ -2,6 +2,16 @@ import { Link } from '@inertiajs/react'
 
 export default function SearchResultCard({ info }) {
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
+    let card_type_id = parseInt(info.card_type_id);
+    let person_type_id = parseInt(info.person_type_id);
+    
+    let co_image = (!info.co_image || info.co_image == "null")
+        ? "https://cdn-icons-png.flaticon.com/512/9371/9371369.png" : "data:image/png;base64, " + info.co_image;
+    let co_title = JSON.parse(info.co_title);
+    let owner_fullname = JSON.parse(info.owner_fullname);
+    let co_type = JSON.parse(info.co_type);
+    let biz_activities = JSON.parse(info.biz_activities);
+    let city = JSON.parse(info.city);
     return (
         <div className="col-md-12 col-lg-12 col-sm-12 mb-2 animate__animated animate__fadeIn animate__delay-0.7s wow">
             <div className="row">
@@ -11,45 +21,47 @@ export default function SearchResultCard({ info }) {
                             <img style={{
                                 height: '200px',
                                 width: '100%',
-                            }} src={`https://cdn-icons-png.flaticon.com/512/9371/9371369.png`} className="card-img-top" alt={info.companyname_fa} />
+                            }} src={co_image} className="card-img-top" alt={co_title.Persian} />
                         </div>
                         <div className="col-md-12 col-lg-7 col-sm-12">
                             <h5 className="card-title mb-2 pt-4 pb-1" style={{
                                 fontSize: '20px',
-                            }}>{info.companyname_fa} </h5>
+                            }}>{co_title.Persian} </h5>
                             <div className="card-text">
-                                <h5 className="text-primary">{info.ownerfirstname_fa} {info.ownerlastname_fa}</h5>
+                                <h5 className="text-primary">{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</h5>
                                 <h5 style={{
                                     fontSize: '20px',
-                                }} className="text-dark">سهامی خاص، تاسیس 1404</h5>
+                                }} className="text-dark">{co_type.Persian} {info.co_establish_date}</h5>
                                 <div style={{
                                     textAlign: 'justify',
                                     fontSize: '15px',
                                     lineHeight: '1.5',
-                                }} className="text-dark mt-1 mb-1 p-1">
-                                    {info.bizactivities_fa ? info.bizactivities_fa : (
-                                        <span></span>
-                                    )}
+                                }} className="text-dark mt-1 mb-1 p-1"
+                                    dangerouslySetInnerHTML={{
+                                        __html: (biz_activities.Persian ? biz_activities.Persian : (
+                                            <span></span>
+                                        ))
+                                    }}
+                                >
                                 </div>
-
                                 <div style={{
                                     fontSize: '16px',
                                 }} className="text-secondary">
-                                    <b> تهران تستی</b>
+                                    <b>{city.Persian}</b>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-12 col-lg-3 col-sm-12">
                             <ul className="list-group list-group-flush">
-                                {info.phone_no ? (<li className="list-group-item list-group-item-contact"><i className="fa fa-phone"></i> <strong className="custom-block-contact">{info.phone_no}</strong></li>) : (<span></span>)}
-                                {info.fax_no ? (<li className="list-group-item list-group-item-contact"><i className="fa fa-fax"></i> <strong className="custom-block-contact">{info.fax_no}</strong></li>) : (<span></span>)}
-                                {info.website ? (
+                                {info.co_phone ? (<li className="list-group-item list-group-item-contact"><i className="fa fa-phone"></i> <strong className="custom-block-contact">{info.co_phone}</strong></li>) : (<span></span>)}
+                                {info.co_fax ? (<li className="list-group-item list-group-item-contact"><i className="fa fa-fax"></i> <strong className="custom-block-contact">{info.co_fax}</strong></li>) : (<span></span>)}
+                                {info.co_website ? (
                                     <li className="list-group-item list-group-item-contact"><i className="fa fa-globe"></i>
                                         <strong className="custom-block-contact">
-                                            <a target='blank' href={ 
-                                                info.website.toLowerCase().includes('http') ?
-                                                (info.website.toLowerCase()) : (`https://`+info.website.toLowerCase())
-                                                 }>{info.website.toLowerCase()}</a>
+                                            <a target='blank' href={
+                                                info.co_website.toLowerCase().includes('http') ?
+                                                    (info.co_website.toLowerCase()) : (`https://` + info.co_website.toLowerCase())
+                                            }>{info.co_website.toLowerCase()}</a>
                                         </strong>
                                     </li>) : (<span></span>)}
                             </ul>

@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('tables:reset_iccima')
             ->dailyAt('1:00');
         $schedule->command('index_data_cards:sync')
-            ->everyFiveSeconds();
+            ->everyTwoSeconds();
     }
 
     /**
