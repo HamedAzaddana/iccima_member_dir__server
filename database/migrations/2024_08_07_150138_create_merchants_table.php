@@ -32,6 +32,7 @@ return new class extends Migration
             $table->text('co_main_address')->nullable();
             $table->text('co_email')->nullable();
             $table->string('postal_code')->nullable();
+
             $table->text('biz_activities')->nullable();
             $table->text('biz_activitiy_goods')->nullable();
             $table->text('coo_biz_activities')->nullable();
@@ -39,6 +40,7 @@ return new class extends Migration
             $table->text('shared_chambers')->nullable();
             $table->text('specialized_committees')->nullable();
             $table->text('guild_types')->nullable();
+            
             $table->timestamp('last_updated_at')->nullable();
         });
     }

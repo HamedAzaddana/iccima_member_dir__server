@@ -13,7 +13,7 @@ class HomePageController extends Controller
         $route_ws_search_index = route("ws.search.index");
         $route_ws_search_get_fv = route("ws.search.get_filters_var");
         
-        return Inertia::render('Home/Index', [
+        return Inertia::render('Index', [
             'ws_s_route'=>$route_ws_search_index,
             'ws_search_get_fv'=>$route_ws_search_get_fv,
         ]);
