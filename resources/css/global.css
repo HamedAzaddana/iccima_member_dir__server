@@ -40,6 +40,7 @@ option {
     cursor: pointer;
     opacity: .7;
 }
+
 .layout-overlay-loading img {
     width: 12%;
     filter: saturate(330%) contrast(500%) brightness(120%);
@@ -58,8 +59,32 @@ option {
     align-items: center;
     justify-content: center;
 }
-.header-top-contact{
+
+.header-top-contact {
     direction: ltr !important;
+}
+
+#btn-do-search {
+    width: 100px;
+    height: 65px;
+}
+
+
+select.without-icon {
+    appearance: none;
+    background-image: url('');
+}
+
+.InputS1 {
+    background: white;
+    border-radius: 25px;
+}
+.MoreBtnCards{
+    background-color: #3F51B5 !important;
+    border:0 !important;
+    color: white !important;
+    font-size: 20px;
+    padding: 12px;
 }
 
 @media only screen and (max-width:500px) {
@@ -68,3 +93,24 @@ option {
     }
 }
 
+@media only screen and (max-width:770px) {
+    .InputS1 {
+        background: none;
+    }
+
+    .InputS1 .single-welcome-hero-form {
+        border-radius: 20px
+    }
+
+    .InputS2 .single-welcome-hero-form {
+        width: 100%;
+        border: 0px;
+        height: 90px !important;
+        background: none;
+    }
+
+    .InputS2 .welcome-hero-form-icon {
+        right: 14px !important;
+        top: 28px !important;
+    }
+}

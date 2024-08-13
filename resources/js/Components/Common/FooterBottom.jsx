@@ -1,6 +1,8 @@
 
+import { Link } from '@inertiajs/react'
 
 export default function FooterBottom() {
+    const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
 
     return (
         <div>
@@ -8,19 +10,25 @@ export default function FooterBottom() {
                 <div className="container">
                     <div className="footer-menu">
                         <div className="row">
-                            <div className="col-sm-3">
+                            <div className="col-lg-6 col-md-6 col-sm-12">
                                 <div className="navbar-header">
-                                    <a className="navbar-brand" href="index.html">list<span>race</span></a>
+                                    <img style={{
+                                        width: "60px",
+                                        height: "60px",
+                                        borderRadius: "20%",
+                                        filter: "contrast(180%)",
+                                    }} src="/images/iccima_iran.png" alt="" />
+                                    <span style={{
+                                        fontSize: "20px",
+                                        padding: "5px",
+                                        margin: "10px",
+                                    }}>سامانه اتاق بازرگانی</span>
                                 </div>
                             </div>
-                            <div className="col-sm-9">
+                            <div className="col-lg-6 col-md-6 col-sm-12">
                                 <ul className="footer-menu-item">
-                                    <li className="scroll"><a href="#works">how it works</a></li>
-                                    <li className="scroll"><a href="#explore">explore</a></li>
-                                    <li className="scroll"><a href="#reviews">review</a></li>
-                                    <li className="scroll"><a href="#blog">blog</a></li>
-                                    <li className="scroll"><a href="#contact">contact</a></li>
-                                    <li className=" scroll"><a href="#contact">my account</a></li>
+                                    <li className="scroll"><Link className="nav-link" href={`${appUrl}/#`}>خانه</Link></li>
+                                    <li className="scroll"><Link className="nav-link" href={`${appUrl}/#`}>راهنما</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -28,18 +36,13 @@ export default function FooterBottom() {
                     <div className="hm-footer-copyright">
                         <div className="row">
                             <div className="col-sm-5">
-                                <p>
-                                    &copy;copyright. designed and developed by <a
-                                        href="https://www.themesine.com/">themesine</a>
-                                </p>
+     
                             </div>
                             <div className="col-sm-7">
                                 <div className="footer-social">
-                                    <span><i className="fa fa-phone"> +1 (222) 777 8888</i></span>
-                                    <a href="#"><i className="fa fa-facebook"></i></a>
-                                    <a href="#"><i className="fa fa-twitter"></i></a>
-                                    <a href="#"><i className="fa fa-linkedin"></i></a>
-                                    <a href="#"><i className="fa fa-google-plus"></i></a>
+                                    <span><i className="fa fa-phone"> +21 4444 3333</i></span>
+                                    <Link className="nav-link" href={`${appUrl}/#`}>خانه</Link>
+                                    <Link className="nav-link" href={`${appUrl}/#`}>راهنما</Link>
                                 </div>
                             </div>
                         </div>

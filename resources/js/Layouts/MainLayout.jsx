@@ -15,7 +15,7 @@ import FooterBottom from '../Components/Common/FooterBottom';
 import LoadingTop from '../Components/Common/LoadingTop';
 
 export default function Main({ children }) {
-    const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
+    
     return (
         <div>
             <HeaderTop />

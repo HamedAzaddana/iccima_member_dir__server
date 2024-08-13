@@ -1,34 +1,38 @@
 
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { Link } from '@inertiajs/react'
 
 export default function TopArea() {
-
+    const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     return (
         <div>
             <section className="top-area">
-                <div className="header-area">
-                    <nav className="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy" data-minus-value-desktop="70"
-                        data-minus-value-mobile="55" data-speed="1000">
-                        <div className="container">
-                            <div className="navbar-header">
-                                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-                                    <i className="fa fa-bars"></i>
-                                </button>
-                                <a className="navbar-brand" href="index.html">list<span>race</span></a>
-                            </div>
-                            <div className="collapse navbar-collapse menu-ui-design" id="navbar-menu">
-                                <ul className="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                                    <li className=" scroll active"><a href="#home">home</a></li>
-                                    <li className="scroll"><a href="#works">how it works</a></li>
-                                    <li className="scroll"><a href="#explore">explore</a></li>
-                                    <li className="scroll"><a href="#reviews">review</a></li>
-                                    <li className="scroll"><a href="#blog">blog</a></li>
-                                    <li className="scroll"><a href="#contact">contact</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-                <div className="clearfix"></div>
+                <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+                    <Container>
+                        <Navbar.Brand href="#">
+                            <img style={{
+                                width: "60px",
+                                height: "60px",
+                                borderRadius: "20%",
+                                filter: "contrast(180%)",
+                            }} src="/images/iccima_iran.png" alt="" />
+                            <span style={{
+                                fontSize: "20px",
+                                padding: "5px",
+                                margin: "10px",
+                            }}>سامانه اتاق بازرگانی</span>
+                        </Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="me-auto top_nav_app">
+                                <Link className="nav-link" href={`${appUrl}/#`}>خانه</Link>
+                                <Link className="nav-link" href={`${appUrl}/#`}>راهنما</Link>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
             </section>
         </div>
     );
