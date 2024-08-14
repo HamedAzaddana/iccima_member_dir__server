@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Controllers\WebService;
+
+use App\Http\Controllers\Controller;
+use App\Models\MerchantUser as MerchantUserModel;
+use App\Models\Preset as PresetModel;
+
+
+class MerchantController extends Controller
+{
+    public function index()
+    {
+        $last_params = (array)request()->session()->get('params_filter_user');
+        $last_more_loaded = (int)@$last_params['loaded_cnt'];
+        $load_more = (int)env("LOAD_MORE_DATA", 30);
+        $params = request()->all();
+        if (@$params['more']) {
+            $now_loading = $last_more_loaded + $load_more;
+        } else {
+            $now_loading = $load_more;
+        }
+        $params['loaded_cnt'] = $now_loading;
+        request()->session()->put('params_filter_user', $params);
+        $records_load = MerchantUserModel::get_data_els_filter($params,$now_loading);
+        return response()->json([
+            'data' => $records_load,
+            'req' => $params,
+        ], 200);
+    }
+}

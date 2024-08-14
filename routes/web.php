@@ -3,14 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomePageController;
-use App\Models\IndexNumberApi;
-use App\Models\MerchantUser;
-use Illuminate\Support\Facades\DB;
-use App\Services\CardsData as CardsDataService;
 
-// use App\Helpers\Pdate;
-// use Elastic\Elasticsearch\ClientBuilder;
-// use App\Models\CardsDataOracle;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +19,44 @@ use App\Services\CardsData as CardsDataService;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 
+
+
 Route::get('/test2', function () {});
 Route::get('/test', function () {
-    //    dd(MerchantUser::prepare_save_db_sql(CardsDataService::getDataByIndex("612001")));
-    // MerchantUser::createIndexEls();
-    // MerchantUser::sync_data_indexes();
-    // dd(MerchantUser::get_data_els_filter([],20));
+
+    $client = iccima_els_client();
+    $params = [
+        'index' => 'iccima_cards_data_merchants',
+        "body" => [
+            "query" => [
+                "bool" => [
+                    "must" => [
+                        "multi_match" => [
+                            'query' => "ایمان فرجی نژادجهرمی",
+                            'fields' => [
+                                'owner_fullname',
+                                // 'co_title',
+                                // 'biz_activities',
+                                // 'biz_activitiy_goods',
+                                // 'coo_biz_activities',
+                                // 'biz_act_goods_hs_codes',
+                                // 'shared_chambers',
+                                // 'specialized_committees',
+                                // 'guild_types',
+                            ],
+                        ],
+                    ],
+                    // "filter" => [
+                    //     ["match" => ["province" => "تهران"]],
+                    //     ["match" => ["group_activity_type" => "صنعت"]],
+                    // ],
+                ],
+            ],
+        ],
+        "size" => 50,
+    ];
+    $response = $client->search($params);
+    dd(iccima_prepare_get_db_elastic($response->asArray()));
 });
 
 

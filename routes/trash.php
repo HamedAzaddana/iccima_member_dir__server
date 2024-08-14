@@ -33,16 +33,23 @@ Route::get('/test-els-search-main', function () {
                 "bool" => [
                     "must" => [
                         "multi_match" => [
-                            'query' => "درسا سبک",
+                            'query' => "دارو",
                             'fields' => [
-                                'companyname_fa',
-                                // 'mainaddress_fa',
-                                // 'isicactroots_fa'
+                                'owner_fullname',
+                                'co_title',
+                                'biz_activities',
+                                'biz_activitiy_goods',
+                                'coo_biz_activities',
+                                'biz_act_goods_hs_codes',
+                                'shared_chambers',
+                                'specialized_committees',
+                                'guild_types',
                             ],
                         ],
                     ],
                     "filter" => [
-                        ["match" => ["isicactroots_fa" => "عمران نقلیه"]],
+                        ["match" => ["province" => "تهران"]],
+                        ["match" => ["group_activity_type" => "صنعت"]],
                     ],
                 ],
             ],

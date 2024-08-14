@@ -78,6 +78,11 @@ select.without-icon {
 .InputS1 {
     background: white;
     border-radius: 25px;
+    height: fit-content;
+    margin-top: 21px !important;
+}
+.welcome-hero-serch-box.row{
+    margin-top: 14px !important;
 }
 .MoreBtnCards{
     background-color: #3F51B5 !important;
@@ -86,7 +91,13 @@ select.without-icon {
     font-size: 20px;
     padding: 12px;
 }
-
+.single-list-topics-content:hover{
+    background-color: rgb(50, 66, 133) !important;
+    color: white !important;
+}
+.single-list-topics-content:hover *{
+    color: white !important;
+}
 @media only screen and (max-width:500px) {
     .layout-overlay-loading img {
         width: 35%;

@@ -35,10 +35,12 @@ export default function Index({ ws_s_route, ws_search_get_fv }) {
                     sendDataToIndex={handleDataSearch}
                     ws_s_route={ws_s_route}
                     ws_search_get_fv={ws_search_get_fv} />
+              
                 <ExploreArea
                     dataSearch={dataSearch.data}
                     req_params={dataSearch.req}
                 />
+                
                 <a ref={TopClickRef} className="d-none" href="#explore"></a>
             </div>
         </MainLayout>

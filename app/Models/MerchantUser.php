@@ -28,6 +28,7 @@ class MerchantUser extends Model
         "co_image",
         "owner_image",
         "city",
+        "province",
         "co_phone",
         "co_fax",
         "co_website",
@@ -87,6 +88,10 @@ class MerchantUser extends Model
                             "type" => "keyword",
                         ],
                         "city" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "province" => [
                             "type" => "text",
                             "analyzer" => "rebuilt_persian"
                         ],
@@ -227,7 +232,29 @@ class MerchantUser extends Model
             "size" => $size,
         ];
         //process $filters_req to add filters
-
+        $filters_req['province'] = $filters_req['province'] == "all" ? "" : $filters_req['province'];
+        if (@$filters_req['kws']) {
+            $params['body']['query']['bool']['must']['multi_match'] = [
+                'query' => (string)$filters_req['kws'],
+                'fields' => [
+                    'owner_fullname',
+                    'co_title',
+                    'biz_activities',
+                    'biz_activitiy_goods',
+                    'coo_biz_activities',
+                    'biz_act_goods_hs_codes',
+                    'shared_chambers',
+                    'specialized_committees',
+                    'guild_types',
+                ],
+            ];
+        }
+        if (@$filters_req['province']) {
+            $params['body']['query']['bool']['filter'][] = ["match" => ["province" => (string)$filters_req['province']]];
+        }
+        if (@$filters_req['group_act_type']) {
+            $params['body']['query']['bool']['filter'][] = ["match" => ["group_activity_type" => (string)$filters_req['group_act_type']]];
+        }
         $response = $client->search($params);
         return iccima_prepare_get_db_elastic($response->asArray());
     }

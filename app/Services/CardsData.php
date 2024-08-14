@@ -45,7 +45,6 @@ class CardsData
             "password" => env("CARDS_API_PASSWORD"),
         ];
         $r = @iccima_request_http([], $route, "GET", $headers)['response_object'];
-
         return [
             "index_number" => $index,
             "owner_fullname" => @$r['MemberDirectoryBriefModel']->OwnerFullName,
@@ -59,6 +58,7 @@ class CardsData
             "co_image" => @$r['MemberDirectoryBriefModel']->Image,
             "owner_image" => @$r['MemberDirectoryBriefModel']->OwnerImage,
             "city" => @$r['MemberDirectoryBriefModel']->City,
+            "province" => @$r['MemberDirectoryBriefModel']->Province,
             "co_phone" => @$r['MemberDirectoryBriefModel']->Phone->English,
             "co_fax" => @$r['MemberDirectoryBriefModel']->Fax->English,
             "co_website" => @$r['MemberDirectoryBriefModel']->Website,

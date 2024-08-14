@@ -1,7 +1,8 @@
 
 import { Link } from '@inertiajs/react'
 export default function CardResult({ info }) {
-    const get_jalali_year=(gy, gm, gd)=>{
+
+    const get_jalali_year = (gy, gm, gd) => {
         let g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
         let jy = 0;
         if (gy > 1600) {
@@ -42,70 +43,33 @@ export default function CardResult({ info }) {
     let owner_fullname = JSON.parse(info.owner_fullname);
     let co_type = JSON.parse(info.co_type);
     let biz_activities = JSON.parse(info.biz_activities);
+    let biz_activities_html = biz_activities.Persian ? biz_activities.Persian : "";
     let city = JSON.parse(info.city);
     let cover_image = (!info.co_image || info.co_image == "null")
         ? owner_image : "data:image/png;base64, " + info.co_image;
-    let jalali_year = get_jalali_year(info.co_establish_date, 1, 1);
+    let jalali_year = info.co_establish_date ? get_jalali_year(info.co_establish_date, 1, 1) : "*";
     return (
-        <div className="col-lg-4 col-md-6 col-sm-12 animate__animated animate__fadeIn animate__delay-0.7s wow">
+        <div className="col-lg-12 col-md-12 col-sm-12 animate__animated animate__fadeIn animate__delay-0.7s wow">
             <div className="single-explore-item">
-                <div className="single-explore-img">
-                    <img style={{
-                        height: '354px',
-                        width: '100%',
-                    }} src={cover_image} alt={owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian} />
-                    <div className="single-explore-img-info">
-                    </div>
-                </div>
                 <div className="single-explore-txt bg-theme-1">
-                    <h2><a href="#">{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</a></h2>
-                    <p className="explore-rating-price">
-                        <span className="explore-rating">{jalali_year}</span>
-                        <span className="explore-price-box">
-                            <span className="explore-price"><b>{city.Persian}</b></span>
-                        </span>
-                        <a href="#">{co_type.Persian}</a>
-                    </p>
-                    <div className="explore-person">
-                        <div className="row">
-                            <div className="col-sm-12 col-md-12 col-lg-12">
-                                <div className="explore-person-img">
-                                    <a href="#">
-                                        <img style={{
-                                            borderRadius: "35%"
-                                        }} src={owner_image} alt={owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian} />
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-sm-12 col-md-12 col-lg-12 mt-4">
-                                <div
-                                    data-mh
-                                    style={{
-                                        textAlign: 'justify',
-                                        color:'black'
-                                    }}
-                                    dangerouslySetInnerHTML={{
-                                        __html: (biz_activities.Persian ? biz_activities.Persian : (
-                                            <span></span>
-                                        ))
-                                    }}
-                                >
-                                </div>
+                    <div className="row">
+                        <div className="col-md-4 col-lg-4 col-sm-12 mt-2">
+                            <div className="explore-person-img">
+                                <a href="#">
+                                    <img style={{ borderRadius: "35%" }} src={cover_image} alt={owner_fullname.Persian ?
+                                        owner_fullname.Persian : co_title.Persian} />
+                                </a>
                             </div>
                         </div>
-                    </div>
-                    <div className="explore-open-close-part">
-                        <div className="row">
-                            <div className="col-sm-5">
-                                <Link className="btn btn-secondary" href={`${appUrl}/#`}> <i className='fa fa-exclamation-circle'></i> جزئیات</Link>
-                            </div>
-                            <div className="col-sm-7">
-                                <div className="explore-map-icon">
-                                    <a href="#"><i data-feather="map-pin"></i></a>
-                                    <a href="#"><i data-feather="upload"></i></a>
-                                    <a href="#"><i data-feather="heart"></i></a>
-                                </div>
-                            </div>
+                        <div className="col-md-6 col-lg-6 col-sm-12 mt-5">
+                            <h2><a href="#" className='text-secondary'>{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</a></h2>
+                            <h6 className='mt-1 pt-1'><strong>{co_title.Persian}</strong></h6>
+                        </div>
+                        <div className="col-md-2 col-lg-2 col-sm-12 mt-5">
+                            <Link style={{
+                                width:"max-content"
+                            }} className="btn btn-secondary" href={`${appUrl}/#`}> <i className='fa fa-exclamation-circle'></i> &nbsp;
+                                جزئیات</Link>
                         </div>
                     </div>
                 </div>

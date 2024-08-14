@@ -3,7 +3,6 @@ import { Link } from '@inertiajs/react'
 
 export default function FooterBottom() {
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
-
     return (
         <div>
             <footer id="footer" className="footer">
@@ -33,31 +32,7 @@ export default function FooterBottom() {
                             </div>
                         </div>
                     </div>
-                    <div className="hm-footer-copyright">
-                        <div className="row">
-                            <div className="col-sm-5">
-     
-                            </div>
-                            <div className="col-sm-7">
-                                <div className="footer-social">
-                                    <span><i className="fa fa-phone"> +21 4444 3333</i></span>
-                                    <Link className="nav-link" href={`${appUrl}/#`}>خانه</Link>
-                                    <Link className="nav-link" href={`${appUrl}/#`}>راهنما</Link>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
-
-                <div id="scroll-Top">
-                    <div className="return-to-top">
-                        <i className="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title=""
-                            data-original-title="Back to Top" aria-hidden="true"></i>
-                    </div>
-
-                </div>
-
             </footer>
         </div>
     );

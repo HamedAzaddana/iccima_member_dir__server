@@ -18,7 +18,6 @@ export default function ExploreArea({ dataSearch, req_params }) {
                                     </div>
                                     {(dataSearch.length) ?
                                         (
-
                                             <div className="row">
 
                                                 {dataSearch.map((info, ik_loop) => (
@@ -31,7 +30,6 @@ export default function ExploreArea({ dataSearch, req_params }) {
                                                     </center>
                                                 </div>
                                             </div>
-
                                         )
                                         :
                                         (<div>
@@ -52,7 +50,6 @@ export default function ExploreArea({ dataSearch, req_params }) {
                                     </div>
                                 </div>)
                         }
-
                     </div>
                 </div>
             </section>
