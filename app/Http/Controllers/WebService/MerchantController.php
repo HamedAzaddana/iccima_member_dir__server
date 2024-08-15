@@ -28,4 +28,11 @@ class MerchantController extends Controller
             'req' => $params,
         ], 200);
     }
+    public function single()
+    {
+        return response()->json([
+            'data' => [],
+            'req' => [],
+        ], 200);
+    }
 }

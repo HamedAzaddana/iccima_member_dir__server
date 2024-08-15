@@ -75,3 +75,13 @@ function iccima_request_http($body, $route, $method, $headers = [])
         'error' => $error,
     ];
 }
+function iccima_hashid_encode($id)
+{
+    $h = new Hashids\Hashids(env("HASH_ID_SALT"), (int)env("MIN_HASH_LENGTH"));
+    return $h->encode((int)$id);
+}
+function iccima_hashid_decode($hashed_id)
+{
+    $h = new Hashids\Hashids(env("HASH_ID_SALT"), (int)env("MIN_HASH_LENGTH"));
+    return $h->decode($hashed_id)[0];
+}

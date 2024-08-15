@@ -194,7 +194,7 @@ class MerchantUser extends Model
         $hits__hits = @$data['hits']['hits'];
         foreach ($hits__hits as $hits__hit) {
             $dt_els = $hits__hit['_source'];
-            $dt_els['__id'] = $hits__hit['_id'];
+            $dt_els['__id'] = iccima_hashid_encode((int)$hits__hit['_id']);
             $array[] = $dt_els;
         }
         return $array;

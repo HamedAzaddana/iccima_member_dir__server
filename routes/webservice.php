@@ -14,6 +14,7 @@ Route::middleware('webservice_gate')->prefix("webservice")->group(function () {
         $method_put = "any";
         $method_delete = "any";
     }
-    Route::{"$method_post"}('/search/index', [MerchantController::class, 'index'])->name('ws.search.index');
+    Route::{"$method_post"}('/merchants/get/index', [MerchantController::class, 'index'])->name('ws.search.index');
+    Route::{"$method_post"}('/merchants/get/single', [MerchantController::class, 'single'])->name('ws.search.single');
     Route::{"$method_post"}('/search/get_filter_vars', [PresetController::class, 'get_filters_var'])->name('ws.search.get_filters_var');
 });
