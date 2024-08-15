@@ -86,9 +86,9 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                 <button onClick={getMoreRApi} id='getMoreApiBtn' className='d-none'></button>
                 <div className="container">
                     <div className="welcome-hero-txt">
-                        <h2>اتاق بازرگانی ایران <br /> اتاق بازرگانی، صنایع، معادن و کشاورزی ایران </h2>
+                        <h2>به سادگی یک کلیک، با اعضای اتاق ایران آشنا شوید. </h2>
                         <p>
-                            دایرکتوری اطلاعات اتاق بازرگانی
+                            بستر ارتباط آنلاین دارندگان کارت های عضویت و بازرگانی 
                         </p>
                     </div>
                     <div className="welcome-hero-serch-box row">
@@ -117,11 +117,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                 border: 0,
 
                             }} className="single-welcome-hero-form">
-                                <Form.Select style={{
-                                    height: '100%',
-                                    borderRadius: '30px',
-                                    cursor: 'pointer',
-                                }} className='without-icon' onChange={handleChangeVs} defaultValue="null" id="province">
+                                <Form.Select className='without-icon SelectProvince' onChange={handleChangeVs} defaultValue="null" id="province">
                                     <option value={"all"}> همه استان ها  </option>
                                     {(filters?.provinces?.length) ?
                                         (

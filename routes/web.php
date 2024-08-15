@@ -23,40 +23,16 @@ Route::get('/', [HomePageController::class, 'index'])->name('home.index');
 
 Route::get('/test2', function () {});
 Route::get('/test', function () {
-
-    $client = iccima_els_client();
-    $params = [
-        'index' => 'iccima_cards_data_merchants',
-        "body" => [
-            "query" => [
-                "bool" => [
-                    "must" => [
-                        "multi_match" => [
-                            'query' => "ایمان فرجی نژادجهرمی",
-                            'fields' => [
-                                'owner_fullname',
-                                // 'co_title',
-                                // 'biz_activities',
-                                // 'biz_activitiy_goods',
-                                // 'coo_biz_activities',
-                                // 'biz_act_goods_hs_codes',
-                                // 'shared_chambers',
-                                // 'specialized_committees',
-                                // 'guild_types',
-                            ],
-                        ],
-                    ],
-                    // "filter" => [
-                    //     ["match" => ["province" => "تهران"]],
-                    //     ["match" => ["group_activity_type" => "صنعت"]],
-                    // ],
-                ],
-            ],
-        ],
-        "size" => 50,
+    // 397229
+    $index="397229";
+    $route = env("CARDS_API_URL") . "fullMemberDirectoryInfo/$index";
+    $headers = [
+        "Content-Type" => "application/json",
+        "userName" => env("CARDS_API_USERNAME"),
+        "password" => env("CARDS_API_PASSWORD"),
     ];
-    $response = $client->search($params);
-    dd(iccima_prepare_get_db_elastic($response->asArray()));
+    $r = @iccima_request_http([], $route, "GET", $headers)['response_object'];
+    dd($r);
 });
 
 

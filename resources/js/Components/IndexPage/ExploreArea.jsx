@@ -26,7 +26,7 @@ export default function ExploreArea({ dataSearch, req_params }) {
 
                                                 <div className="mt-5 p-2">
                                                     <center>
-                                                        <button onClick={handleClickMore} type="button" className="btn btn-warning MoreBtnCards"> <i className="fa fa-search-plus"></i> بیشتر </button>
+                                                        <button onClick={handleClickMore} type="button" className="btn btn-warning MoreBtnCards"> <i className="fa fa-search-plus"></i> نمایش بیشتر </button>
                                                     </center>
                                                 </div>
                                             </div>

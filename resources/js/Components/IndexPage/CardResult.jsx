@@ -30,7 +30,9 @@ export default function CardResult({ info }) {
         var resultD = jd < 10 ? "0" + jd.toString() : jd.toString();
         return resultY;
     }
-
+    const handleNonDo = (e)=>{
+        e.preventDefault();
+    }
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     let card_type_id = parseInt(info.card_type_id);
     let person_type_id = parseInt(info.person_type_id);
@@ -47,27 +49,43 @@ export default function CardResult({ info }) {
     let city = JSON.parse(info.city);
     let cover_image = (!info.co_image || info.co_image == "null")
         ? owner_image : "data:image/png;base64, " + info.co_image;
-    let jalali_year = info.co_establish_date ? get_jalali_year(info.co_establish_date, 1, 1) : "*";
+    let jalali_year = info.co_establish_date ? get_jalali_year(info.co_establish_date, 1, 1) : "";
+    let co_phone = info.co_phone;
+    let co_fax = info.co_fax;
+    let co_website = info.co_website;
     return (
         <div className="col-lg-12 col-md-12 col-sm-12 animate__animated animate__fadeIn animate__delay-0.7s wow">
             <div className="single-explore-item">
                 <div className="single-explore-txt bg-theme-1">
-                    <div className="row">
-                        <div className="col-md-4 col-lg-4 col-sm-12 mt-2">
+                    <div className="row CardResultContent">
+                        <div className="col-md-2 col-lg-2 col-sm-12 mt-3">
                             <div className="explore-person-img">
-                                <a href="#">
+                                <a href="#" onClick={handleNonDo}>
                                     <img style={{ borderRadius: "35%" }} src={cover_image} alt={owner_fullname.Persian ?
                                         owner_fullname.Persian : co_title.Persian} />
                                 </a>
                             </div>
                         </div>
-                        <div className="col-md-6 col-lg-6 col-sm-12 mt-5">
-                            <h2><a href="#" className='text-secondary'>{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</a></h2>
-                            <h6 className='mt-1 pt-1'><strong>{co_title.Persian}</strong></h6>
+                        <div className="col-md-6 col-lg-6 col-sm-12 mt-3">
+                            <h6 className='mt-1 pt-1 text-primary'><strong>{co_title.Persian}</strong></h6>
+                            <h3 className='mt-2'><a href="#" className='text-danger'><strong>{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</strong></a></h3>
+                            <p className='mt-1 pt-1 text-dark'><strong>{co_type.Persian} {jalali_year ? `تاسیس ${jalali_year}` : ""}</strong></p>
+                            <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: biz_activities_html }} ></p>
+                            <br />
+                            <strong>{city.Persian}</strong>
                         </div>
-                        <div className="col-md-2 col-lg-2 col-sm-12 mt-5">
+                        <div className="col-md-3 col-lg-3 col-sm-12 mt-3 ContactsPartCardRs">
+                            {co_phone ? (
+                                <p className='mt-1 p-1'><a className='text-primary' href="#"> <i className='fa fa-phone'></i> <strong>{co_phone}</strong></a> </p>
+                            ) : ""}
+                            {co_fax ? (
+                                <p className='mt-1 p-1'><a className='text-primary' href="#"> <i className='fa fa-fax'></i> <strong>{co_fax}</strong></a> </p>
+                            ) : ""}
+                            {co_website ? (
+                                <p className='mt-1 p-1'><a className='text-primary' href="#"> <i className='fa fa-globe'></i> <strong>{co_website}</strong></a> </p>
+                            ) : ""}
                             <Link style={{
-                                width:"max-content"
+                                width: "max-content"
                             }} className="btn btn-secondary" href={`${appUrl}/#`}> <i className='fa fa-exclamation-circle'></i> &nbsp;
                                 جزئیات</Link>
                         </div>

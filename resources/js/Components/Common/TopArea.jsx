@@ -6,6 +6,10 @@ import { Link } from '@inertiajs/react'
 
 export default function TopArea() {
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
+
+    const handleNonDo = (e)=>{
+        e.preventDefault();
+    }
     return (
         <div>
             <section className="top-area">
@@ -18,17 +22,26 @@ export default function TopArea() {
                                 borderRadius: "20%",
                                 filter: "contrast(180%)",
                             }} src="/images/iccima_iran.png" alt="" />
-                            <span style={{
-                                fontSize: "20px",
-                                padding: "5px",
-                                margin: "10px",
-                            }}>سامانه اتاق بازرگانی</span>
                         </Navbar.Brand>
+                        <span style={{
+                            fontSize: "20px",
+                            padding: "5px",
+                            margin: "10px",
+                            color: "black"
+                        }}>دایرکتوری اعضای اتاق بازرگانی، صنایع، معادن و کشاورزی ایران</span>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto top_nav_app">
-                                <Link className="nav-link" href={`${appUrl}/#`}>خانه</Link>
-                                <Link className="nav-link" href={`${appUrl}/#`}>راهنما</Link>
+                                <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-home'></i> خانه</Link>
+                                <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-info-circle'></i> راهنما</Link>
+                                <Link className="nav-link" href={`${appUrl}/#`}> <i className="fa fa-user-circle-o"></i> ورود </Link>
+                                <Link className="nav-link" href="#" onClick={handleNonDo}> <li className="select-opt text-dark">
+                                    <select name="language" id="language">
+                                        <option value="Persian">فارسی</option>
+                                        <option value="English">English</option>
+                                    </select>
+                                </li>
+                                </Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

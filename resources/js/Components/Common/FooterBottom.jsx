@@ -18,10 +18,11 @@ export default function FooterBottom() {
                                         filter: "contrast(180%)",
                                     }} src="/images/iccima_iran.png" alt="" />
                                     <span style={{
-                                        fontSize: "20px",
+                                        fontSize: "15px",
                                         padding: "5px",
                                         margin: "10px",
-                                    }}>سامانه اتاق بازرگانی</span>
+                                        color: "black",
+                                    }}>دایرکتوری اعضای اتاق بازرگانی، صنایع، معادن و کشاورزی ایران</span>
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-12">

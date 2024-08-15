@@ -308,15 +308,7 @@ nav.navbar.bootsnav .navbar-toggle i {
 /*-------------------------------------
         4.  Welcome-hero
 --------------------------------------*/
-.welcome-hero {
-    position: relative;
-    background: url(/images/welcome-hero/banner.jpg)no-repeat;
-    background-position: center;
-    background-size: cover;
-    text-align: center;
-    height: 800px;
-    z-index: 1;
-}
+
 
 .welcome-hero:before {
     position: absolute;
@@ -747,8 +739,9 @@ nav.navbar.bootsnav .navbar-toggle i {
 }
 
 .explore-person-img {
-    width: 40px;
-    height: 40px;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 25px;
     border-radius: 50%;
 }
 

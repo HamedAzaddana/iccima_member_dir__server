@@ -77,51 +77,134 @@ select.without-icon {
 
 .InputS1 {
     background: white;
-    border-radius: 25px;
+    border-radius: 0;
     height: fit-content;
     margin-top: 21px !important;
 }
-.welcome-hero-serch-box.row{
+
+.welcome-hero-serch-box.row {
     margin-top: 14px !important;
 }
-.MoreBtnCards{
+
+.MoreBtnCards {
     background-color: #3F51B5 !important;
-    border:0 !important;
+    border: 0 !important;
     color: white !important;
     font-size: 20px;
     padding: 12px;
 }
-.single-list-topics-content:hover{
-    background-color: rgb(50, 66, 133) !important;
+
+.single-list-topics-content:hover {
+    background-color: #e87681 !important;
     color: white !important;
 }
-.single-list-topics-content:hover *{
+
+.single-list-topics-content:hover * {
     color: white !important;
+}
+
+.ContactsPartCardRs p {
+    border-bottom: 1.5px dashed blue;
+    margin-bottom: 10px;
+}
+
+a.nav-link:hover {
+    color: rgb(155, 25, 25) !important;
+}
+.top_nav_app a.nav-link{
+    text-align: center;
+}
+.select-opt,
+.header-top-contact {
+    padding: 0 !important;
+}
+
+
+.InputS2 {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.SelectProvince {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    height: 100%;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.InputS2 .single-welcome-hero-form {
+    width: 100%;
+    border: 0px;
+    height: 66px !important;
+    background: none;
+    margin: 0;
+    padding: 0;
+    margin-top: -3px;
+}
+
+.InputS2 .welcome-hero-form-icon {
+    right: 24px !important;
+    top: 19px !important;
+}
+.welcome-hero {
+    position: relative;
+    background: url(/images/welcome-hero/banner.jpg)no-repeat;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    height: 570px;
+    z-index: 1;
+}
+.list-topics-content{
+    text-align: center;
 }
 @media only screen and (max-width:500px) {
     .layout-overlay-loading img {
         width: 35%;
     }
 }
-
+@media only screen and (max-width:995px) {
+    .welcome-hero {
+        height: 750px;
+    }
+}
 @media only screen and (max-width:770px) {
+    .welcome-hero {
+        height: 600px;
+    }
     .InputS1 {
         background: none;
     }
 
     .InputS1 .single-welcome-hero-form {
-        border-radius: 20px
+        border-radius: 0
+    }
+
+    .InputS2 {
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     .InputS2 .single-welcome-hero-form {
         width: 100%;
         border: 0px;
-        height: 90px !important;
+        height: 80px !important;
         background: none;
+        margin: 0;
+        padding: 0;
+        margin-top: -3px;
     }
 
     .InputS2 .welcome-hero-form-icon {
-        right: 14px !important;
-        top: 28px !important;
+        right: 35px !important;
+        top: 25px !important;
+    }
+
+    .SelectProvince {
+        height: 74px !important;
+        width: 95% !important;
+        text-align: center;
     }
 }
