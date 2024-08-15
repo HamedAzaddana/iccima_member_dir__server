@@ -111,9 +111,11 @@ select.without-icon {
 a.nav-link:hover {
     color: rgb(155, 25, 25) !important;
 }
-.top_nav_app a.nav-link{
+
+.top_nav_app a.nav-link {
     text-align: center;
 }
+
 .select-opt,
 .header-top-contact {
     padding: 0 !important;
@@ -148,6 +150,7 @@ a.nav-link:hover {
     right: 24px !important;
     top: 19px !important;
 }
+
 .welcome-hero {
     position: relative;
     background: url(/images/welcome-hero/banner.jpg)no-repeat;
@@ -157,23 +160,42 @@ a.nav-link:hover {
     height: 570px;
     z-index: 1;
 }
-.list-topics-content{
+
+.list-topics-content {
     text-align: center;
 }
+
+.navbar-title-site {
+    font-size: 18px;
+    padding: 5px;
+    margin: 10px;
+    color: black;
+}
+
 @media only screen and (max-width:500px) {
     .layout-overlay-loading img {
         width: 35%;
     }
-}
-@media only screen and (max-width:995px) {
-    .welcome-hero {
-        height: 750px;
+    .navbar-title-site {
+        font-size: 10px;
+        padding: 1px;
+        margin: 1px;
+        color: black;
     }
 }
+
 @media only screen and (max-width:770px) {
+    .navbar-title-site {
+        font-size: 14px;
+        padding: 3px;
+        margin: 3px;
+        color: black;
+    }
+
     .welcome-hero {
         height: 600px;
     }
+
     .InputS1 {
         background: none;
     }
@@ -206,5 +228,11 @@ a.nav-link:hover {
         height: 74px !important;
         width: 95% !important;
         text-align: center;
+    }
+}
+
+@media only screen and (max-width:995px) {
+    .welcome-hero {
+        height: 750px;
     }
 }

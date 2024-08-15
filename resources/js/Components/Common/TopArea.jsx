@@ -23,12 +23,7 @@ export default function TopArea() {
                                 filter: "contrast(180%)",
                             }} src="/images/iccima_iran.png" alt="" />
                         </Navbar.Brand>
-                        <span style={{
-                            fontSize: "20px",
-                            padding: "5px",
-                            margin: "10px",
-                            color: "black"
-                        }}>دایرکتوری اعضای اتاق بازرگانی، صنایع، معادن و کشاورزی ایران</span>
+                        <span className='navbar-title-site'>دایرکتوری اعضای اتاق بازرگانی، صنایع، معادن و کشاورزی ایران</span>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto top_nav_app">

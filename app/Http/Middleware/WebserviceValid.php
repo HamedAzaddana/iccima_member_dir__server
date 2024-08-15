@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\ErrorResponse;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +25,7 @@ class WebserviceValid
             $username != $username_key ||
             $password != $password_key
         ) {
-            return response()->json([
-                'msg' => "Access Forbidden !",
-            ], 403);
+            return ErrorResponse::error_403_api("Access Forbidden !");
         }
 
         return $this->goNext($request, $next);

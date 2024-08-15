@@ -53,6 +53,7 @@ export default function CardResult({ info }) {
     let co_phone = info.co_phone;
     let co_fax = info.co_fax;
     let co_website = info.co_website;
+    let spl = info.spl;
     return (
         <div className="col-lg-12 col-md-12 col-sm-12 animate__animated animate__fadeIn animate__delay-0.7s wow">
             <div className="single-explore-item">
@@ -68,7 +69,7 @@ export default function CardResult({ info }) {
                         </div>
                         <div className="col-md-6 col-lg-6 col-sm-12 mt-3">
                             <h6 className='mt-1 pt-1 text-primary'><strong>{co_title.Persian}</strong></h6>
-                            <h3 className='mt-2'><a href="#" className='text-danger'><strong>{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</strong></a></h3>
+                            <h3 className='mt-2'><a onClick={handleNonDo} href="#" className='text-danger'><strong>{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</strong></a></h3>
                             <p className='mt-1 pt-1 text-dark'><strong>{co_type.Persian} {jalali_year ? `تاسیس ${jalali_year}` : ""}</strong></p>
                             <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: biz_activities_html }} ></p>
                             <br />
@@ -86,7 +87,7 @@ export default function CardResult({ info }) {
                             ) : ""}
                             <Link style={{
                                 width: "max-content"
-                            }} className="btn btn-secondary" href={`${appUrl}/#`}> <i className='fa fa-exclamation-circle'></i> &nbsp;
+                            }} className="btn btn-secondary" href={spl}> <i className='fa fa-exclamation-circle'></i> &nbsp;
                                 جزئیات</Link>
                         </div>
                     </div>

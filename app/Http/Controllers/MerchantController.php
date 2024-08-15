@@ -22,7 +22,10 @@ class MerchantController extends Controller
     }
     public function singleView($hash_id)
     {
-        dd($hash_id);
-        return Inertia::render('SingleMerchant',[]);
+        $route_ws_get_single = route("ws.search.single");
+        return Inertia::render('SingleMerchant',[
+            'hid'=>$hash_id,
+            'route_ws_get_single'=>$route_ws_get_single,
+        ]);
     }
 }

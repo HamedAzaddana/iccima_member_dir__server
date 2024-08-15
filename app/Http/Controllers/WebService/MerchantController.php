@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\WebService;
 
+use App\Exceptions\ErrorResponse;
 use App\Http\Controllers\Controller;
 use App\Models\MerchantUser as MerchantUserModel;
 use App\Models\Preset as PresetModel;
@@ -21,6 +22,7 @@ class MerchantController extends Controller
             $now_loading = $load_more;
         }
         $params['loaded_cnt'] = $now_loading;
+        $params['show_more'] = 1; //TODO
         request()->session()->put('params_filter_user', $params);
         $records_load = MerchantUserModel::get_data_els_filter($params,$now_loading);
         return response()->json([
@@ -30,8 +32,15 @@ class MerchantController extends Controller
     }
     public function single()
     {
+        $hid = request("hid");
+        $merchant_id = iccima_hashid_decode($hid);
+        $merchant = MerchantUserModel::find($merchant_id)->toArray();
+        if(!$merchant || !$merchant_id || !$hid){
+            return ErrorResponse::error_404_api("Not Found Resource Merchant !");
+        }
+        $merchant['__id'] = $hid;
         return response()->json([
-            'data' => [],
+            'data' => $merchant,
             'req' => [],
         ], 200);
     }

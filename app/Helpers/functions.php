@@ -83,5 +83,5 @@ function iccima_hashid_encode($id)
 function iccima_hashid_decode($hashed_id)
 {
     $h = new Hashids\Hashids(env("HASH_ID_SALT"), (int)env("MIN_HASH_LENGTH"));
-    return $h->decode($hashed_id)[0];
+    return @$h->decode($hashed_id)[0];
 }
