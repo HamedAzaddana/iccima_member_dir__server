@@ -23,9 +23,11 @@ class MerchantController extends Controller
     public function singleView($hash_id)
     {
         $route_ws_get_single = route("ws.search.single");
+        $route_404_page = route("errors.404.view");
         return Inertia::render('SingleMerchant',[
             'hid'=>$hash_id,
             'route_ws_get_single'=>$route_ws_get_single,
+            'route_404_page'=>$route_404_page,
         ]);
     }
 }

@@ -30,12 +30,17 @@ export default function CardResult({ info }) {
         var resultD = jd < 10 ? "0" + jd.toString() : jd.toString();
         return resultY;
     }
-    const handleNonDo = (e)=>{
+    const handleNonDo = (e) => {
         e.preventDefault();
     }
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     let card_type_id = parseInt(info.card_type_id);
+    //1 : بازرگانی
+    //2 : عضویت
+
     let person_type_id = parseInt(info.person_type_id);
+    //46 : حقیقی
+    //47 : حقوقی
 
     let co_image = (!info.co_image || info.co_image == "null")
         ? "https://cdn-icons-png.flaticon.com/512/9371/9371369.png" : "data:image/png;base64, " + info.co_image;

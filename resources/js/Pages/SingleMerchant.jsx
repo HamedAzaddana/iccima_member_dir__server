@@ -2,8 +2,9 @@ import { useState, useRef, useEffect } from 'react';
 import { Head } from '@inertiajs/react'
 import MainLayout from '@/Layouts/MainLayout';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
-export default function SingleMerchant({ hid, route_ws_get_single }) {
+export default function SingleMerchant({ hid, route_ws_get_single,route_404_page }) {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
@@ -58,12 +59,16 @@ export default function SingleMerchant({ hid, route_ws_get_single }) {
         } catch (error) {
             document.getElementById('loading-page-iccima').style.display = "none";
             toast.error(`Error fetching single data : ${error.message}`);
+            let status_code = error.response.status;
+            if (status_code == 404) {
+                window.location = route_404_page;
+            }
             console.log(error)
         }
     };
     useEffect(() => {
         fetchSingleData();
-        // console.log(JSON.parse(dataSingle.co_title).Persian)
+
     }, []);
 
 
@@ -71,12 +76,49 @@ export default function SingleMerchant({ hid, route_ws_get_single }) {
     return (
         <MainLayout>
             <div>
-                (dataSingle ?
-                (
-                <Head title={JSON.parse(dataSingle.co_title).Persian} />
-                ):
-                <div></div>
-                )
+                <Head title={dataSingle?.co_title ? JSON.parse(dataSingle.co_title).Persian : "اطلاعات"} />
+                {
+                    dataSingle?.co_title ?
+                        (
+                            <div className='placeholder-single-content'>
+                                <div className="container">
+                                    <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+                                        <div class="card-body text-dark">
+                                            <div className="row">
+                                                <div className="col-lg-7 col-md-7 col-sm-12">
+                                                    <h1 className='text-primary'>
+                                                        {JSON.parse(dataSingle.co_title).Persian}
+                                                    </h1>
+                                                </div>
+                                                <div className="col-lg-5 col-md-5 col-sm-12"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+                                        <div class="card-body text-dark">
+                                            This is some text within a card body.
+                                        </div>
+                                    </div>
+                                    <div class="card shadow-lg p-3 mb-5 bg-body rounded">
+                                        <div class="card-body text-dark">
+                                            This is some text within a card body.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ) :
+                        (
+                            <div className='placeholder-single-content'>
+                                <img src="/images/placeholder-loading-iccima-1.gif" alt="در حال بازگذاری ..." />
+                            </div>
+                        )
+                }
+                <div>
+                    <Toaster
+                        position="top-left"
+                        reverseOrder={true}
+                    />
+                </div>
             </div>
         </MainLayout>
     )

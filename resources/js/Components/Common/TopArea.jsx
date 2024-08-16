@@ -15,7 +15,7 @@ export default function TopArea() {
             <section className="top-area">
                 <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                     <Container>
-                        <Navbar.Brand href="#">
+                        <Navbar.Brand href="/#" onClick={handleNonDo}>
                             <img style={{
                                 width: "60px",
                                 height: "60px",
@@ -27,7 +27,7 @@ export default function TopArea() {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto top_nav_app">
-                                <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-home'></i> خانه</Link>
+                                <Link className="nav-link" href={`${appUrl}`}> <i className='fa fa-home'></i> خانه</Link>
                                 <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-info-circle'></i> راهنما</Link>
                                 <Link className="nav-link" href={`${appUrl}/#`}> <i className="fa fa-user-circle-o"></i> ورود </Link>
                                 <Link className="nav-link" href="#" onClick={handleNonDo}> <li className="select-opt text-dark">

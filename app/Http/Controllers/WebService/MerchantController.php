@@ -34,10 +34,11 @@ class MerchantController extends Controller
     {
         $hid = request("hid");
         $merchant_id = iccima_hashid_decode($hid);
-        $merchant = MerchantUserModel::find($merchant_id)->toArray();
+        $merchant = MerchantUserModel::find($merchant_id);
         if(!$merchant || !$merchant_id || !$hid){
             return ErrorResponse::error_404_api("Not Found Resource Merchant !");
         }
+        $merchant = $merchant->toArray();
         $merchant['__id'] = $hid;
         return response()->json([
             'data' => $merchant,

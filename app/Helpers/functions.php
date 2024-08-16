@@ -85,3 +85,21 @@ function iccima_hashid_decode($hashed_id)
     $h = new Hashids\Hashids(env("HASH_ID_SALT"), (int)env("MIN_HASH_LENGTH"));
     return @$h->decode($hashed_id)[0];
 }
+function iccima_change_sess_lang($lang)
+{
+    // $lang : Persian , English
+    request()->session()->put('current_browser_lang', $lang);
+}
+function iccima_get_sess_lang()
+{
+    // $lang : Persian , English
+    return request()->session()->get('current_browser_lang') ?
+        request()->session()->get('current_browser_lang') :
+        "Persian";
+}
+function iccima_sluggify($str)
+{
+    $str = str_replace(" ", "-", $str);
+    $str = str_replace("‌", "-", $str);
+    return $str;
+}

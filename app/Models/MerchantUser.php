@@ -195,7 +195,12 @@ class MerchantUser extends Model
         foreach ($hits__hits as $hits__hit) {
             $dt_els = $hits__hit['_source'];
             $dt_els['__id'] = iccima_hashid_encode((int)$hits__hit['_id']);
-            $dt_els['spl'] = route("home.single.view",['hash_id'=>$dt_els['__id']]);
+            $lang = iccima_get_sess_lang();
+            $slug = iccima_sluggify(json_decode($dt_els['co_title'])->{"$lang"});
+            $dt_els['spl'] = route("home.single.view",[
+                'hash_id'=>$dt_els['__id'],
+                'slug'=>$slug,
+            ]);
             $array[] = $dt_els;
         }
         return $array;
