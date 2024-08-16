@@ -12,8 +12,11 @@ class MerchantEUser extends Model
     protected $table = "merchants_e";
     public $timestamps = false;
     protected $fillable = [
-        'shared_chambers', 'specialized_committees', 'guild_types',
-        'card_no', 'last_updated_at'
+        "shared_chambers", // اتاق های مشترک
+        "specialized_committees", // کمیسیون های تخصصی
+        "guild_types", // تشکل ها
+        'card_no',
+        'last_updated_at'
     ];
     public function original_user(): BelongsTo
     {

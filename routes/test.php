@@ -6,7 +6,8 @@ use App\Http\Controllers\MerchantController;
 use App\Models\MerchantUser as MerchantUserModel;
 
 Route::get('/test2', function () {
-    dd($merchant = MerchantUserModel::find(1)->toArray());
+    // iccima_change_sess_lang("Persian");
+    dd(iccima_get_sess_lang());
 });
 Route::get('/test', function () {
     // $client = iccima_els_client();

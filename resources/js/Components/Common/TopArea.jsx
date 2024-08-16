@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/react'
 export default function TopArea() {
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
 
-    const handleNonDo = (e)=>{
+    const handleNonDo = (e) => {
         e.preventDefault();
     }
     return (
@@ -15,14 +15,16 @@ export default function TopArea() {
             <section className="top-area">
                 <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                     <Container>
-                        <Navbar.Brand href="/#" onClick={handleNonDo}>
-                            <img style={{
-                                width: "60px",
-                                height: "60px",
-                                borderRadius: "20%",
-                                filter: "contrast(180%)",
-                            }} src="/images/iccima_iran.png" alt="" />
-                        </Navbar.Brand>
+                        <Link href={`${appUrl}`}>
+                            <Navbar.Brand>
+                                <img style={{
+                                    width: "60px",
+                                    height: "60px",
+                                    borderRadius: "20%",
+                                    filter: "contrast(180%)",
+                                }} src="/images/iccima_iran.png" alt="" />
+                            </Navbar.Brand>
+                        </Link>
                         <span className='navbar-title-site'>دایرکتوری اعضای اتاق بازرگانی، صنایع، معادن و کشاورزی ایران</span>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">

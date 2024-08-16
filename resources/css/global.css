@@ -181,7 +181,10 @@ a.nav-link:hover {
     max-height: 530px;
 }
 
-
+.cover-img-single{
+    width: 100%;
+    height: 210px;
+}
 
 
 
@@ -192,6 +195,10 @@ a.nav-link:hover {
 }
 
 @media only screen and (max-width:770px) {
+    .cover-img-single{
+        width: 100%;
+        height: 300px;
+    }
     .navbar-title-site {
         font-size: 14px;
         padding: 3px;

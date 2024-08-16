@@ -35,13 +35,15 @@ class MerchantUser extends Model
         "co_main_address",
         "co_email",
         "postal_code",
-        "biz_activities",
-        "biz_activitiy_goods",
-        "coo_biz_activities",
-        "biz_act_goods_hs_codes",
-        "shared_chambers",
-        "specialized_committees",
-        "guild_types",
+        "biz_activities",// رشته فعالیت
+
+        "biz_activitiy_goods",// نوع فعالیت array
+        "coo_biz_activities",// گواهی های مبدا صادر شده array
+        "biz_act_goods_hs_codes",// کد های hs تجاری array
+        "shared_chambers",// اتاق های مشترک array
+        "specialized_committees",// کمیسیون های تخصصی array
+        "guild_types",// تشکل ها array
+        
         "last_updated_at"
     ];
     public function editable_user(): HasOne

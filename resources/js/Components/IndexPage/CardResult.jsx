@@ -1,64 +1,38 @@
 
 import { Link } from '@inertiajs/react'
+import { get_jalali_year } from '../../Utils/IccDate';
+import { iterate_prepare_data } from '../../Utils/IccObjArr';
 export default function CardResult({ info }) {
-
-    const get_jalali_year = (gy, gm, gd) => {
-        let g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-        let jy = 0;
-        if (gy > 1600) {
-            jy = 979;
-            gy -= 1600;
-        }
-        else {
-            jy = 0;
-            gy -= 621;
-        }
-        let gy2 = (gm > 2) ? (gy + 1) : gy;
-        let days = (365 * gy) + (parseInt((gy2 + 3) / 4)) - (parseInt((gy2 + 99) / 100)) + (parseInt((gy2 + 399) / 400)) - 80 + gd + g_d_m[gm - 1];
-        jy += 33 * (parseInt(days / 12053));
-        days %= 12053;
-        jy += 4 * (parseInt(days / 1461));
-        days %= 1461;
-        if (days > 365) {
-            jy += parseInt((days - 1) / 365);
-            days = (days - 1) % 365;
-        }
-        let jm = (days < 186) ? 1 + parseInt(days / 31) : 7 + parseInt((days - 186) / 30);
-        let jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
-        var resultY = jy.toString();
-        var resultM = jm < 10 ? "0" + jm.toString() : jm.toString();
-        var resultD = jd < 10 ? "0" + jd.toString() : jd.toString();
-        return resultY;
-    }
     const handleNonDo = (e) => {
         e.preventDefault();
     }
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
-    let card_type_id = parseInt(info.card_type_id);
+    let card_info = iterate_prepare_data(info);
+    console.log(card_info)
+    let card_type_id = parseInt(card_info.card_type_id);
     //1 : بازرگانی
     //2 : عضویت
 
-    let person_type_id = parseInt(info.person_type_id);
+    let person_type_id = parseInt(card_info.person_type_id);
     //46 : حقیقی
     //47 : حقوقی
-
-    let co_image = (!info.co_image || info.co_image == "null")
-        ? "https://cdn-icons-png.flaticon.com/512/9371/9371369.png" : "data:image/png;base64, " + info.co_image;
-    let owner_image = (!info.owner_image || info.owner_image == "null")
-        ? "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png" : "data:image/png;base64, " + info.owner_image;
-    let co_title = JSON.parse(info.co_title);
-    let owner_fullname = JSON.parse(info.owner_fullname);
-    let co_type = JSON.parse(info.co_type);
-    let biz_activities = JSON.parse(info.biz_activities);
+    let co_image = (!card_info.co_image || card_info.co_image == "null")
+        ? "https://cdn-icons-png.flaticon.com/512/9371/9371369.png" : "data:image/png;base64, " + card_info.co_image;
+    let owner_image = (!card_info.owner_image || card_info.owner_image == "null")
+        ? "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png" : "data:image/png;base64, " + card_info.owner_image;
+    let co_title = card_info.co_title;
+    let owner_fullname = card_info.owner_fullname;
+    let co_type = card_info.co_type;
+    let biz_activities = card_info.biz_activities;
     let biz_activities_html = biz_activities.Persian ? biz_activities.Persian : "";
-    let city = JSON.parse(info.city);
-    let cover_image = (!info.co_image || info.co_image == "null")
-        ? owner_image : "data:image/png;base64, " + info.co_image;
-    let jalali_year = info.co_establish_date ? get_jalali_year(info.co_establish_date, 1, 1) : "";
-    let co_phone = info.co_phone;
-    let co_fax = info.co_fax;
-    let co_website = info.co_website;
-    let spl = info.spl;
+    let city = card_info.city;
+    let cover_image = (!card_info.co_image || card_info.co_image == "null")
+        ? owner_image : "data:image/png;base64, " + card_info.co_image;
+    let jalali_year = card_info.co_establish_date ? get_jalali_year(card_info.co_establish_date, 1, 1) : 0;
+    let co_phone = card_info.co_phone;
+    let co_fax = card_info.co_fax;
+    let co_website = card_info.co_website;
+    let spl = card_info.spl;
     return (
         <div className="col-lg-12 col-md-12 col-sm-12 animate__animated animate__fadeIn animate__delay-0.7s wow">
             <div className="single-explore-item">
