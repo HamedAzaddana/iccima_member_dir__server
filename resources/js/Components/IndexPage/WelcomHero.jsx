@@ -64,6 +64,13 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
     const handleSearch = (e) => {
         getDataPrepare(e);
     }
+    const handleKeyType = (e) => {
+        if (e.key === 'Enter') {
+            setTimeout(function () {
+                document.getElementById('btn-do-search').click();
+            }, 500);
+        }
+    }
     const handleChangeVs = (e) => {
         const key = e.target.id;
         const value = e.target.value;
@@ -72,6 +79,18 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
             ...values,
             [key]: value,
         }))
+    }
+    const handleChangeVsReactive = (e) => {
+        const key = e.target.id;
+        const value = e.target.value;
+        // console.log(key,value,e.target);
+        setValues(values => ({
+            ...values,
+            [key]: value,
+        }))
+        setTimeout(function () {
+            document.getElementById('btn-do-search').click();
+        }, 500);
     }
     const focusInputS1 = (e) => {
         document.getElementById("kws").focus();
@@ -88,7 +107,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                     <div className="welcome-hero-txt">
                         <h2>به سادگی یک کلیک، با اعضای اتاق ایران آشنا شوید. </h2>
                         <p>
-                            بستر ارتباط آنلاین دارندگان کارت های عضویت و بازرگانی 
+                            بستر ارتباط آنلاین دارندگان کارت های عضویت و بازرگانی
                         </p>
                     </div>
                     <div className="welcome-hero-serch-box row">
@@ -104,6 +123,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     id="kws"
                                     className='text-dark'
                                     value={values.kws} onChange={handleChangeVs}
+                                    onKeyDown={handleKeyType}
                                     type="text" placeholder="نام،رشته فعالیت، نام کالا ..." />
 
                                 <div className="welcome-hero-form-icon">
@@ -157,12 +177,12 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                         <i className="flaticon-restaurant"></i>
                                     </div>
                                     <h2>صنعت</h2>
-                                    <div  className="form-check form-switch">
-                                        <input className="form-check-input" type="radio" 
-                                        id="group_act_type"
-                                        name="group_act_type"
-                                        value="صنعت"
-                                         onChange={handleChangeVs}
+                                    <div className="form-check form-switch">
+                                        <input className="form-check-input" type="radio"
+                                            id="group_act_type"
+                                            name="group_act_type"
+                                            value="صنعت"
+                                            onChange={handleChangeVsReactive}
                                         />
                                     </div>
                                 </div>
@@ -174,11 +194,11 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     </div>
                                     <h2>بازرگانی</h2>
                                     <div className="form-check form-switch">
-                                        <input className="form-check-input" type="radio" 
-                                        id="group_act_type"
-                                        value="بازرگانی"
-                                        name="group_act_type"
-                                         onChange={handleChangeVs}
+                                        <input className="form-check-input" type="radio"
+                                            id="group_act_type"
+                                            value="بازرگانی"
+                                            name="group_act_type"
+                                            onChange={handleChangeVsReactive}
                                         />
                                     </div>
                                 </div>
@@ -190,11 +210,11 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     </div>
                                     <h2>کشاورزی</h2>
                                     <div className="form-check form-switch">
-                                        <input className="form-check-input" type="radio" 
-                                        id="group_act_type"
-                                        value="کشاورزی"
-                                        name="group_act_type"
-                                         onChange={handleChangeVs}
+                                        <input className="form-check-input" type="radio"
+                                            id="group_act_type"
+                                            value="کشاورزی"
+                                            name="group_act_type"
+                                            onChange={handleChangeVsReactive}
                                         />
                                     </div>
                                 </div>
@@ -206,11 +226,11 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     </div>
                                     <h2>معدن</h2>
                                     <div className="form-check form-switch">
-                                        <input className="form-check-input" type="radio" 
-                                        id="group_act_type"
-                                        value="معدن"
-                                        name="group_act_type"
-                                         onChange={handleChangeVs}
+                                        <input className="form-check-input" type="radio"
+                                            id="group_act_type"
+                                            value="معدن"
+                                            name="group_act_type"
+                                            onChange={handleChangeVsReactive}
                                         />
                                     </div>
                                 </div>

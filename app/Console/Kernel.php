@@ -11,6 +11,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\ResetTables::class,
         Commands\SyncDataIndex::class,
+        Commands\MakeAdminUser::class,
     ];
     /**
      * Define the application's command schedule.

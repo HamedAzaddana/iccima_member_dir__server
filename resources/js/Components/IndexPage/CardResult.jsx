@@ -8,7 +8,7 @@ export default function CardResult({ info }) {
     }
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     let card_info = iterate_prepare_data(info);
-    console.log(card_info)
+    // console.log(card_info)
     let card_type_id = parseInt(card_info.card_type_id);
     //1 : بازرگانی
     //2 : عضویت
@@ -56,18 +56,18 @@ export default function CardResult({ info }) {
                         </div>
                         <div className="col-md-3 col-lg-3 col-sm-12 mt-3 ContactsPartCardRs">
                             {co_phone ? (
-                                <p className='mt-1 p-1'><a className='text-primary' href="#"> <i className='fa fa-phone'></i> <strong>{co_phone}</strong></a> </p>
+                                <p className='mt-1 p-1'><a className='text-primary' href="#" onClick={handleNonDo}> <i className='fa fa-phone'></i> <strong>{co_phone}</strong></a> </p>
                             ) : ""}
                             {co_fax ? (
-                                <p className='mt-1 p-1'><a className='text-primary' href="#"> <i className='fa fa-fax'></i> <strong>{co_fax}</strong></a> </p>
+                                <p className='mt-1 p-1'><a className='text-primary' href="#" onClick={handleNonDo}> <i className='fa fa-fax'></i> <strong>{co_fax}</strong></a> </p>
                             ) : ""}
                             {co_website ? (
-                                <p className='mt-1 p-1'><a className='text-primary' href="#"> <i className='fa fa-globe'></i> <strong>{co_website}</strong></a> </p>
+                                <p className='mt-1 p-1'><a className='text-primary' href="#" onClick={handleNonDo}> <i className='fa fa-globe'></i> <strong>{co_website}</strong></a> </p>
                             ) : ""}
                             <Link style={{
                                 width: "max-content"
-                            }} className="btn btn-secondary" href={spl}> <i className='fa fa-exclamation-circle'></i> &nbsp;
-                                جزئیات</Link>
+                            }} className="btn btn-sm btn-secondary" href={spl}> <i className='fa fa-exclamation-circle'></i> &nbsp;
+                                اطلاعات بیشتر</Link>
                         </div>
                     </div>
                 </div>

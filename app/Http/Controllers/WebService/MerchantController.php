@@ -21,10 +21,13 @@ class MerchantController extends Controller
         } else {
             $now_loading = $load_more;
         }
+        $params['show_more_btn'] = 1; 
         $params['loaded_cnt'] = $now_loading;
-        $params['show_more'] = 1; //TODO
         request()->session()->put('params_filter_user', $params);
         $records_load = MerchantUserModel::get_data_els_filter($params,$now_loading);
+        if($now_loading > count($records_load)){
+            $params['show_more_btn'] = 0; 
+        }
         return response()->json([
             'data' => $records_load,
             'req' => $params,

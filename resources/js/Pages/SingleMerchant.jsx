@@ -55,7 +55,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                     <div className="card shadow-lg p-3 mb-5 bg-body rounded">
                                         <div className="card-body text-dark">
                                             <div className="row">
-                                                <div className="col-lg-8 col-md-7 col-sm-12">
+                                                <div className="col-lg-8 col-md-7 col-sm-12 mt-2">
                                                     <h1 className='text-primary'>
                                                         {(dataSingle.co_title).Persian}
                                                     </h1>
@@ -69,10 +69,10 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                         {dataSingle?.province?.Persian} {dataSingle?.city?.Persian}
                                                     </h4>
                                                 </div>
-                                                <div className="col-lg-2 col-md-2 col-sm-12">
+                                                <div className="col-lg-2 col-md-2 col-sm-12 mt-4">
                                                     {dataSingle.co_image_new ? (<img className='cover-img-single' src={dataSingle.co_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname).Persian : (dataSingle.co_title).Persian} />) : ("")}
                                                 </div>
-                                                <div className="col-lg-2 col-md-2 col-sm-12">
+                                                <div className="col-lg-2 col-md-2 col-sm-12 mt-4">
                                                     <img className='cover-img-single' src={dataSingle.owner_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname).Persian : (dataSingle.co_title).Persian} />
                                                 </div>
                                             </div>

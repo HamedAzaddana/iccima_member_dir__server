@@ -23,12 +23,17 @@ export default function ExploreArea({ dataSearch, req_params }) {
                                                 {dataSearch.map((info, ik_loop) => (
                                                     <CardResult key={ik_loop} info={info} />
                                                 ))}
+                                                {
+                                                    (req_params.show_more_btn ?
+                                                        (<div className="mt-5 p-2">
+                                                            <center>
+                                                                <button onClick={handleClickMore} type="button" className="btn btn-warning MoreBtnCards"> <i className="fa fa-search-plus"></i> نمایش بیشتر </button>
+                                                            </center>
+                                                        </div>) :
+                                                        ("")
+                                                    )
+                                                }
 
-                                                <div className="mt-5 p-2">
-                                                    <center>
-                                                        <button onClick={handleClickMore} type="button" className="btn btn-warning MoreBtnCards"> <i className="fa fa-search-plus"></i> نمایش بیشتر </button>
-                                                    </center>
-                                                </div>
                                             </div>
                                         )
                                         :
@@ -44,8 +49,8 @@ export default function ExploreArea({ dataSearch, req_params }) {
                                     <div className="container">
                                         <div className="col-12 text-center">
                                             <h2 style={{
-                                                fontSize:"35px"
-                                            }} className="mb-4 text-secondary">ابتدا فیلتر خود را انتخاب کرده و سپس جستجو را بزنید !</h2>
+                                                fontSize: "35px"
+                                            }} className="mb-4 text-secondary"></h2>
                                         </div>
                                     </div>
                                 </div>)
