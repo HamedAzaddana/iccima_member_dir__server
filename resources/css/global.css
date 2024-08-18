@@ -191,6 +191,11 @@ a.nav-link:hover {
     padding: 0;
     margin-bottom: -140px;
 }
+.welcome-hero-serch-box input,
+.welcome-hero-serch-box select,
+.welcome-hero-serch-box select option{
+    font-size: 15px !important;
+}
 @media only screen and (max-width:995px) {
     .welcome-hero {
         height: 750px;

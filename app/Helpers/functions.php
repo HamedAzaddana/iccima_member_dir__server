@@ -103,3 +103,28 @@ function iccima_sluggify($str)
     $str = str_replace("‌", "-", $str);
     return $str;
 }
+function iccima_get_current_user()
+{
+    $user_obj = null;
+    if (auth()->guard('web_merchant')->check()) {
+        $user_obj = auth()->guard('web_merchant')->user();
+    }
+    if (auth()->guard('web_admin')->check()) {
+        $user_obj = auth()->guard('web_admin')->user();
+    }
+    return (array)$user_obj;
+}
+function iccima_get_current_user_id() {
+    return (int)@iccima_get_current_user()['id'];
+}
+function iccima_get_current_user_type()
+{
+    $user_type = "guest";
+    if (auth()->guard('web_merchant')->check()) {
+        $user_type = "merchant";
+    }
+    if (auth()->guard('web_admin')->check()) {
+        $user_type = "admin";
+    }
+    return $user_type;
+}

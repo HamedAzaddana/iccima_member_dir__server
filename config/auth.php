@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'web_merchant',
+        'passwords' => 'merchants',
     ],
 
     /*
@@ -36,9 +36,13 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'web_merchant' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'merchants',
+        ],
+        'web_admin' => [
+            'driver'     => 'session',
+            'provider'   => 'admins',
         ],
     ],
 
@@ -60,15 +64,14 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'merchants' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\MerchantUser::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AdminUser::class,
+        ],
     ],
 
     /*
@@ -91,8 +94,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'merchants' => [
+            'provider' => 'merchants',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

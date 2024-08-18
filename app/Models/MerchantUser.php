@@ -264,7 +264,9 @@ class MerchantUser extends Model
             $params['body']['query']['bool']['filter'][] = ["match" => ["group_activity_type" => (string)$filters_req['group_act_type']]];
         }
         $response = $client->search($params);
-        return iccima_prepare_get_db_elastic($response->asArray());
+        $result_array = iccima_prepare_get_db_elastic($response->asArray());
+        shuffle($result_array);
+        return $result_array;
     }
 
     public static function sync_data_indexes()
