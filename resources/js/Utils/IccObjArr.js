@@ -50,8 +50,8 @@ export function iterate_prepare_data(object) {
                 let Persian_str = "";
                 let English_str = "";
                 _val.forEach((_val_item) =>{
-                    Persian_str+=`${_val_item.Persian} <br>`;
-                    English_str+=`${_val_item.English} <br>`;
+                    Persian_str+=_val_item.Persian ? `${_val_item.Persian} <br>` : '';
+                    English_str+=_val_item.English ? `${_val_item.English} <br>` : '';
                 });
                 new_val.Persian =Persian_str;
                 new_val.English =English_str;

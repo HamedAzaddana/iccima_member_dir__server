@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Elastic\Elasticsearch\ClientBuilder;
 use App\Helpers\Pdate;
 use App\Services\CardsData as CardsDataService;
+use Exception;
 
 class MerchantUser extends Model
 {
@@ -281,9 +282,14 @@ class MerchantUser extends Model
             $_data = CardsDataService::getDataByIndex($index_number_updated);
             $_data_sql = self::prepare_save_db_sql($_data);
             $_data_sql['last_updated_at'] = Pdate::persianTimeStampNow();
-            self::updateOrCreate([
-                self::$unique_base_orc   => $_data_sql[self::$unique_base_orc],
-            ], $_data_sql);
+            if(@$_data_sql["card_no"]){
+                self::updateOrCreate([
+                    self::$unique_base_orc   => $_data_sql[self::$unique_base_orc],
+                ], $_data_sql);
+            }else{
+                throw new \ErrorException("The Card no is null ! Index number : $index_number_updated");
+            }
+           
             IndexNumberApi::where('index_number', $index_number_updated)->update([
                 'status' => 1,
                 'last_updated_at' => Pdate::persianTimeStampNow(),
