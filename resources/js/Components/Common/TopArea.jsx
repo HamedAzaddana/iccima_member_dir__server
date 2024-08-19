@@ -26,6 +26,7 @@ export default function TopArea() {
                             </Navbar.Brand>
                         </Link>
                         <span className='navbar-title-site'>دایرکتوری اعضای اتاق بازرگانی، صنایع، معادن و کشاورزی ایران</span>
+                        <span className='navbar-title-site-mobile'>دایرکتوری اعضای اتاق بازرگانی</span>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto top_nav_app">

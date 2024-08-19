@@ -41,18 +41,18 @@ export default function CardResult({ info }) {
                         <div className="col-md-2 col-lg-2 col-sm-12 mt-3">
                             <div className="explore-person-img">
                                 <a href="#" onClick={handleNonDo}>
-                                    <img style={{ borderRadius: "35%" }} src={cover_image} alt={owner_fullname.Persian ?
+                                    <img style={{ borderRadius: "5%" }} src={cover_image} alt={owner_fullname.Persian ?
                                         owner_fullname.Persian : co_title.Persian} />
                                 </a>
                             </div>
                         </div>
                         <div className="col-md-6 col-lg-6 col-sm-12 mt-3">
                             <h6 className='mt-1 pt-1 text-primary'><strong>{co_title.Persian}</strong></h6>
-                            <h3 className='mt-2'><a onClick={handleNonDo} href="#" className='text-danger'><strong>{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</strong></a></h3>
+                            <p className='mt-1 pt-1 text-dark'><strong>{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</strong></p>
                             <p className='mt-1 pt-1 text-dark'><strong>{co_type.Persian} {jalali_year ? `تاسیس ${jalali_year}` : ""}</strong></p>
                             <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: biz_activities_html }} ></p>
                             <br />
-                            <strong>{city.Persian}</strong>
+                            <strong> <i className='fa fa-map-marker'></i> {city.Persian}</strong>
                         </div>
                         <div className="col-md-3 col-lg-3 col-sm-12 mt-3 ContactsPartCardRs">
                             {co_phone ? (

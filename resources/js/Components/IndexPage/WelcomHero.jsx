@@ -174,7 +174,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             <li>
                                 <div className="single-list-topics-content">
                                     <div className="single-list-topics-icon">
-                                        <i className="flaticon-restaurant"></i>
+                                        <i className="fa fa-cogs"></i>
                                     </div>
                                     <h2>صنعت</h2>
                                     <div className="form-check form-switch">
@@ -190,7 +190,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             <li>
                                 <div className="single-list-topics-content">
                                     <div className="single-list-topics-icon">
-                                        <i className="flaticon-travel"></i>
+                                        <i className="fa fa-address-card"></i>
                                     </div>
                                     <h2>بازرگانی</h2>
                                     <div className="form-check form-switch">
@@ -206,7 +206,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             <li>
                                 <div className="single-list-topics-content">
                                     <div className="single-list-topics-icon">
-                                        <i className="flaticon-building"></i>
+                                        <i className="fa fa-cubes"></i>
                                     </div>
                                     <h2>کشاورزی</h2>
                                     <div className="form-check form-switch">
@@ -222,7 +222,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             <li>
                                 <div className="single-list-topics-content">
                                     <div className="single-list-topics-icon">
-                                        <i className="flaticon-pills"></i>
+                                        <i className="fa fa-globe"></i>
                                     </div>
                                     <h2>معدن</h2>
                                     <div className="form-check form-switch">

@@ -196,6 +196,18 @@ a.nav-link:hover {
 .welcome-hero-serch-box select option{
     font-size: 15px !important;
 }
+.navbar-title-site-mobile{
+    display: none;
+    color: black !important;
+}
+.single-list-topics-content,.single-list-topics-content input{
+    cursor: pointer;
+}
+.single-list-topics-icon .fa{
+    font-size: 40px !important;
+    color: #746d6d;
+    padding: 10px !important;
+}
 @media only screen and (max-width:995px) {
     .welcome-hero {
         height: 750px;
@@ -263,11 +275,12 @@ a.nav-link:hover {
     .layout-overlay-loading img {
         width: 35%;
     }
-
+    .navbar-title-site-mobile{
+        display: block;
+        color: black !important;
+        font-size: 11px !important;
+    }
     .navbar-title-site {
-        font-size: 10px;
-        padding: 1px;
-        margin: 1px;
-        color: black;
+        display: none;
     }
 }
