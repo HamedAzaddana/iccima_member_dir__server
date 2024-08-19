@@ -9,8 +9,9 @@ use Elastic\Elasticsearch\ClientBuilder;
 use App\Helpers\Pdate;
 use App\Services\CardsData as CardsDataService;
 use Exception;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class MerchantUser extends Model
+class MerchantUser extends Authenticatable
 {
     use HasFactory;
     protected $table = "merchants";

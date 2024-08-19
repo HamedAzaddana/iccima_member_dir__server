@@ -24,6 +24,8 @@ Route::get('/representatives/{hash_id}/{slug?}', [MerchantController::class, 'si
 Route::get('/errors/404', [ErrorViewController::class, 'page_404'])->name('errors.404.view');
 Route::get('/errors/403', [ErrorViewController::class, 'page_403'])->name('errors.403.view');
 Route::get('/authentication/loginSso', [AuthenticationController::class, 'loginSso']);
+Route::get('/authentication/logOut', [AuthenticationController::class, 'logout'])->name("auth.logout");
+Route::get('/authentication/login/{nc}', [AuthenticationController::class, 'login']);
 
 
 require __DIR__ . "/webservice.php";

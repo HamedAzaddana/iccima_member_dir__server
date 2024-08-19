@@ -107,10 +107,10 @@ function iccima_get_current_user()
 {
     $user_obj = null;
     if (auth()->guard('web_merchant')->check()) {
-        $user_obj = auth()->guard('web_merchant')->user();
+        $user_obj = auth()->guard('web_merchant')->user()->toArray();
     }
     if (auth()->guard('web_admin')->check()) {
-        $user_obj = auth()->guard('web_admin')->user();
+        $user_obj = auth()->guard('web_admin')->user()->toArray();
     }
     return (array)$user_obj;
 }

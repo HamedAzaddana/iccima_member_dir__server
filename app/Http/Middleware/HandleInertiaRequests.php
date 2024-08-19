@@ -36,7 +36,11 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            //
+            'iccima.user.obj' => iccima_get_current_user(),
+            'iccima.user.type' => iccima_get_current_user_type(),
+            'iccima.user.__id' => iccima_get_current_user_id(),
+            'iccima.links.login' => env("LOGIN_URL_SSO"),
+            'iccima.links.logout' => route("auth.logout"),
         ]);
     }
 }
