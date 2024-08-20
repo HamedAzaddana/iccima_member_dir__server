@@ -64,6 +64,10 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
     const handleSearch = (e) => {
         getDataPrepare(e);
     }
+    const handleClickTopicV = (e)=>{
+        let fiv = e?.target?.getAttribute('fiv')?.toString();
+        document.querySelector(`.single-list-topics-content .form-switch input.${fiv}`)?.click();
+    }
     const handleKeyType = (e) => {
         if (e.key === 'Enter') {
             setTimeout(function () {
@@ -172,13 +176,14 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                     <div className="list-topics-content">
                         <ul>
                             <li>
-                                <div className="single-list-topics-content">
+                                <div className="single-list-topics-content" fiv="group_act_type_v1" 
+                                onClick={handleClickTopicV}>
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-cogs"></i>
                                     </div>
                                     <h2>صنعت</h2>
                                     <div className="form-check form-switch">
-                                        <input className="form-check-input" type="radio"
+                                        <input className="form-check-input group_act_type_v1" type="radio"
                                             id="group_act_type"
                                             name="group_act_type"
                                             value="صنعت"
@@ -188,13 +193,14 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                 </div>
                             </li>
                             <li>
-                                <div className="single-list-topics-content">
+                                <div className="single-list-topics-content" fiv="group_act_type_v2"
+                                onClick={handleClickTopicV}>
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-address-card"></i>
                                     </div>
                                     <h2>بازرگانی</h2>
                                     <div className="form-check form-switch">
-                                        <input className="form-check-input" type="radio"
+                                        <input className="form-check-input group_act_type_v2" type="radio"
                                             id="group_act_type"
                                             value="بازرگانی"
                                             name="group_act_type"
@@ -204,13 +210,14 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                 </div>
                             </li>
                             <li>
-                                <div className="single-list-topics-content">
+                                <div className="single-list-topics-content" fiv="group_act_type_v3"
+                                onClick={handleClickTopicV}>
                                     <div className="single-list-topics-icon">
-                                        <i className="fa fa-cubes"></i>
+                                        <i className="fa fa-leaf"></i>
                                     </div>
                                     <h2>کشاورزی</h2>
                                     <div className="form-check form-switch">
-                                        <input className="form-check-input" type="radio"
+                                        <input className="form-check-input group_act_type_v3" type="radio"
                                             id="group_act_type"
                                             value="کشاورزی"
                                             name="group_act_type"
@@ -220,13 +227,14 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                 </div>
                             </li>
                             <li>
-                                <div className="single-list-topics-content">
+                                <div className="single-list-topics-content" fiv="group_act_type_v4"
+                                onClick={handleClickTopicV}>
                                     <div className="single-list-topics-icon">
-                                        <i className="fa fa-globe"></i>
+                                        <i className="fa fa-diamond"></i>
                                     </div>
                                     <h2>معدن</h2>
                                     <div className="form-check form-switch">
-                                        <input className="form-check-input" type="radio"
+                                        <input className="form-check-input group_act_type_v4" type="radio"
                                             id="group_act_type"
                                             value="معدن"
                                             name="group_act_type"

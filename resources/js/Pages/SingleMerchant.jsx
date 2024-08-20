@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Head } from '@inertiajs/react'
+import { usePage } from '@inertiajs/react'
 import MainLayout from '@/Layouts/MainLayout';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
@@ -10,6 +11,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
     const [dataSingle, setDataSingle] = useState([]);
+    const { iccima } = usePage().props;
 
     const fetchSingleData = async () => {
         let _post_data = {
@@ -42,7 +44,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     }, []);
 
 
-
+    console.log(dataSingle)
     return (
         <MainLayout>
             <div>
@@ -52,6 +54,39 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                         (
                             <div className='placeholder-single-content'>
                                 <div className="container">
+                                    {
+                                        iccima.user.__id && iccima.user.__id == hid ?
+                                            (
+                                                <div className="card shadow-lg p-3 mb-5 bg-body rounded">
+                                                    <div className="card-body text-dark">
+                                                        <div className="row">
+                                                            <div className="col-lg-12 col-md-12 col-sm-12">
+                                                                <h3 className='text-primary font-weight-bold'>فرم خوداظهاری بازرگان</h3>
+                                                                <div className='p-2 mt-1'>
+                                                                    <div className="mb-3">
+                                                                        <label className="form-label">اتاق های مشترک</label>
+                                                                        <textarea className="form-control iccima_met" id="shared_chambers__e" rows="5"
+                                                                            defaultValue={dataSingle.__merchant_e.shared_chambers}></textarea>
+                                                                    </div>
+                                                                    <div className="mb-3">
+                                                                        <label className="form-label">کمیسیون های تخصصی</label>
+                                                                        <textarea className="form-control iccima_met" id="specialized_committees__e" rows="5"
+                                                                            defaultValue={dataSingle.__merchant_e.specialized_committees}></textarea>
+                                                                    </div>
+                                                                    <div className="mb-3">
+                                                                        <label className="form-label">تشکل ها</label>
+                                                                        <textarea className="form-control iccima_met" id="guild_types__e" rows="5"
+                                                                            defaultValue={dataSingle.__merchant_e.guild_types}></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                            :
+                                            (<div></div>)
+                                    }
                                     <div className="card shadow-lg p-3 mb-5 bg-body rounded">
                                         <div className="card-body text-dark">
                                             <div className="row">
@@ -73,7 +108,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                     {dataSingle.co_image_new ? (<img className='cover-img-single' src={dataSingle.co_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname).Persian : (dataSingle.co_title).Persian} />) : ("")}
                                                 </div>
                                                 <div className="col-lg-2 col-md-2 col-sm-12 mt-4">
-                                                    <img className='cover-img-single' src={dataSingle.owner_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname).Persian : (dataSingle.co_title).Persian} />
+                                                    {dataSingle.owner_image_new ? (<img className='cover-img-single' src={dataSingle.owner_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname).Persian : (dataSingle.co_title).Persian} />) : ("")}
                                                 </div>
                                             </div>
                                         </div>
@@ -126,6 +161,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         ) :

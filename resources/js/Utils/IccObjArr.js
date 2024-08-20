@@ -39,7 +39,7 @@ export function iterate_prepare_data(object) {
         }
         if (key == "owner_image") {
             let new_val = (!_val || _val == "null")
-                ? "https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png" : "data:image/png;base64, " + _val;
+                ? "" : "data:image/png;base64, " + _val;
             let new_key = "owner_image_new";
             new_obj[new_key] = new_val;
         }

@@ -6,11 +6,10 @@ import { Link } from '@inertiajs/react'
 import { usePage } from '@inertiajs/react'
 
 export default function TopArea() {
-    const { iccima } = usePage().props
+    const { iccima } = usePage().props;
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     const loginSsoUrl = import.meta.env.VITE_LOGIN_URL_SSO || 'http://127.0.0.1:8000/loginSso';
-    const logoutUrl = import.meta.env.VITE_LOGIN_URL_SSO || 'http://127.0.0.1:8000/loginSso';
-
+ 
     const handleNonDo = (e) => {
         e.preventDefault();
     }
@@ -40,7 +39,7 @@ export default function TopArea() {
                                     iccima.user.__id ?
                                         (
                                             <>
-                                                <Link className="nav-link" href="#"> <i className='fa fa-user-circle-o'></i> پروفایل</Link>
+                                                <Link className="nav-link" href={iccima.user.spl}> <i className='fa fa-user-circle-o'></i> پروفایل</Link>
                                                 <Link className="nav-link" href={iccima.links.logout}> <i className='fa fa-sign-out'></i> خروج</Link>
                                             </>
                                         ) :

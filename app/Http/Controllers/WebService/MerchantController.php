@@ -21,12 +21,12 @@ class MerchantController extends Controller
         } else {
             $now_loading = $load_more;
         }
-        $params['show_more_btn'] = 1; 
+        $params['show_more_btn'] = 1;
         $params['loaded_cnt'] = $now_loading;
         request()->session()->put('params_filter_user', $params);
-        $records_load = MerchantUserModel::get_data_els_filter($params,$now_loading);
-        if($now_loading > count($records_load)){
-            $params['show_more_btn'] = 0; 
+        $records_load = MerchantUserModel::get_data_els_filter($params, $now_loading);
+        if ($now_loading > count($records_load)) {
+            $params['show_more_btn'] = 0;
         }
         return response()->json([
             'data' => $records_load,
@@ -38,11 +38,16 @@ class MerchantController extends Controller
         $hid = request("hid");
         $merchant_id = iccima_hashid_decode($hid);
         $merchant = MerchantUserModel::find($merchant_id);
-        if(!$merchant || !$merchant_id || !$hid){
+        $merchant_e = [];
+        if($merchant){
+            $merchant_e = $merchant->editable_user ? $merchant->editable_user->toArray() : [];
+        }
+        if (!$merchant || !$merchant_id || !$hid) {
             return ErrorResponse::error_404_api("Not Found Resource Merchant !");
         }
         $merchant = $merchant->toArray();
         $merchant['__id'] = $hid;
+        $merchant['__merchant_e'] = $merchant_e;
         return response()->json([
             'data' => $merchant,
             'req' => [],

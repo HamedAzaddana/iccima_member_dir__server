@@ -41,7 +41,7 @@ export default function CardResult({ info }) {
                         <div className="col-md-2 col-lg-2 col-sm-12 mt-3">
                             <div className="explore-person-img">
                                 <a href="#" onClick={handleNonDo}>
-                                    <img style={{ borderRadius: "5%" }} src={cover_image} alt={owner_fullname.Persian ?
+                                    <img className='user-profile-cr' src={cover_image} alt={owner_fullname.Persian ?
                                         owner_fullname.Persian : co_title.Persian} />
                                 </a>
                             </div>

@@ -38,7 +38,13 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'iccima.user.obj' => iccima_get_current_user(),
             'iccima.user.type' => iccima_get_current_user_type(),
-            'iccima.user.__id' => iccima_get_current_user_id(),
+            'iccima.user.__id' =>
+               iccima_get_current_user_id() ? iccima_hashid_encode(iccima_get_current_user_id()) : "",
+            'iccima.user.spl' => route("home.single.view", [
+                'hash_id' =>
+                iccima_hashid_encode(iccima_get_current_user_id()),
+                'slug' => 'profile'
+            ]),
             'iccima.links.login' => env("LOGIN_URL_SSO"),
             'iccima.links.logout' => route("auth.logout"),
         ]);
