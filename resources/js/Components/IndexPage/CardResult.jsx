@@ -47,25 +47,27 @@ export default function CardResult({ info }) {
                             </div>
                         </div>
                         <div className="col-md-6 col-lg-6 col-sm-12 mt-3">
-                            <h6 className='mt-1 pt-1 text-primary'><strong>{co_title.Persian}</strong></h6>
+                            <h6 className='mt-1 pt-1 text-danger'><strong>{co_title.Persian}</strong></h6>
                             <p className='mt-1 pt-1 text-dark'><strong>{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</strong></p>
                             <p className='mt-1 pt-1 text-dark'><strong>{co_type.Persian} {jalali_year ? `تاسیس ${jalali_year}` : ""}</strong></p>
                             <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: biz_activities_html }} ></p>
                             <br />
-                            <strong> <i className='fa fa-map-marker'></i> {city.Persian}</strong>
+                            <strong> <i className='fa fa-map-marker'></i> {city.Persian}</strong> &nbsp; | &nbsp; <strong> <i className='fa fa-id-card-o'></i> {card_type_id == 2 ? `عضویت`:`بازرگانی`}</strong>
                         </div>
                         <div className="col-md-3 col-lg-3 col-sm-12 mt-3 ContactsPartCardRs">
                             {co_phone ? (
-                                <p className='mt-1 p-1'><a className='text-primary' href="#" onClick={handleNonDo}> <i className='fa fa-phone'></i> <strong>{co_phone}</strong></a> </p>
+                                <p className='mt-1 p-1'><a className='text-dark' href="#" onClick={handleNonDo}> <i className='fa fa-phone'></i> <strong>{co_phone}</strong></a> </p>
                             ) : ""}
                             {co_fax ? (
-                                <p className='mt-1 p-1'><a className='text-primary' href="#" onClick={handleNonDo}> <i className='fa fa-fax'></i> <strong>{co_fax}</strong></a> </p>
+                                <p className='mt-1 p-1'><a className='text-dark' href="#" onClick={handleNonDo}> <i className='fa fa-fax'></i> <strong>{co_fax}</strong></a> </p>
                             ) : ""}
                             {co_website ? (
-                                <p className='mt-1 p-1'><a className='text-primary' href="#" onClick={handleNonDo}> <i className='fa fa-globe'></i> <strong>{co_website}</strong></a> </p>
+                                <p className='mt-1 p-1'><a className='text-dark' href="#" onClick={handleNonDo}> <i className='fa fa-globe'></i> <strong>{co_website}</strong></a> </p>
                             ) : ""}
                             <Link style={{
-                                width: "max-content"
+                                width: "max-content",
+                                fontSize: "12px",
+                                padding: "5px",
                             }} className="btn btn-sm btn-secondary" href={spl}> <i className='fa fa-exclamation-circle'></i> &nbsp;
                                 اطلاعات بیشتر</Link>
                         </div>

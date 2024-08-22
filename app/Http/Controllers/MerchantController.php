@@ -24,11 +24,15 @@ class MerchantController extends Controller
     {
         $route_ws_get_single = route("ws.search.single");
         $route_404_page = route("errors.404.view");
+        $route_ws_saveVals = route("ws.search.saveVals");
+        $route_ws_delBrImg = route("ws.search.delBrImg");
 
         return Inertia::render('SingleMerchant', [
             'hid' => $hash_id,
             'route_ws_get_single' => $route_ws_get_single,
             'route_404_page' => $route_404_page,
+            'route_ws_saveVals' => $route_ws_saveVals,
+            'route_ws_delBrImg' => $route_ws_delBrImg,
         ]);
     }
 }

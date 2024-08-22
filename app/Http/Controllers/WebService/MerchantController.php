@@ -50,7 +50,25 @@ class MerchantController extends Controller
         $merchant['__merchant_e'] = $merchant_e;
         return response()->json([
             'data' => $merchant,
-            'req' => [],
+            'req' => request()->all(),
         ], 200);
+    }
+    public function saveFormValsUnconf()
+    {
+        // $hid = request("hid");
+        $request_forms = request()->all();
+ 
+
+        //check lang and store values according it !
+
+        return response()->json([
+            'data' => ['s'],
+            'file' => $_FILES,
+            'req' => request()->all(),
+        ], 200);
+    }
+    public function deleteBrandLogo()
+    {
+
     }
 }

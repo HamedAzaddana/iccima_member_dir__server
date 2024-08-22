@@ -7,12 +7,60 @@ import toast, { Toaster } from 'react-hot-toast';
 import { iterate_prepare_data } from '../Utils/IccObjArr';
 import { get_jalali_year } from '../Utils/IccDate';
 
-export default function SingleMerchant({ hid, route_ws_get_single, route_404_page }) {
+
+export default function SingleMerchant({ hid, route_ws_get_single, route_404_page, route_ws_saveVals, route_ws_delBrImg }) {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
+    const [forms, setForms] = useState(null);
     const [dataSingle, setDataSingle] = useState([]);
     const { iccima } = usePage().props;
+    const handleChangeVs = (e) => {
+        const key = e.target.id;
+        const value = e.target.value;
+        // console.log(key, value, e.target);
+        setForms(forms => ({
+            ...forms,
+            [key]: value,
+        }))
+    }
+    const handleChangeFile = (e) => {
+        const key = e.target.id;
+        const value = e.target.value;
+        // console.log(key, value, e.target);
+        // console.log(e.target?.files[0]);
+        setForms(forms => ({
+            ...forms,
+            [key]: e.target?.files[0],
+        }))
+    }
+    const handleSubmitForm = (e) => {
+        document.getElementById('loading-page-iccima').style.display = "inline-flex";
+        let _post_data = forms;
+        let formData = new FormData();
+        for (const [key_obj, value_obj] of Object.entries(_post_data)) {
+            formData.append(key_obj,value_obj);
+        }
+       
+        console.log(formData)
+        axios.post(`${route_ws_saveVals}`, formData, {
+            headers: {
+                'ICCIMA-AUTH-USERNAME': `${ws_username}`,
+                'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
+                'ICCIMA-AUTH-USER-TOKEN': `${iccima.user.__token}`,
+                'Content-Type': 'multipart/form-data',
+            }
+        })
+            .then(res => {
+                console.log(res)
 
+                document.getElementById('loading-page-iccima').style.display = "none";
+                toast.success(`اطلاعات با موفقیت به روز شد. `);
+            })
+            .catch((err) => {
+                document.getElementById('loading-page-iccima').style.display = "none";
+                toast.error(`${err.message}`);
+            });
+    }
     const fetchSingleData = async () => {
         let _post_data = {
             hid
@@ -44,7 +92,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     }, []);
 
 
-    console.log(dataSingle)
+    // console.log(dataSingle)
     return (
         <MainLayout>
             <div>
@@ -63,21 +111,64 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                             <div className="col-lg-12 col-md-12 col-sm-12">
                                                                 <h3 className='text-primary font-weight-bold'>فرم خوداظهاری بازرگان</h3>
                                                                 <div className='p-2 mt-1'>
+                                                                    <div className="mb-3 row">
+                                                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-2">
+                                                                            <label className="form-label">نام برند تجاری</label>
+                                                                            <input onChange={handleChangeVs} value={dataSingle?.__merchant_e?.Persian?.brand_title?.toString()} type="text" className="form-control" id="brand_title__e" />
+                                                                        </div>
+                                                                        <div className="col-lg-6 col-md-6 col-sm-12 mt-2">
+                                                                            <label className="form-label">لوگو برند تجاری</label>
+                                                                            <input onChange={handleChangeFile} type="file" className="form-control" id="brand_file__e" />
+                                                                            <div className="form-text">فرمت های قابل قبول: png, jpg, jpeg</div>
+                                                                            <div className="form-text">حداکثر حجم قابل قبول: 1MB </div>
+                                                                            <br />
+                                                                            <div className='iccima-brand-img'>
+                                                                                <img src="https://www.hubspot.com/hs-fs/hubfs/Pepsi_logo_2014.svg.png?width=450&height=458&name=Pepsi_logo_2014.svg.png" alt={dataSingle?.__merchant_e?.brand_title?.toString()} />
+                                                                            </div>
+                                                                            <button type='button' className='btn btn-danger m-3'>حذف</button>
+                                                                            {
+                                                                                dataSingle?.__merchant_e?.brand_image ?
+                                                                                    ("") :
+                                                                                    ("")
+                                                                            }
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="mb-3 row">
+                                                                        <div className="col-lg-4 col-md-4 col-sm-12 mt-2">
+                                                                            <label className="form-label">تلفن شرکت</label>
+                                                                            <input onChange={handleChangeVs} value={dataSingle?.__merchant_e?.co_phone?.toString()} type="text" className="form-control" id="co_phone__e" />
+                                                                        </div>
+                                                                        <div className="col-lg-4 col-md-4 col-sm-12 mt-2">
+                                                                            <label className="form-label">فکس شرکت</label>
+                                                                            <input onChange={handleChangeVs} value={dataSingle?.__merchant_e?.co_fax?.toString()} type="text" className="form-control" id="co_fax__e" />
+                                                                        </div>
+                                                                        <div className="col-lg-4 col-md-4 col-sm-12 mt-2">
+                                                                            <label className="form-label">وب سایت شرکت</label>
+                                                                            <input onChange={handleChangeVs} value={dataSingle?.__merchant_e?.co_website?.toString()} type="text" className="form-control" id="co_website__e" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="mb-3">
+                                                                        <label className="form-label">آدرس شرکت</label>
+                                                                        <textarea onChange={handleChangeVs} className="form-control iccima_met" id="co_main_address__e" rows="5"
+                                                                            defaultValue={dataSingle?.__merchant_e?.co_main_address?.Persian?.toString()}></textarea>
+                                                                    </div>
                                                                     <div className="mb-3">
                                                                         <label className="form-label">اتاق های مشترک</label>
-                                                                        <textarea className="form-control iccima_met" id="shared_chambers__e" rows="5"
-                                                                            defaultValue={dataSingle.__merchant_e.shared_chambers}></textarea>
+                                                                        <textarea onChange={handleChangeVs} className="form-control iccima_met" id="shared_chambers__e" rows="5"
+                                                                            defaultValue={dataSingle?.__merchant_e?.shared_chambers?.Persian?.toString()}></textarea>
                                                                     </div>
                                                                     <div className="mb-3">
                                                                         <label className="form-label">کمیسیون های تخصصی</label>
-                                                                        <textarea className="form-control iccima_met" id="specialized_committees__e" rows="5"
-                                                                            defaultValue={dataSingle.__merchant_e.specialized_committees}></textarea>
+                                                                        <textarea onChange={handleChangeVs} className="form-control iccima_met" id="specialized_committees__e" rows="5"
+                                                                            defaultValue={dataSingle?.__merchant_e?.specialized_committees?.Persian?.toString()}></textarea>
                                                                     </div>
                                                                     <div className="mb-3">
                                                                         <label className="form-label">تشکل ها</label>
-                                                                        <textarea className="form-control iccima_met" id="guild_types__e" rows="5"
-                                                                            defaultValue={dataSingle.__merchant_e.guild_types}></textarea>
+                                                                        <textarea onChange={handleChangeVs} className="form-control iccima_met" id="guild_types__e" rows="5"
+                                                                            defaultValue={dataSingle?.__merchant_e?.guild_types?.Persian?.toString()}></textarea>
                                                                     </div>
+                                                                    <button onClick={handleSubmitForm} type='button' className='btn btn-success m-3'> <i className='fa fa-pencil-square-o'></i> ثبت تغییرات</button>
                                                                 </div>
                                                             </div>
                                                         </div>

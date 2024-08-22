@@ -65,7 +65,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
         getDataPrepare(e);
     }
     const handleClickTopicV = (e)=>{
-        let fiv = e?.target?.getAttribute('fiv')?.toString();
+        let fiv = e?.currentTarget?.getAttribute('fiv')?.toString();
         document.querySelector(`.single-list-topics-content .form-switch input.${fiv}`)?.click();
     }
     const handleKeyType = (e) => {
@@ -177,7 +177,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                         <ul>
                             <li>
                                 <div className="single-list-topics-content" fiv="group_act_type_v1" 
-                                onClick={handleClickTopicV}>
+                                 onClick={handleClickTopicV}>
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-cogs"></i>
                                     </div>

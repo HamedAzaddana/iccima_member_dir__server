@@ -39,7 +39,9 @@ export default function TopArea() {
                                     iccima.user.__id ?
                                         (
                                             <>
-                                                <Link className="nav-link" href={iccima.user.spl}> <i className='fa fa-user-circle-o'></i> پروفایل</Link>
+                                                <Link className="nav-link" style={{
+                                                    color:"rgb(155, 25, 25)"
+                                                }} href={iccima.user.spl}> <i className='fa fa-user-circle-o'></i> کسب و کار من</Link>
                                                 <Link className="nav-link" href={iccima.links.logout}> <i className='fa fa-sign-out'></i> خروج</Link>
                                             </>
                                         ) :
