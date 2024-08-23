@@ -11,7 +11,11 @@ class IndexNumberApi extends Model
     protected $table = "api_data_indexes";
     public $timestamps = false;
     protected $fillable = [
-        'index_number','status','last_updated_at'
+        'index_number',
+        'status',
+        'last_updated_at'
     ];
-
+    public static function reset() {
+        self::update(['status',0]);
+    }
 }

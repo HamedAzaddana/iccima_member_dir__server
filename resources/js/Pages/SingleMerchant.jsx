@@ -17,7 +17,6 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     const handleChangeVs = (e) => {
         const key = e.target.id;
         const value = e.target.value;
-        // console.log(key, value, e.target);
         setForms(forms => ({
             ...forms,
             [key]: value,
@@ -25,9 +24,6 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     }
     const handleChangeFile = (e) => {
         const key = e.target.id;
-        const value = e.target.value;
-        // console.log(key, value, e.target);
-        // console.log(e.target?.files[0]);
         setForms(forms => ({
             ...forms,
             [key]: e.target?.files[0],
@@ -37,11 +33,11 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
         document.getElementById('loading-page-iccima').style.display = "inline-flex";
         let _post_data = forms;
         let formData = new FormData();
-        for (const [key_obj, value_obj] of Object.entries(_post_data)) {
-            formData.append(key_obj,value_obj);
+        if(_post_data){
+            for (const [key_obj, value_obj] of Object.entries(_post_data)) {
+                formData.append(key_obj, value_obj);
+            }
         }
-       
-        console.log(formData)
         axios.post(`${route_ws_saveVals}`, formData, {
             headers: {
                 'ICCIMA-AUTH-USERNAME': `${ws_username}`,
@@ -52,9 +48,13 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
         })
             .then(res => {
                 console.log(res)
-
                 document.getElementById('loading-page-iccima').style.display = "none";
-                toast.success(`اطلاعات با موفقیت به روز شد. `);
+                let status_code = res?.status;
+                if(status_code == 200 || status_code==201){
+                    toast.success(`اطلاعات با موفقیت به روز شد. `);
+                }else{
+                    toast.error(`خطایی رخ داد !`); 
+                }
             })
             .catch((err) => {
                 document.getElementById('loading-page-iccima').style.display = "none";
@@ -75,7 +75,6 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
             });
             document.getElementById('loading-page-iccima').style.display = "none";
             setDataSingle(iterate_prepare_data(response.data.data));
-            // console.log(iterate_prepare_data(response.data.data))
         } catch (error) {
             document.getElementById('loading-page-iccima').style.display = "none";
             toast.error(`Error fetching single data : ${error.message}`);

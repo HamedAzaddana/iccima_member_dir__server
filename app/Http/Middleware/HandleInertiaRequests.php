@@ -35,9 +35,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user_array = iccima_get_current_user();
         return array_merge(parent::share($request), [
             'iccima.user.lang' => iccima_get_sess_lang(),
-            'iccima.user.obj' => iccima_get_current_user(),
+            'iccima.user.obj' => iccima_get_current_user_safe(),
             'iccima.user.type' => iccima_get_current_user_type(),
             'iccima.user.__token' => request()->session()->get('sso_token',""),
             'iccima.user.__id' =>

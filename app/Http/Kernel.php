@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'Is_Logged_in'=>\App\Http\Middleware\CheckLoggedInUser::class,
         'Is_Admin'=>\App\Http\Middleware\CheckIsAdmin::class,
         'Is_Merchant'=>\App\Http\Middleware\CheckIsMerchant::class,
+        'webservice_gate_auth'=>\App\Http\Middleware\WebserviceAuthUser::class,
     ];
 }

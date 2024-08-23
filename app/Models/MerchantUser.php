@@ -301,6 +301,7 @@ class MerchantUser extends Authenticatable
         return [
             'elapsed_secs' =>  $elapsed_process,
             'index_created' => $index_number_updated,
+            'card_no' => @$_data_sql["card_no"],
         ];
     }
 }

@@ -15,30 +15,16 @@ class WebserviceAuthUser
     public function handle(Request $request, Closure $next): Response
     {
         $token = (int)$request->header('ICCIMA-AUTH-USER-TOKEN');
-        if (!$token) {
-            return ErrorResponse::error_403_api("Access Forbidden !");
-        }
-        $user_jwt = (object)\JWT::parse($token)->toArray();
-        if (isset($user_jwt->Name) && isset($user_jwt->NId)) {
-            $username  = $user_jwt->Name;
-            $admin = AdminUser::where('national_code', $username)
-                ->get()->first();
-            $admin_object = $admin;
-            $admin = $admin ? $admin->toArray() : null;
-            $merchant = MerchantUser::where('card_no', $username)
-                ->get()->first();
-            $merchant_object = $merchant;
-            $merchant = $merchant ? $merchant->toArray() : null;
-        } else {
-            return ErrorResponse::error_403_api("Access Forbidden !");
-        }
-        $guard = 'web_merchant'; //web_merchant , web_admin
-        $user_id = 0;
+        $ui = iccima_get_validate_user_token($token);
+        $ui_id = $ui['user_id'];
+        $ui_type = $ui['user_type'];
         if (
-            0
+            !$ui_id
         ) {
-            return ErrorResponse::error_403_api("Access Forbidden !");
+            return ErrorResponse::error_403_api("Access Forbidden Authentication !");
         }
+        request()->session()->put('ws_iccima_user_id', $ui_id);
+        request()->session()->put('ws_iccima_user_type', $ui_type);
 
         return $this->goNext($request, $next);
     }

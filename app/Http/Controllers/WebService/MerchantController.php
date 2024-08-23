@@ -5,8 +5,9 @@ namespace App\Http\Controllers\WebService;
 use App\Exceptions\ErrorResponse;
 use App\Http\Controllers\Controller;
 use App\Models\MerchantUser as MerchantUserModel;
+use App\Models\MerchantEUser as MerchantEUserModel;
 use App\Models\Preset as PresetModel;
-
+use App\Helpers\Pdate;
 
 class MerchantController extends Controller
 {
@@ -39,7 +40,7 @@ class MerchantController extends Controller
         $merchant_id = iccima_hashid_decode($hid);
         $merchant = MerchantUserModel::find($merchant_id);
         $merchant_e = [];
-        if($merchant){
+        if ($merchant) {
             $merchant_e = $merchant->editable_user ? $merchant->editable_user->toArray() : [];
         }
         if (!$merchant || !$merchant_id || !$hid) {
@@ -55,20 +56,68 @@ class MerchantController extends Controller
     }
     public function saveFormValsUnconf()
     {
-        // $hid = request("hid");
-        $request_forms = request()->all();
- 
+        $save_indexes = [
+            "brand_title",
+            "co_phone",
+            "co_fax",
+            "co_website",
+            "co_main_address",
+            "shared_chambers",
+            "specialized_committees",
+            "guild_types",
+        ];
+        $multi_lang_indexed = [
+            "brand_title",
+            "co_main_address",
+            "shared_chambers",
+            "specialized_committees",
+            "guild_types",
+        ];
 
-        //check lang and store values according it !
+
+        $request_forms = request()->all();
+        $current_lang = iccima_get_sess_lang();
+        $current_user_id = (int)request()->session()->get("ws_iccima_user_id", 0);
+        $current_user_type = request()->session()->get("ws_iccima_user_type", "guest");
+
+        if ($current_user_type != "merchant") {
+            return response()->json([
+                'data' => [
+                    'msg' => "Access denied for Admin !"
+                ],
+                'req' => request()->all(),
+            ], 403);
+        }
+        $current_merchant_e_lv = MerchantEUserModel::find($current_user_id)?->toArray();
+        $updated_merchant_e_lv = [];
+        foreach ($save_indexes as $save_index) {
+            $lv_me_json_decode = json_decode(@$current_merchant_e_lv[$save_index]) ? (array)json_decode(@$current_merchant_e_lv[$save_index]) : @$current_merchant_e_lv[$save_index];
+            $new_val_lang =  (string)@$request_forms[$save_index . "__e"];
+            if (in_array($save_index, $multi_lang_indexed)) {
+                $lv_me_json_decode[$current_lang] = $new_val_lang;
+                $updated_merchant_e_lv[$save_index] = json_encode($lv_me_json_decode, JSON_UNESCAPED_UNICODE);
+            } else {
+                $updated_merchant_e_lv[$save_index] = $new_val_lang;
+            }
+        }
+        if (@$_FILES['brand_file__e']) {
+            $bs64path="";
+            // $bs64path = iccima_upload_b64ec_src($_FILES['brand_file__e']);
+            // if ($bs64path) {
+            //     // $updated_merchant_e_lv['brand_image'] = $bs64path;
+            // }
+        }
+        $updated_merchant_e_lv["confirmed"] = 0;
+        $updated_merchant_e_lv["last_updated_at"] = Pdate::persianTimeStampNow();
+        
+        // optional(MerchantEUserModel::find($current_user_id))
+        //     ?->update($updated_merchant_e_lv);
 
         return response()->json([
-            'data' => ['s'],
-            'file' => $_FILES,
+            'data' => $updated_merchant_e_lv,
+            'files' => $bs64path,
             'req' => request()->all(),
         ], 200);
     }
-    public function deleteBrandLogo()
-    {
-
-    }
+    public function deleteBrandLogo() {}
 }

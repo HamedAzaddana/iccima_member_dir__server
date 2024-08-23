@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\AdminUser;
 use App\Models\MerchantUser;
 use App\Helpers\Logger;
+use Illuminate\Support\Facades\Cache;
+
+include(__DIR__ . "/languages.php");
 
 function iccima_prepareSelect($arr)
 {
@@ -103,6 +107,16 @@ function iccima_sluggify($str)
     $str = str_replace("‌", "-", $str);
     return $str;
 }
+function iccima_get_current_user_safe($include_images = 0)
+{
+    $user = iccima_get_current_user($include_images);
+    unset($user['index_number']);
+    unset($user['card_no']);
+    unset($user['id']);
+    unset($user['card_no']);
+    unset($user['last_updated_at']);
+    return $user;
+}
 function iccima_get_current_user_image()
 {
     return @iccima_get_current_user(1)['owner_image'];
@@ -116,12 +130,13 @@ function iccima_get_current_user($include_images = 0)
     if (auth()->guard('web_admin')->check()) {
         $user_obj = auth()->guard('web_admin')->user()->toArray();
     }
+    $user_array = (array)$user_obj;
     if (!$include_images) {
-        unset($user_obj['co_image']);
-        unset($user_obj['owner_image']);
+        unset($user_array['co_image']);
+        unset($user_array['owner_image']);
     }
 
-    return (array)$user_obj;
+    return $user_array;
 }
 function iccima_get_current_user_id()
 {
@@ -142,8 +157,77 @@ function iccima_get_validate_user_token($token)
 {
     $user_id = 0;
     $user_type = "guest";
-    //check : env('ICCIM_AUTH_WEB_INTERNAL')
-    if (!$token) {
-        return false;
+    $clientIP = request()->ip();
+    $is_valid_token_duration = (int)Cache::get("_utokenValid_" . $clientIP, 0);
+    $continue_token_check = 0;
+    if ((int)env('ICCIM_AUTH_WEB_INTERNAL')) {
+        $user_id = iccima_get_current_user_id();
+        $user_type = iccima_get_current_user_type();
     }
+    if ($token && !(int)env('ICCIM_AUTH_WEB_INTERNAL')) {
+        if (!$is_valid_token_duration) {
+            $sso_url = env('SSO_SERVICE_URL');
+            $route = "$sso_url/api/Authentication/ValidateJwtToken?token=$token";
+            $input = [];
+            $headers = [];
+            $r = iccima_request_http($input, $route, "POST", $headers);
+            $response_object = $r['response_object'];
+            $status_code = $r['status_code'];
+            $error = $r['error'];
+            if ($status_code == 200 && $response_object['data'] && $response_object['isSuccess']) {
+                Cache::put("_utokenValid_" . $clientIP, 1, (int)env('ICCIM_AUTH_VALID_TOKEN_DUR'));
+                $continue_token_check = 1;
+            } else {
+                $continue_token_check = 0;
+            }
+        } else {
+            $continue_token_check = 1;
+        }
+        //---
+        if ($continue_token_check) {
+            $user_jwt = (object)\JWT::parse($token)->toArray();
+            if (isset($user_jwt->Name) && isset($user_jwt->NId)) {
+                $username  = $user_jwt->Name;
+                $admin = AdminUser::where('national_code', $username)
+                    ->get()->first();
+                $admin = $admin ? $admin->toArray() : [];
+                $merchant = MerchantUser::where('card_no', $username)
+                    ->get()->first();
+                $merchant = $merchant ? $merchant->toArray() : [];
+                if ($admin) {
+                    $user_type = 'admin';
+                    $user_id = $admin['id'];
+                }
+                if ($merchant) {
+                    $user_type = 'merchant';
+                    $user_id = $merchant['id'];
+                }
+            }
+        }
+    }
+    return [
+        'user_id' => $user_id,
+        'user_type' => $user_type,
+    ];
+}
+function iccima_upload_b64ec_src($file)
+{
+    $path = "";
+    $path_tmp = @$file['tmp_name'];
+    if ($path_tmp) {
+        $type = pathinfo($path_tmp, PATHINFO_EXTENSION);
+        $imgData = file_get_contents($path_tmp);
+        $imgEncoded = base64_encode($imgData);
+        $path = 'data:image/' . $type . ';base64, ' . $imgEncoded;
+    }
+    return $path;
+}
+function ___rlic($index)
+{
+    global $__GLABAL_LANG;
+    return (string)@$__GLABAL_LANG[$index][iccima_get_sess_lang()];
+}
+function ___elic($index)
+{
+    echo ___rlic($index);
 }
