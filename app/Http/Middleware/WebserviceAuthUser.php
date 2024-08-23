@@ -25,6 +25,7 @@ class WebserviceAuthUser
         }
         request()->session()->put('ws_iccima_user_id', $ui_id);
         request()->session()->put('ws_iccima_user_type', $ui_type);
+        request()->session()->put('ws_iccima_user_current', iccima_user_by_params($ui_id,$ui_type));
 
         return $this->goNext($request, $next);
     }

@@ -20,6 +20,11 @@ class AdminUser extends Authenticatable
         'national_code',
         'last_updated_at'
     ];
+    protected $hidden = [
+        'id', 
+        'password',
+        'last_updated_at',
+    ];
     public static function exists_field($val, $fld)
     {
         return self::where($fld, $val)->first();

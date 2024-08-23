@@ -26,6 +26,11 @@ export function iterate_prepare_data(object) {
             "specialized_committees",// کمیسیون های تخصصی array
             "guild_types",// تشکل ها array
         ];
+        if (key == "__merchant_e") {
+            let __merchant_e = _val;
+            let __merchant_e_nv = iterate_prepare_data(__merchant_e);
+            _val = __merchant_e_nv
+        }
         if (key == "co_establish_date") {
             let new_val = _val ? get_jalali_year(_val, 1, 1) : 0;
             let new_key = "jalali_year";
@@ -49,12 +54,12 @@ export function iterate_prepare_data(object) {
             if (Array.isArray(_val)) {
                 let Persian_str = "";
                 let English_str = "";
-                _val.forEach((_val_item) =>{
-                    Persian_str+=_val_item.Persian ? `${_val_item.Persian} <br>` : '';
-                    English_str+=_val_item.English ? `${_val_item.English} <br>` : '';
+                _val.forEach((_val_item) => {
+                    Persian_str += _val_item.Persian ? `${_val_item.Persian} <br>` : '';
+                    English_str += _val_item.English ? `${_val_item.English} <br>` : '';
                 });
-                new_val.Persian =Persian_str;
-                new_val.English =English_str;
+                new_val.Persian = Persian_str;
+                new_val.English = English_str;
             } else {
                 new_val = _val;
             }

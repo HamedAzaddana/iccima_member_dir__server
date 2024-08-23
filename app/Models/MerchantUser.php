@@ -48,6 +48,11 @@ class MerchantUser extends Authenticatable
         
         "last_updated_at"
     ];
+    protected $hidden = [
+        'password',
+        'index_number',
+        'last_updated_at',
+    ];
     public function editable_user(): HasOne
     {
         return $this->hasOne(MerchantEUser::class, 'card_no', 'card_no');

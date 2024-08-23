@@ -12,12 +12,14 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
     const [forms, setForms] = useState(null);
+    const [meu, setMeu] = useState(null);
     const [dataSingle, setDataSingle] = useState([]);
     const { iccima } = usePage().props;
     const handleChangeVs = (e) => {
         const key = e.target.id;
         const value = e.target.value;
-        setForms(forms => ({
+        console.log(key,value)
+        setMeu(forms => ({
             ...forms,
             [key]: value,
         }))
@@ -31,9 +33,9 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     }
     const handleSubmitForm = (e) => {
         document.getElementById('loading-page-iccima').style.display = "inline-flex";
-        let _post_data = forms;
+        let _post_data = meu;
         let formData = new FormData();
-        if(_post_data){
+        if (_post_data) {
             for (const [key_obj, value_obj] of Object.entries(_post_data)) {
                 formData.append(key_obj, value_obj);
             }
@@ -50,15 +52,15 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                 console.log(res)
                 document.getElementById('loading-page-iccima').style.display = "none";
                 let status_code = res?.status;
-                if(status_code == 200 || status_code==201){
+                if (status_code == 200 || status_code == 201) {
                     toast.success(`اطلاعات با موفقیت به روز شد. `);
-                }else{
-                    toast.error(`خطایی رخ داد !`); 
+                } else {
+                    toast.error(`خطایی رخ داد !`);
                 }
             })
             .catch((err) => {
                 document.getElementById('loading-page-iccima').style.display = "none";
-                toast.error(`${err.message}`);
+                toast.error(`${err.message} : ${err?.response?.data?.data?.msg}`);
             });
     }
     const fetchSingleData = async () => {
@@ -75,6 +77,8 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
             });
             document.getElementById('loading-page-iccima').style.display = "none";
             setDataSingle(iterate_prepare_data(response.data.data));
+            setForms(iterate_prepare_data(response.data.data));
+            setMeu(iterate_prepare_data(response.data.data.__merchant_e));
         } catch (error) {
             document.getElementById('loading-page-iccima').style.display = "none";
             toast.error(`Error fetching single data : ${error.message}`);
@@ -85,13 +89,16 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
             console.log(error)
         }
     };
+    // useEffect(() => {
+    //     console.log(forms)
+
+    // }, [forms]);
     useEffect(() => {
         fetchSingleData();
 
     }, []);
 
 
-    // console.log(dataSingle)
     return (
         <MainLayout>
             <div>
@@ -113,7 +120,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                                     <div className="mb-3 row">
                                                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-2">
                                                                             <label className="form-label">نام برند تجاری</label>
-                                                                            <input onChange={handleChangeVs} value={dataSingle?.__merchant_e?.Persian?.brand_title?.toString()} type="text" className="form-control" id="brand_title__e" />
+                                                                            <input onChange={handleChangeVs} value={meu?.brand_title?.Persian?.toString()} type="text" className="form-control"  id="brand_title" />
                                                                         </div>
                                                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-2">
                                                                             <label className="form-label">لوگو برند تجاری</label>
@@ -121,14 +128,22 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                                             <div className="form-text">فرمت های قابل قبول: png, jpg, jpeg</div>
                                                                             <div className="form-text">حداکثر حجم قابل قبول: 1MB </div>
                                                                             <br />
-                                                                            <div className='iccima-brand-img'>
-                                                                                <img src="https://www.hubspot.com/hs-fs/hubfs/Pepsi_logo_2014.svg.png?width=450&height=458&name=Pepsi_logo_2014.svg.png" alt={dataSingle?.__merchant_e?.brand_title?.toString()} />
-                                                                            </div>
-                                                                            <button type='button' className='btn btn-danger m-3'>حذف</button>
+
                                                                             {
                                                                                 dataSingle?.__merchant_e?.brand_image ?
-                                                                                    ("") :
-                                                                                    ("")
+                                                                                    (
+                                                                                        <div>
+                                                                                            <div className='iccima-brand-img'>
+                                                                                                <img src={dataSingle?.__merchant_e?.brand_image} alt={dataSingle?.__merchant_e?.brand_title?.toString()} />
+                                                                                            </div>
+                                                                                            <button type='button' className='btn btn-danger m-3'>حذف</button>
+                                                                                        </div>
+                                                                                    ) :
+                                                                                    (
+                                                                                        <p>
+                                                                                            فایلی تاکنون آپلود نشده است !
+                                                                                        </p>
+                                                                                    )
                                                                             }
 
                                                                         </div>

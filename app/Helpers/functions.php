@@ -115,6 +115,8 @@ function iccima_get_current_user_safe($include_images = 0)
     unset($user['id']);
     unset($user['card_no']);
     unset($user['last_updated_at']);
+    unset($user['password']);
+    unset($user['national_code']);
     return $user;
 }
 function iccima_get_current_user_image()
@@ -141,6 +143,29 @@ function iccima_get_current_user($include_images = 0)
 function iccima_get_current_user_id()
 {
     return (int)@iccima_get_current_user()['id'];
+}
+function iccima_user_by_params_safe($id, $type)
+{
+    $user = iccima_user_by_params($id, $type);
+    unset($user['index_number']);
+    unset($user['card_no']);
+    unset($user['id']);
+    unset($user['card_no']);
+    unset($user['last_updated_at']);
+    unset($user['password']);
+    unset($user['national_code']);
+    return $user;
+}
+function iccima_user_by_params($id, $type)
+{
+    $user = [];
+    if ($type == "merchant") {
+        $user = MerchantUser::find((int)$id)?->toArray();
+    }
+    if ($type == "admin") {
+        $user = AdminUser::find((int)$id)?->toArray();
+    }
+    return (array)$user;
 }
 function iccima_get_current_user_type()
 {
@@ -210,18 +235,58 @@ function iccima_get_validate_user_token($token)
         'user_type' => $user_type,
     ];
 }
-function iccima_upload_b64ec_src($file)
+function iccima_upload_validate_image($file)
 {
-    $path = "";
-    $path_tmp = @$file['tmp_name'];
-    if ($path_tmp) {
-        $type = pathinfo($path_tmp, PATHINFO_EXTENSION);
-        $imgData = file_get_contents($path_tmp);
-        $imgEncoded = base64_encode($imgData);
-        $path = 'data:image/' . $type . ';base64, ' . $imgEncoded;
+    $allowedTypes = array('jpg', 'jpeg', 'png');
+    $maxFileSize = 1 * 1024 * 1024; // 1MB
+    $fileName = $file['name'];
+    $fileSize = $file['size'];
+    $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    // Check file type
+    if (!in_array($fileType, $allowedTypes)) {
+        return [
+           'response'=> 'error',
+           'msg'=> 'file type is invalid !',
+        ];
     }
-    return $path;
+
+    // Check file size
+    if ($fileSize > $maxFileSize) {
+        return [
+            'response'=> 'error',
+            'msg'=> 'file size is invalid !',
+         ];
+    }
+    return [
+        'response'=> 'success',
+        'msg'=> 'file uploaded successfully !',
+     ];
 }
+function iccima_upload_public_src($file, $path_public)
+{
+    $relative_path = "/uploads/$path_public/";
+    $full_upload_path = public_path() . $relative_path;
+    if (!is_dir($full_upload_path)) {
+        mkdir($full_upload_path);
+    }
+    $rnd_real_name = iccima_get_rnd_str() . "." . pathinfo($file['name'], PATHINFO_EXTENSION);
+    $file_name_path = $full_upload_path . $rnd_real_name;
+    $url_path_public = "/uploads/$path_public/$rnd_real_name";
+    move_uploaded_file(
+        $file["tmp_name"],
+        $file_name_path
+    );
+    return $url_path_public;
+}
+function iccima_get_rnd_str($l = 4)
+{
+    $r1 = bin2hex(random_bytes($l));
+    $r2 = bin2hex(random_bytes($l));
+    $r3 = bin2hex(random_bytes($l));
+    $r4 = bin2hex(random_bytes($l));
+    return  $r1 . "-" . $r2 . "-" . $r3 . "-" . $r4 . "-" . time();
+}
+
 function ___rlic($index)
 {
     global $__GLABAL_LANG;
