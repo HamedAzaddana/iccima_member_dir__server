@@ -10,6 +10,7 @@ Route::middleware('is_api_user')->prefix("webservice")->group(function () {
    
     Route::post('/merchants/get/index', [MerchantController::class, 'index'])->name('ws.search.index');
     Route::post('/merchants/get/single', [MerchantController::class, 'single'])->name('ws.search.single');
+    Route::post('/change/lang/user', [MerchantController::class, 'change_lang'])->name('ws.change.lang');
     Route::post('/search/get_filter_vars', [PresetController::class, 'get_filters_var'])->name('ws.search.get_filters_var');
    
     Route::middleware('is_merchant_in')->group(function () {

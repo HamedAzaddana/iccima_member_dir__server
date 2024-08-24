@@ -4,10 +4,7 @@ import { usePage } from '@inertiajs/react'
 import MainLayout from '@/Layouts/MainLayout';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import { iterate_prepare_data, iterate_jsonify_data } from '../Utils/IccObjArr';
-import { get_jalali_year } from '../Utils/IccDate';
-import { data } from 'jquery';
-
+import { iterate_prepare_data } from '../Utils/IccObjArr';
 
 export default function SingleMerchant({ hid, route_ws_get_single, route_404_page, route_ws_saveVals, route_ws_delBrImg }) {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
@@ -146,7 +143,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     return (
         <MainLayout>
             <div>
-                <Head title={dataSingle?.co_title ? (dataSingle.co_title).Persian : "اطلاعات"} />
+                <Head title={dataSingle?.co_title ? (dataSingle.co_title)[iccima.user.lang.toString()] : "اطلاعات"} />
                 {
                     dataSingle?.co_title ?
                         (
@@ -253,23 +250,23 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                             <div className="row">
                                                 <div className="col-lg-8 col-md-7 col-sm-12 mt-2">
                                                     <h1 className='text-primary'>
-                                                        {(dataSingle.co_title).Persian}
+                                                        {(dataSingle.co_title)[iccima.user.lang.toString()]}
                                                     </h1>
                                                     <h2 className='text-primary mt-3'>
-                                                        <strong>  {dataSingle.owner_fullname ? (dataSingle.owner_fullname)['Persian'] : (dataSingle.co_title).Persian} </strong>
+                                                        <strong>  {dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} </strong>
                                                     </h2>
                                                     <h3 className='text-dark mt-2'>
-                                                        <strong>{dataSingle.co_type.Persian} {dataSingle.jalali_year ? `تاسیس ${dataSingle.jalali_year}` : ""}</strong>
+                                                        <strong>{dataSingle.co_type[iccima.user.lang.toString()]} {dataSingle.jalali_year ? `تاسیس ${dataSingle.jalali_year}` : ""}</strong>
                                                     </h3>
                                                     <h4 className='text-dark mt-2'>
-                                                        {dataSingle?.province?.Persian} {dataSingle?.city?.Persian}
+                                                        {dataSingle?.province?.[iccima.user.lang.toString()]} {dataSingle?.city?.[iccima.user.lang.toString()]}
                                                     </h4>
                                                 </div>
                                                 <div className="col-lg-2 col-md-2 col-sm-12 mt-4">
-                                                    {dataSingle.co_image_new ? (<img className='cover-img-single' src={dataSingle.co_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname).Persian : (dataSingle.co_title).Persian} />) : ("")}
+                                                    {dataSingle.co_image_new ? (<img className='cover-img-single' src={dataSingle.co_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} />) : ("")}
                                                 </div>
                                                 <div className="col-lg-2 col-md-2 col-sm-12 mt-4">
-                                                    {dataSingle.owner_image_new ? (<img className='cover-img-single' src={dataSingle.owner_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname).Persian : (dataSingle.co_title).Persian} />) : ("")}
+                                                    {dataSingle.owner_image_new ? (<img className='cover-img-single' src={dataSingle.owner_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} />) : ("")}
                                                 </div>
                                             </div>
                                         </div>
@@ -279,7 +276,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                             <div className="row">
                                                 <div className="col-lg-6 col-md-6 col-sm-12">
                                                     <h5 className='text-primary'> نشانی </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.co_main_address.Persian }} ></p>
+                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.co_main_address[iccima.user.lang.toString()] }} ></p>
                                                     <br />
                                                     <h5 className='text-primary'> وب سایت </h5>
                                                     <p className='text-dark font-weight-bold mt-2'>{dataSingle.co_website ? dataSingle.co_website : "---"}</p>
@@ -299,25 +296,25 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                             <div className="row">
                                                 <div className="col-lg-12 col-md-12 col-sm-12">
                                                     <h5 className='text-primary'> رشته فعالیت </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activities.Persian ? dataSingle.biz_activities.Persian : "---" }} ></p>
+                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
                                                     <h5 className='text-primary'> نوع فعالیت </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activitiy_goods__merged.Persian ? dataSingle.biz_activitiy_goods__merged.Persian : "---" }} ></p>
+                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
                                                     <h5 className='text-primary'> گواهی های مبدا صادر شده</h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.coo_biz_activities__merged.Persian ? dataSingle.coo_biz_activities__merged.Persian : "---" }} ></p>
+                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
                                                     <h5 className='text-primary'> کد های HS تجاری</h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_act_goods_hs_codes__merged.Persian ? dataSingle.biz_act_goods_hs_codes__merged.Persian : "---" }} ></p>
+                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
                                                     <h5 className='text-primary'> اتاق های مشترک </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.shared_chambers__merged.Persian ? dataSingle.shared_chambers__merged.Persian : "---" }} ></p>
+                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
                                                     <h5 className='text-primary'> کمیسیون های تخصصی </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.specialized_committees__merged.Persian ? dataSingle.specialized_committees__merged.Persian : "---" }} ></p>
+                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
                                                     <h5 className='text-primary'> تشکل ها</h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.guild_types__merged.Persian ? dataSingle.guild_types__merged.Persian : "---" }} ></p>
+                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                 </div>
                                             </div>
                                         </div>

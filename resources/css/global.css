@@ -33,6 +33,10 @@ h6,
 button,
 option {
     font-family: "iran_sans" !important;
+    text-transform: lowercase !important;
+}
+h1 *,h2 *,h3 *,h4 *,h5 *{
+    text-transform: lowercase !important;
 }
 
 #top-icon {
@@ -135,7 +139,7 @@ a.nav-link:hover {
 .SelectProvince {
     padding: 0;
     margin: 0;
-    text-align: center;
+    text-align: right;
     height: 100%;
     border-radius: 0;
     cursor: pointer;
@@ -152,7 +156,7 @@ a.nav-link:hover {
 }
 
 .InputS2 .welcome-hero-form-icon {
-    right: 24px !important;
+    right: 12px !important;
     top: 19px !important;
 }
 
@@ -212,7 +216,9 @@ a.nav-link:hover {
 .single-list-topics-content input {
     cursor: pointer;
 }
-
+.single-list-topics-content .form-check-input{
+visibility: hidden;
+}
 .single-list-topics-icon .fa {
     font-size: 30px !important;
     color: #746d6d;
@@ -288,14 +294,14 @@ img.user-profile-cr{
     }
 
     .InputS2 .welcome-hero-form-icon {
-        right: 35px !important;
-        top: 25px !important;
+        right: 24px !important;
+        top: 22px !important;
     }
 
     .SelectProvince {
         height: 74px !important;
         width: 95% !important;
-        text-align: center;
+        text-align: right;
     }
 }
 

@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 
 Route::get('/test2', function () {
-    $merchant = MerchantUser::find(8300);
-    dd($merchant->editable_form_vals());
+
     // dd(___callLang());
     // iccima_change_sess_lang("Persian");
     // dd(iccima_lang_str('nav.home'));

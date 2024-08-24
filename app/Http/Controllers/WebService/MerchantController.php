@@ -75,6 +75,20 @@ class MerchantController extends Controller
             'req' => request()->all(),
         ], $edited['status_code']);
     }
+
+    public function change_lang()
+    {
+        $lang = request("lang");
+
+        $_lang = in_array($lang, ["Persian", "English"]) ? $lang : "Persian";
+        if ($lang &&  $_lang) {
+            iccima_change_sess_lang($_lang);
+        }
+        return response()->json([
+            'data' => $_lang,
+            'req' => request()->all(),
+        ], 200);
+    }
     public function deleteBrandLogo()
     {
         $merchant_model = iccima_get_current_user_orm();

@@ -128,7 +128,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     className='text-dark'
                                     value={values.kws} onChange={handleChangeVs}
                                     onKeyDown={handleKeyType}
-                                    type="text" placeholder="نام،رشته فعالیت، نام کالا ..." />
+                                    type="text" placeholder="نام، رشته فعالیت، نام کالا ... " />
 
                                 <div className="welcome-hero-form-icon">
                                     <i className="flaticon-list-with-dots"></i>
@@ -142,7 +142,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
 
                             }} className="single-welcome-hero-form">
                                 <Form.Select className='without-icon SelectProvince' onChange={handleChangeVs} defaultValue="null" id="province">
-                                    <option value={"all"}> همه استان ها  </option>
+                                    <option value={"all"}> استان </option>
                                     {(filters?.provinces?.length) ?
                                         (
                                             <>

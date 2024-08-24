@@ -2,7 +2,11 @@
 import { Link } from '@inertiajs/react'
 import { get_jalali_year } from '../../Utils/IccDate';
 import { iterate_prepare_data } from '../../Utils/IccObjArr';
+import { usePage } from '@inertiajs/react'
+
 export default function CardResult({ info }) {
+    const { iccima } = usePage().props;
+
     const handleNonDo = (e) => {
         e.preventDefault();
     }
@@ -24,7 +28,7 @@ export default function CardResult({ info }) {
     let owner_fullname = card_info.owner_fullname;
     let co_type = card_info.co_type;
     let biz_activities = card_info.biz_activities;
-    let biz_activities_html = biz_activities.Persian ? biz_activities.Persian : "";
+    let biz_activities_html = biz_activities[iccima.user.lang.toString()] ? biz_activities[iccima.user.lang.toString()] : "";
     let city = card_info.city;
     let cover_image = (!card_info.co_image || card_info.co_image == "null")
         ? owner_image : "data:image/png;base64, " + card_info.co_image;
@@ -41,18 +45,18 @@ export default function CardResult({ info }) {
                         <div className="col-md-2 col-lg-2 col-sm-12 mt-3">
                             <div className="explore-person-img">
                                 <a href="#" onClick={handleNonDo}>
-                                    <img className='user-profile-cr' src={cover_image} alt={owner_fullname.Persian ?
-                                        owner_fullname.Persian : co_title.Persian} />
+                                    <img className='user-profile-cr' src={cover_image} alt={owner_fullname[iccima.user.lang.toString()] ?
+                                        owner_fullname[iccima.user.lang.toString()] : co_title[iccima.user.lang.toString()]} />
                                 </a>
                             </div>
                         </div>
                         <div className="col-md-6 col-lg-6 col-sm-12 mt-3">
-                            <h6 className='mt-1 pt-1 text-danger'><strong>{co_title.Persian}</strong></h6>
-                            <p className='mt-1 pt-1 text-dark'><strong>{owner_fullname.Persian ? owner_fullname.Persian : co_title.Persian}</strong></p>
-                            <p className='mt-1 pt-1 text-dark'><strong>{co_type.Persian} {jalali_year ? `تاسیس ${jalali_year}` : ""}</strong></p>
+                            <h6 className='mt-1 pt-1 text-danger'><strong>{co_title[iccima.user.lang.toString()]}</strong></h6>
+                            <p className='mt-1 pt-1 text-dark'><strong>{owner_fullname[iccima.user.lang.toString()] ? owner_fullname[iccima.user.lang.toString()] : co_title[iccima.user.lang.toString()]}</strong></p>
+                            <p className='mt-1 pt-1 text-dark'><strong>{co_type[iccima.user.lang.toString()]} {jalali_year ? `تاسیس ${jalali_year}` : ""}</strong></p>
                             <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: biz_activities_html }} ></p>
                             <br />
-                            <strong> <i className='fa fa-map-marker'></i> {city.Persian}</strong> &nbsp; | &nbsp; <strong> <i className='fa fa-id-card-o'></i> {card_type_id == 2 ? `عضویت`:`بازرگانی`}</strong>
+                            <strong> <i className='fa fa-map-marker'></i> {city[iccima.user.lang.toString()]}</strong> &nbsp; | &nbsp; <strong> <i className='fa fa-id-card-o'></i> {card_type_id == 2 ? `عضویت`:`بازرگانی`}</strong>
                         </div>
                         <div className="col-md-3 col-lg-3 col-sm-12 mt-3 ContactsPartCardRs">
                             {co_phone ? (
@@ -68,7 +72,7 @@ export default function CardResult({ info }) {
                                 width: "max-content",
                                 fontSize: "12px",
                                 padding: "5px",
-                            }} className="btn btn-sm btn-secondary" href={spl}> <i className='fa fa-exclamation-circle'></i> &nbsp;
+                            }} className="btn btn-sm btn-outline-secondary" href={spl}> <i className='fa fa-exclamation-circle'></i> &nbsp;
                                 اطلاعات بیشتر</Link>
                         </div>
                     </div>

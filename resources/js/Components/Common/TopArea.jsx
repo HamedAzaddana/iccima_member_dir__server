@@ -4,12 +4,47 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from '@inertiajs/react'
 import { usePage } from '@inertiajs/react'
+import axios from 'axios';
 
 export default function TopArea() {
+    const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
+    const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
     const { iccima } = usePage().props;
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     const loginSsoUrl = import.meta.env.VITE_LOGIN_URL_SSO || 'http://127.0.0.1:8000/loginSso';
- 
+    const handleSelectLang = (e) => {
+        let _post_data = {
+            lang:e.target.value
+        };
+        document.getElementById('loading-page-iccima').style.display = "inline-flex";
+
+        axios.post(`${iccima.links.ch_lang}`, _post_data, {
+            headers: {
+                'ICCIMA-AUTH-USERNAME': `${ws_username}`,
+                'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
+            }
+        })
+            .then(res => {
+                document.getElementById('loading-page-iccima').style.display = "none";
+                let status_code = res?.status;
+                if (status_code == 200 || status_code == 201) {
+                    window.location.reload();
+                } else {
+                    toast.error(`خطایی رخ داد !`);
+                }
+            })
+            .catch((err) => {
+                document.getElementById('loading-page-iccima').style.display = "none";
+                let errors = err?.response?.data?.data;
+                if (Array.isArray(errors) && errors) {
+                    errors.forEach((error_item) => {
+                        toast.error(`${error_item}`);
+                    });
+                } else {
+                    toast.error(`${err.message} : ${err?.response?.data?.data?.msg}`);
+                }
+            });
+    }
     const handleNonDo = (e) => {
         e.preventDefault();
     }
@@ -40,7 +75,7 @@ export default function TopArea() {
                                         (
                                             <>
                                                 <Link className="nav-link" style={{
-                                                    color:"rgb(155, 25, 25)"
+                                                    color: "rgb(155, 25, 25)"
                                                 }} href={iccima.user.spl}> <i className='fa fa-user-circle-o'></i> کسب و کار من</Link>
                                                 <Link className="nav-link" href={iccima.links.logout}> <i className='fa fa-sign-out'></i> خروج</Link>
                                             </>
@@ -52,8 +87,8 @@ export default function TopArea() {
 
 
                                 <Link className="nav-link" href="#" onClick={handleNonDo}> <li className="select-opt text-dark">
-                                    <select name="language" id="language">
-                                        <option value="Persian">فارسی</option>
+                                    <select value={iccima.user.lang} onChange={handleSelectLang} name="language" id="language">
+                                        <option  value="Persian">فارسی</option>
                                         <option value="English">English</option>
                                     </select>
                                 </li>
