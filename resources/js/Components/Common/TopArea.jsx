@@ -9,7 +9,7 @@ import axios from 'axios';
 export default function TopArea() {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
-    const { iccima } = usePage().props;
+    const { iccima,_GL } = usePage().props;
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     const loginSsoUrl = import.meta.env.VITE_LOGIN_URL_SSO || 'http://127.0.0.1:8000/loginSso';
     const handleSelectLang = (e) => {
@@ -48,6 +48,7 @@ export default function TopArea() {
     const handleNonDo = (e) => {
         e.preventDefault();
     }
+    console.log(_GL)
     return (
         <div>
             <section className="top-area">
@@ -63,25 +64,25 @@ export default function TopArea() {
                                 }} src="/images/iccima_iran.png" alt="" />
                             </Navbar.Brand>
                         </Link>
-                        <span className='navbar-title-site'>دایرکتوری اعضای اتاق بازرگانی، صنایع، معادن و کشاورزی ایران</span>
-                        <span className='navbar-title-site-mobile'>دایرکتوری اعضای اتاق بازرگانی</span>
+                        <span className='navbar-title-site'>{_GL["nav.brand_long"]}</span>
+                        <span className='navbar-title-site-mobile'>{_GL["nav.brand_short"]}</span>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto top_nav_app">
-                                <Link className="nav-link" href={`${appUrl}`}> <i className='fa fa-home'></i> خانه</Link>
-                                <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-info-circle'></i> راهنما</Link>
+                                <Link className="nav-link" href={`${appUrl}`}> <i className='fa fa-home'></i> {_GL["nav.home"]}</Link>
+                                <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-info-circle'></i> {_GL["nav.hint"]}</Link>
                                 {
                                     iccima.user.__id ?
                                         (
                                             <>
                                                 <Link className="nav-link" style={{
                                                     color: "rgb(155, 25, 25)"
-                                                }} href={iccima.user.spl}> <i className='fa fa-user-circle-o'></i> کسب و کار من</Link>
-                                                <Link className="nav-link" href={iccima.links.logout}> <i className='fa fa-sign-out'></i> خروج</Link>
+                                                }} href={iccima.user.spl}> <i className='fa fa-user-circle-o'></i>  {_GL["nav.profile"]}</Link>
+                                                <Link className="nav-link" href={iccima.links.logout}> <i className='fa fa-sign-out'></i> {_GL["nav.logout"]}</Link>
                                             </>
                                         ) :
                                         (
-                                            <a className="nav-link" href={loginSsoUrl}> <i className="fa fa-user-circle-o"></i> ورود </a>
+                                            <a className="nav-link" href={loginSsoUrl}> <i className="fa fa-user-circle-o"></i> {_GL["nav.login"]} </a>
                                         )
                                 }
 
