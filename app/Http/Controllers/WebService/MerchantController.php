@@ -5,7 +5,6 @@ namespace App\Http\Controllers\WebService;
 use App\Exceptions\ErrorResponse;
 use App\Http\Controllers\Controller;
 use App\Models\MerchantUser as MerchantUserModel;
-use App\Models\MerchantEUser as MerchantEUserModel;
 use App\Models\Preset as PresetModel;
 use App\Helpers\Pdate;
 
@@ -67,18 +66,22 @@ class MerchantController extends Controller
             "specialized_committees",
             "guild_types",
         ];
-        
-        $request_forms = request()->all();
-        $ws_iccima_user_current = request()->session()->get("ws_iccima_user_current", []);
-        $current_user_type = request()->session()->get("ws_iccima_user_type", "guest");
-        $card_no = @$ws_iccima_user_current['card_no'];
-        $merchant_model = MerchantUserModel::where('card_no',$card_no)->first();
-        $edited = $merchant_model->editable_form_vals_save($request_forms,$card_no,@$_FILES['brand_file']);
 
+        $request_forms = request()->all();
+        $merchant_model = iccima_get_current_user_orm();
+        $edited = $merchant_model->editable_form_vals_save($request_forms, @$_FILES['brand_file']);
         return response()->json([
             'data' => $edited['data'],
             'req' => request()->all(),
         ], $edited['status_code']);
     }
-    public function deleteBrandLogo() {}
+    public function deleteBrandLogo()
+    {
+        $merchant_model = iccima_get_current_user_orm();
+        $merchant_model->delete_file_editable_val("brand_image");
+        return response()->json([
+            'data' => [],
+            'req' => request()->all(),
+        ], 200);
+    }
 }

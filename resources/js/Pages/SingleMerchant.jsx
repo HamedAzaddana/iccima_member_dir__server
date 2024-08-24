@@ -6,11 +6,14 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { iterate_prepare_data, iterate_jsonify_data } from '../Utils/IccObjArr';
 import { get_jalali_year } from '../Utils/IccDate';
+import { data } from 'jquery';
 
 
 export default function SingleMerchant({ hid, route_ws_get_single, route_404_page, route_ws_saveVals, route_ws_delBrImg }) {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
+
+    const [uploadedBrImg, setUploadedBrImg] = useState("");
     const [forms, setForms] = useState(null);
     const [dataSingle, setDataSingle] = useState([]);
     const { iccima } = usePage().props;
@@ -30,10 +33,43 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
             [key]: e.target?.files[0],
         }))
     }
+
+    const handleDeleteBImg = (e) => {
+        document.getElementById('loading-page-iccima').style.display = "inline-flex";
+
+        axios.post(`${route_ws_delBrImg}`, {}, {
+            headers: {
+                'ICCIMA-AUTH-USERNAME': `${ws_username}`,
+                'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
+                'ICCIMA-AUTH-USER-TOKEN': `${iccima.user.__token}`,
+            }
+        })
+            .then(res => {
+                console.log(res)
+                document.getElementById('loading-page-iccima').style.display = "none";
+                let status_code = res?.status;
+                if (status_code == 200 || status_code == 201) {
+                    setUploadedBrImg("");
+                    toast.success(`اطلاعات با موفقیت به روز شد. `);
+                } else {
+                    toast.error(`خطایی رخ داد !`);
+                }
+            })
+            .catch((err) => {
+                document.getElementById('loading-page-iccima').style.display = "none";
+                let errors = err?.response?.data?.data;
+                if (Array.isArray(errors) && errors) {
+                    errors.forEach((error_item) => {
+                        toast.error(`${error_item}`);
+                    });
+                } else {
+                    toast.error(`${err.message} : ${err?.response?.data?.data?.msg}`);
+                }
+            });
+    }
     const handleSubmitForm = (e) => {
         document.getElementById('loading-page-iccima').style.display = "inline-flex";
         let _post_data = forms;
-
         let formData = new FormData();
         if (_post_data) {
             for (const [key_obj, value_obj] of Object.entries(_post_data)) {
@@ -53,6 +89,9 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                 document.getElementById('loading-page-iccima').style.display = "none";
                 let status_code = res?.status;
                 if (status_code == 200 || status_code == 201) {
+                    if (res?.data?.data?.brand_image) {
+                        setUploadedBrImg(res?.data?.data?.brand_image);
+                    }
                     toast.success(`اطلاعات با موفقیت به روز شد. `);
                 } else {
                     toast.error(`خطایی رخ داد !`);
@@ -86,7 +125,9 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
             console.log(response.data.data)
             setDataSingle(iterate_prepare_data(response.data.data));
             setForms(iterate_prepare_data(response.data.data.__forms));
-            // console.log(response.data.data.__forms)
+            if(response?.data?.data?.__forms?.brand_image){
+                setUploadedBrImg(response?.data?.data?.__forms?.brand_image);
+            }
         } catch (error) {
             document.getElementById('loading-page-iccima').style.display = "none";
             toast.error(`Error fetching single data : ${error.message}`);
@@ -144,19 +185,20 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                                             <br />
 
                                                                             {
-                                                                                forms?.brand_image ?
-                                                                                    (
-                                                                                        <div>
-                                                                                            <div className='iccima-brand-img'>
-                                                                                                <img src={forms?.brand_image?.toString()} alt={forms?.brand_title?.toString()} />
-                                                                                            </div>
-                                                                                            <button type='button' className='btn btn-danger m-3'>حذف</button>
-                                                                                        </div>
-                                                                                    ) :
+                                                                                 !uploadedBrImg ?
                                                                                     (
                                                                                         <p>
                                                                                             فایلی تاکنون آپلود نشده است !
                                                                                         </p>
+                                                                                    ) :
+                                                                                    (
+                                                                                        <div>
+                                                                                            <div className='iccima-brand-img'>
+                                                                                                <img  src={uploadedBrImg} alt={forms?.brand_title?.toString()} />
+                                                                                            </div>
+                                                                                            <button onClick={handleDeleteBImg} type='button' className='btn btn-danger m-3 p-1'><i className='fa fa-trash'></i></button>
+                                                                                        </div>
+
                                                                                     )
                                                                             }
 

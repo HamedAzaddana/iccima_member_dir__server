@@ -74,6 +74,24 @@ class MerchantUser extends Authenticatable
     {
         return $this->hasOne(MerchantEUser::class, 'card_no', 'card_no');
     }
+    public function delete_file_editable_val($f)
+    {
+        $card_no = $this->card_no;
+        $current_merchant_e_lv = MerchantEUser::firstOrCreate(
+            ['card_no' => $card_no],
+            [
+                "last_updated_at" => Pdate::persianTimeStampNow(),
+                "confirmed" => 0,
+            ]
+        );
+        $old_brand_image_path = $current_merchant_e_lv[$f];
+        if ($old_brand_image_path) {
+            MerchantEUser::where(['card_no' => $card_no])->update([
+                $f => null
+            ]);
+            iccima_unlink_public_src($old_brand_image_path);
+        }
+    }
     public function editable_form_vals()
     {
         $form_vals = [];
@@ -89,12 +107,12 @@ class MerchantUser extends Authenticatable
         }
         return $form_vals;
     }
-    public function editable_form_vals_save($input, $card_no, $bi_file)
+    public function editable_form_vals_save($input, $bi_file)
     {
+        $card_no = $this->card_no;
         $updated_merchant_e_lv = [];
         $errors_validation = [];
-        $brand_image_path = "";
-        $editable_user = $this->editable_user ? $this->editable_user->toArray() : [];
+        $brand_image_path = null;
         $current_lang = iccima_get_sess_lang();
         $current_merchant_e_lv = MerchantEUser::firstOrCreate(
             ['card_no' => $card_no],
@@ -103,6 +121,7 @@ class MerchantUser extends Authenticatable
                 "confirmed" => 0,
             ]
         );
+        $old_brand_image_path = $current_merchant_e_lv['brand_image'];
         foreach ($this->save_indexes as $save_index) {
             $new_val_lang =  @$input[$save_index];
             if (in_array($save_index, $this->multi_lang_fields)) {
@@ -126,9 +145,14 @@ class MerchantUser extends Authenticatable
             }
         }
         if (
-            (!$brand_image_path && !$bi_file) || $brand_image_path
+            $brand_image_path
         ) {
+            if ($old_brand_image_path) {
+                iccima_unlink_public_src($old_brand_image_path);
+            }
             $updated_merchant_e_lv["brand_image"] = $brand_image_path;
+        } else {
+            $updated_merchant_e_lv["brand_image"] = $old_brand_image_path;
         }
         $updated_merchant_e_lv["confirmed"] = 0;
         $updated_merchant_e_lv["last_updated_at"] = Pdate::persianTimeStampNow();

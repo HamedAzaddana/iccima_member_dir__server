@@ -4,7 +4,7 @@ use App\Models\AdminUser;
 use App\Models\MerchantUser;
 use App\Helpers\Logger;
 use Illuminate\Support\Facades\Cache;
-
+use Illuminate\Support\Facades\Auth;
 
 function iccima_prepareSelect($arr)
 {
@@ -127,6 +127,17 @@ function iccima_get_current_user_image()
 {
     return @iccima_get_current_user(1)['owner_image'];
 }
+function iccima_get_current_user_orm()
+{
+    $user_orm = null;
+    if (auth()->guard('web_merchant')->check()) {
+        $user_orm = auth()->guard('web_merchant')->user();
+    }
+    if (auth()->guard('web_admin')->check()) {
+        $user_orm = auth()->guard('web_admin')->user();
+    }
+    return $user_orm;
+}
 function iccima_get_current_user($include_images = 0)
 {
     $user_obj = null;
@@ -224,13 +235,19 @@ function iccima_get_validate_user_token($token)
                     ->get()->first();
                 $merchant = $merchant ? $merchant->toArray() : [];
                 if ($admin) {
+                    $guard = 'web_admin';
                     $user_type = 'admin';
                     $user_id = $admin['id'];
                 }
                 if ($merchant) {
+                    $guard = 'web_merchant';
                     $user_type = 'merchant';
                     $user_id = $merchant['id'];
                 }
+            }
+            if(!iccima_get_current_user_id()){
+                Auth::guard($guard)
+                ->loginUsingId($user_id);
             }
         }
     }
@@ -239,9 +256,9 @@ function iccima_get_validate_user_token($token)
         'user_type' => $user_type,
     ];
 }
-function iccima_upload_validate_image($file,$allowedTypes,$maxFileSize)
+function iccima_upload_validate_image($file, $allowedTypes, $maxFileSize)
 {
-   
+
     $fileName = $file['name'];
     $fileSize = $file['size'];
     $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
@@ -265,13 +282,19 @@ function iccima_upload_validate_image($file,$allowedTypes,$maxFileSize)
         'msg' => 'file uploaded successfully !',
     ];
 }
+function iccima_unlink_public_src($file_name_public)
+{
+    $full_upload_path = public_path() . $file_name_public;
+    if ($file_name_public && file_exists($full_upload_path)) {
+        unlink($full_upload_path);
+    }
+}
 function iccima_upload_public_src($file, $path_public)
 {
     $relative_path = "/uploads/$path_public/";
     $full_upload_path = public_path() . $relative_path;
     if (!is_dir($full_upload_path)) {
         mkdir($full_upload_path);
-        iccima_chmod_r($full_upload_path);
     }
     $rnd_real_name = iccima_get_rnd_str() . "." . pathinfo($file['name'], PATHINFO_EXTENSION);
     $file_name_path = $full_upload_path . $rnd_real_name;
@@ -290,18 +313,10 @@ function iccima_get_rnd_str($l = 4)
     $r4 = bin2hex(random_bytes($l));
     return  $r1 . "-" . $r2 . "-" . $r3 . "-" . $r4 . "-" . time();
 }
-function iccima_chmod_r($path) {
-    $dir = new DirectoryIterator($path);
-    foreach ($dir as $item) {
-        chmod($item->getPathname(), 0777);
-        if ($item->isDir() && !$item->isDot()) {
-            iccima_chmod_r($item->getPathname());
-        }
-    }
-}
+
 function ___rlic($index)
 {
-    include(base_path() . '/lang/' . iccima_get_sess_lang() . '.php');
+    include(base_path() . '/global_lang/' . iccima_get_sess_lang() . '.php');
 
     global $__GLABAL_LANG;
     return (string)@$__GLABAL_LANG[$index][iccima_get_sess_lang()];
@@ -312,7 +327,7 @@ function ___elic($index)
 }
 function ___callLang()
 {
-    include(base_path() . '/lang/' . iccima_get_sess_lang() . '.php');
+    include(base_path() . '/global_lang/' . iccima_get_sess_lang() . '.php');
 
     global $__GLABAL_LANG;
     return $__GLABAL_LANG;
