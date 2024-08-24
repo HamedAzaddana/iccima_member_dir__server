@@ -10,7 +10,18 @@ export function testJSON(text) {
         return false;
     }
 }
+export function iterate_jsonify_data(object) {
+    let new_obj = {};
+    Object.keys(object).forEach(key => {
+        let _val = object[key];
+        if ( typeof _val === 'object') {
+            _val = JSON.stringify(_val);
+        }
+        new_obj[key] = _val;
+    });
+    return new_obj;
 
+}
 export function iterate_prepare_data(object) {
     let new_obj = {};
     Object.keys(object).forEach(key => {
@@ -26,11 +37,11 @@ export function iterate_prepare_data(object) {
             "specialized_committees",// کمیسیون های تخصصی array
             "guild_types",// تشکل ها array
         ];
-        if (key == "__merchant_e") {
-            let __merchant_e = _val;
-            let __merchant_e_nv = iterate_prepare_data(__merchant_e);
-            _val = __merchant_e_nv
-        }
+        // if (key == "__merchant_e") {
+        //     let __merchant_e = _val;
+        //     let __merchant_e_nv = iterate_prepare_data(__merchant_e);
+        //     _val = __merchant_e_nv
+        // }
         if (key == "co_establish_date") {
             let new_val = _val ? get_jalali_year(_val, 1, 1) : 0;
             let new_key = "jalali_year";

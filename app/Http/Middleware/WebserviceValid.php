@@ -12,9 +12,6 @@ class WebserviceValid
 
     public function handle(Request $request, Closure $next): Response
     {
-        if (env("WS_WORK_TYPE", "") == "test") {
-            return $this->goNext($request, $next);
-        }
         $username_key = env("AUTH_WS_USERNAME", "");
         $password_key = env("AUTH_WS_PASSWORD", "");
         $username = $request->header('ICCIMA-AUTH-USERNAME');
@@ -27,8 +24,10 @@ class WebserviceValid
         ) {
             return ErrorResponse::error_403_api("Access Forbidden !");
         }
-
-        return $this->goNext($request, $next);
+        if (request()->isJson()) {
+            return $this->goNext($request, $next);
+        }
+        return $next($request);
     }
     public function goNext(Request $request, Closure $next)
     {

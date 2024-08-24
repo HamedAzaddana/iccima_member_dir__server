@@ -64,10 +64,9 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'webservice_gate' => \App\Http\Middleware\WebserviceValid::class,
-        'Is_Logged_in'=>\App\Http\Middleware\CheckLoggedInUser::class,
-        'Is_Admin'=>\App\Http\Middleware\CheckIsAdmin::class,
-        'Is_Merchant'=>\App\Http\Middleware\CheckIsMerchant::class,
-        'webservice_gate_auth'=>\App\Http\Middleware\WebserviceAuthUser::class,
+        'is_api_user' => \App\Http\Middleware\WebserviceValid::class,
+        'is_admin_in'=>\App\Http\Middleware\CheckIsAdmin::class,
+        'is_merchant_in'=>\App\Http\Middleware\CheckIsMerchant::class,
+        'is_auth_iccima_in'=>\App\Http\Middleware\WebserviceAuthUser::class,
     ];
 }

@@ -2,27 +2,40 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\ErrorResponse;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
+use App\Models\AdminUser;
+use App\Models\MerchantUser;
 
 class CheckIsMerchant
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
-    public function handle(Request $request, Closure $next)
+
+    public function handle(Request $request, Closure $next): Response
     {
-        $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $path_continue = $current_url;
-        if (iccima_get_current_user_type()=="merchant") {
-            return $next($request);
+        $token = (int)$request->header('ICCIMA-AUTH-USER-TOKEN');
+        $ui = iccima_get_validate_user_token($token);
+        $ui_id = $ui['user_id'];
+        $ui_type = $ui['user_type'];
+        if (
+            !$ui_id || ($ui_id && $ui_type !="merchant")
+        ) {
+            return ErrorResponse::error_403_api("Access Forbidden Authentication !");
         }
-        request()->session()->put('path_icc_last', $path_continue);
-        return redirect()->away(env('LOGIN_URL_SSO'));
+        request()->session()->put('ws_iccima_user_id', $ui_id);
+        request()->session()->put('ws_iccima_user_type', $ui_type);
+        request()->session()->put('ws_iccima_user_current', iccima_user_by_params($ui_id, $ui_type));
+        if (request()->isJson()) {
+            return $this->goNext($request, $next);
+        }
+        return $next($request);
+    }
+    public function goNext(Request $request, Closure $next)
+    {
+        return $next($request)
+            ->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization, Application, Accept, ICCIMA-AUTH-PASSWORD, ICCIMA-AUTH-USERNAME');
     }
 }

@@ -37,16 +37,33 @@ class MerchantUser extends Authenticatable
         "co_main_address",
         "co_email",
         "postal_code",
-        "biz_activities",// رشته فعالیت
+        "biz_activities", // رشته فعالیت
 
-        "biz_activitiy_goods",// نوع فعالیت array
-        "coo_biz_activities",// گواهی های مبدا صادر شده array
-        "biz_act_goods_hs_codes",// کد های hs تجاری array
-        "shared_chambers",// اتاق های مشترک array
-        "specialized_committees",// کمیسیون های تخصصی array
-        "guild_types",// تشکل ها array
-        
+        "biz_activitiy_goods", // نوع فعالیت array
+        "coo_biz_activities", // گواهی های مبدا صادر شده array
+        "biz_act_goods_hs_codes", // کد های hs تجاری array
+        "shared_chambers", // اتاق های مشترک array
+        "specialized_committees", // کمیسیون های تخصصی array
+        "guild_types", // تشکل ها array
+
         "last_updated_at"
+    ];
+    public $multi_lang_fields = [
+        "shared_chambers", // اتاق های مشترک
+        "specialized_committees", // کمیسیون های تخصصی
+        "guild_types", // تشکل ها
+        'brand_title', //برند تجاری
+        'co_main_address', //آدرس
+    ];
+    public $save_indexes = [
+        "brand_title",
+        "co_phone",
+        "co_fax",
+        "co_website",
+        "co_main_address",
+        "shared_chambers",
+        "specialized_committees",
+        "guild_types",
     ];
     protected $hidden = [
         'password',
@@ -56,6 +73,79 @@ class MerchantUser extends Authenticatable
     public function editable_user(): HasOne
     {
         return $this->hasOne(MerchantEUser::class, 'card_no', 'card_no');
+    }
+    public function editable_form_vals()
+    {
+        $form_vals = [];
+        $editable_user = $this->editable_user ? $this->editable_user->toArray() : [];
+        $current_lang = iccima_get_sess_lang();
+        foreach ($editable_user as $keu_item => $veu_item) {
+            if (in_array($keu_item, $this->multi_lang_fields)) {
+                $veu_item = (array)json_decode($veu_item);
+                $form_vals[$keu_item] = @$veu_item[$current_lang];
+            } else {
+                $form_vals[$keu_item] = $veu_item;
+            }
+        }
+        return $form_vals;
+    }
+    public function editable_form_vals_save($input, $card_no, $bi_file)
+    {
+        $updated_merchant_e_lv = [];
+        $errors_validation = [];
+        $brand_image_path = "";
+        $editable_user = $this->editable_user ? $this->editable_user->toArray() : [];
+        $current_lang = iccima_get_sess_lang();
+        $current_merchant_e_lv = MerchantEUser::firstOrCreate(
+            ['card_no' => $card_no],
+            [
+                "last_updated_at" => Pdate::persianTimeStampNow(),
+                "confirmed" => 0,
+            ]
+        );
+        foreach ($this->save_indexes as $save_index) {
+            $new_val_lang =  @$input[$save_index];
+            if (in_array($save_index, $this->multi_lang_fields)) {
+                $lv_me_json_decode = json_decode(@$current_merchant_e_lv[$save_index]) ? (array)json_decode(@$current_merchant_e_lv[$save_index]) : [];
+                $lv_me_json_decode[$current_lang] = $new_val_lang;
+                $updated_merchant_e_lv[$save_index] = json_encode($lv_me_json_decode, JSON_UNESCAPED_UNICODE);
+            } else {
+                $updated_merchant_e_lv[$save_index] = $new_val_lang;
+            }
+        }
+        if ($bi_file) {
+            $allowedTypes = array('jpg', 'jpeg', 'png');
+            $maxFileSize = 1 * 1024 * 1024; // 1MB
+            $file_validation = iccima_upload_validate_image($bi_file, $allowedTypes, $maxFileSize);
+            $response = @$file_validation['response'];
+            $msg = @$file_validation['msg'];
+            if ($response == "success") {
+                $brand_image_path = iccima_upload_public_src($bi_file, "brands");
+            } else {
+                $errors_validation[] = $msg;
+            }
+        }
+        if (
+            (!$brand_image_path && !$bi_file) || $brand_image_path
+        ) {
+            $updated_merchant_e_lv["brand_image"] = $brand_image_path;
+        }
+        $updated_merchant_e_lv["confirmed"] = 0;
+        $updated_merchant_e_lv["last_updated_at"] = Pdate::persianTimeStampNow();
+        MerchantEUser::updateOrCreate([
+            "card_no"   => $card_no,
+        ], $updated_merchant_e_lv);
+        if (!$errors_validation) {
+            return [
+                'data' => $updated_merchant_e_lv,
+                'status_code' => 200,
+            ];
+        } else {
+            return [
+                'data' => $errors_validation,
+                'status_code' => 422,
+            ];
+        }
     }
     public static function createIndexEls()
     {
@@ -206,9 +296,9 @@ class MerchantUser extends Authenticatable
             $dt_els['__id'] = iccima_hashid_encode((int)$hits__hit['_id']);
             $lang = iccima_get_sess_lang();
             $slug = iccima_sluggify(json_decode($dt_els['co_title'])->{"$lang"});
-            $dt_els['spl'] = route("home.single.view",[
-                'hash_id'=>$dt_els['__id'],
-                'slug'=>$slug,
+            $dt_els['spl'] = route("home.single.view", [
+                'hash_id' => $dt_els['__id'],
+                'slug' => $slug,
             ]);
             $array[] = $dt_els;
         }
@@ -288,14 +378,14 @@ class MerchantUser extends Authenticatable
             $_data = CardsDataService::getDataByIndex($index_number_updated);
             $_data_sql = self::prepare_save_db_sql($_data);
             $_data_sql['last_updated_at'] = Pdate::persianTimeStampNow();
-            if(@$_data_sql["card_no"]){
+            if (@$_data_sql["card_no"]) {
                 self::updateOrCreate([
                     self::$unique_base_orc   => $_data_sql[self::$unique_base_orc],
                 ], $_data_sql);
-            }else{
+            } else {
                 throw new \ErrorException("The Card no is null ! Index number : $index_number_updated");
             }
-           
+
             IndexNumberApi::where('index_number', $index_number_updated)->update([
                 'status' => 1,
                 'last_updated_at' => Pdate::persianTimeStampNow(),

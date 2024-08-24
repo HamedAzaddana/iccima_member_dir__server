@@ -36,7 +36,9 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user_array = iccima_get_current_user();
+        $_GL = ___callLang();
         return array_merge(parent::share($request), [
+            '_GL' => $_GL,
             'iccima.user.lang' => iccima_get_sess_lang(),
             'iccima.user.obj' => iccima_get_current_user_safe(),
             'iccima.user.type' => iccima_get_current_user_type(),

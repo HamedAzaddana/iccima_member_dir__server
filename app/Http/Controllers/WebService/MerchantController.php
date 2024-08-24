@@ -42,13 +42,14 @@ class MerchantController extends Controller
         $merchant_e = [];
         if ($merchant) {
             $merchant_e = $merchant->editable_user ? $merchant->editable_user->toArray() : [];
+            $form_vals = $merchant?->editable_form_vals();
         }
         if (!$merchant || !$merchant_id || !$hid) {
             return ErrorResponse::error_404_api("Not Found Resource Merchant !");
         }
         $merchant = $merchant->toArray();
         $merchant['__id'] = $hid;
-        $merchant['__merchant_e'] = $merchant_e;
+        $merchant['__forms'] = $form_vals;
         return response()->json([
             'data' => $merchant,
             'req' => request()->all(),
@@ -66,75 +67,18 @@ class MerchantController extends Controller
             "specialized_committees",
             "guild_types",
         ];
-        $multi_lang_indexed = [
-            "brand_title",
-            "co_main_address",
-            "shared_chambers",
-            "specialized_committees",
-            "guild_types",
-        ];
-
-
+        
         $request_forms = request()->all();
-        $current_lang = iccima_get_sess_lang();
         $ws_iccima_user_current = request()->session()->get("ws_iccima_user_current", []);
         $current_user_type = request()->session()->get("ws_iccima_user_type", "guest");
-
-        if ($current_user_type != "merchant") {
-            return response()->json([
-                'data' => [
-                    'msg' => "Access denied for Admin !"
-                ],
-                'req' => request()->all(),
-            ], 403);
-        }
         $card_no = @$ws_iccima_user_current['card_no'];
-        $current_merchant_e_lv = MerchantEUserModel::firstOrCreate(
-            ['card_no' => $card_no],
-            [
-                "last_updated_at" => Pdate::persianTimeStampNow(),
-                "confirmed" => 0,
-            ]
-        );
-        $updated_merchant_e_lv = [];
-        foreach ($save_indexes as $save_index) {
-            $new_val_lang =  (string)@$request_forms[$save_index];
-            if (in_array($save_index, $multi_lang_indexed)) {
-                $lv_me_json_decode = json_decode(@$current_merchant_e_lv[$save_index]) ? (array)json_decode(@$current_merchant_e_lv[$save_index]) : [];
-                $lv_me_json_decode[$current_lang] = $new_val_lang;
-                $updated_merchant_e_lv[$save_index] = json_encode($lv_me_json_decode, JSON_UNESCAPED_UNICODE);
-            } else {
-                $updated_merchant_e_lv[$save_index] = $new_val_lang;
-            }
-        }
-        $bm_path = "";
-        if (@$_FILES['brand_file__e']) {
-            $file_validation = iccima_upload_validate_image($_FILES['brand_file__e']);
-            $response = @$file_validation['response'];
-            $msg = @$file_validation['msg'];
-            if ($response == "success") {
-                $bm_path = iccima_upload_public_src($_FILES['brand_file__e'], "brands");
-            } else {
-                return response()->json([
-                    'data' => [
-                        'msg' => $msg
-                    ],
-                    'req' => request()->all(),
-                ], 422);
-            }
-        }
-        $updated_merchant_e_lv["brand_image"] = $bm_path;
-        $updated_merchant_e_lv["confirmed"] = 0;
-        $updated_merchant_e_lv["last_updated_at"] = Pdate::persianTimeStampNow();
-        MerchantEUserModel::updateOrCreate([
-            "card_no"   => $card_no,
-        ], $updated_merchant_e_lv);
+        $merchant_model = MerchantUserModel::where('card_no',$card_no)->first();
+        $edited = $merchant_model->editable_form_vals_save($request_forms,$card_no,@$_FILES['brand_file']);
 
         return response()->json([
-            'data' => $updated_merchant_e_lv,
-            'files' => $bm_path,
+            'data' => $edited['data'],
             'req' => request()->all(),
-        ], 200);
+        ], $edited['status_code']);
     }
     public function deleteBrandLogo() {}
 }

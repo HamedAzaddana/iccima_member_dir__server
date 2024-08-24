@@ -8,10 +8,15 @@
 
 }
 
-body {
+body .app-lang-Persian {
     font-family: "iran_sans" !important;
     text-align: right;
     direction: rtl !important;
+}
+body .app-lang-English {
+    font-family: "iran_sans" !important;
+    text-align: left;
+    direction: ltr !important;
 }
 
 input[type="text"],

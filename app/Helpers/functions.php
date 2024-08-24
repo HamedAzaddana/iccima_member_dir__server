@@ -5,7 +5,6 @@ use App\Models\MerchantUser;
 use App\Helpers\Logger;
 use Illuminate\Support\Facades\Cache;
 
-include(__DIR__ . "/languages.php");
 
 function iccima_prepareSelect($arr)
 {
@@ -100,6 +99,11 @@ function iccima_get_sess_lang()
     return request()->session()->get('current_browser_lang') ?
         request()->session()->get('current_browser_lang') :
         "Persian";
+}
+function iccima_get_lang_file_inc()
+{
+    // $lang : Persian , English
+
 }
 function iccima_sluggify($str)
 {
@@ -235,32 +239,31 @@ function iccima_get_validate_user_token($token)
         'user_type' => $user_type,
     ];
 }
-function iccima_upload_validate_image($file)
+function iccima_upload_validate_image($file,$allowedTypes,$maxFileSize)
 {
-    $allowedTypes = array('jpg', 'jpeg', 'png');
-    $maxFileSize = 1 * 1024 * 1024; // 1MB
+   
     $fileName = $file['name'];
     $fileSize = $file['size'];
     $fileType = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
     // Check file type
     if (!in_array($fileType, $allowedTypes)) {
         return [
-           'response'=> 'error',
-           'msg'=> 'file type is invalid !',
+            'response' => 'error',
+            'msg' => 'نوع فایل آپلود شده مجاز نیست !',
         ];
     }
 
     // Check file size
     if ($fileSize > $maxFileSize) {
         return [
-            'response'=> 'error',
-            'msg'=> 'file size is invalid !',
-         ];
+            'response' => 'error',
+            'msg' => 'حجم فایل آپلود شده مجاز نیست !',
+        ];
     }
     return [
-        'response'=> 'success',
-        'msg'=> 'file uploaded successfully !',
-     ];
+        'response' => 'success',
+        'msg' => 'file uploaded successfully !',
+    ];
 }
 function iccima_upload_public_src($file, $path_public)
 {
@@ -268,6 +271,7 @@ function iccima_upload_public_src($file, $path_public)
     $full_upload_path = public_path() . $relative_path;
     if (!is_dir($full_upload_path)) {
         mkdir($full_upload_path);
+        iccima_chmod_r($full_upload_path);
     }
     $rnd_real_name = iccima_get_rnd_str() . "." . pathinfo($file['name'], PATHINFO_EXTENSION);
     $file_name_path = $full_upload_path . $rnd_real_name;
@@ -286,13 +290,30 @@ function iccima_get_rnd_str($l = 4)
     $r4 = bin2hex(random_bytes($l));
     return  $r1 . "-" . $r2 . "-" . $r3 . "-" . $r4 . "-" . time();
 }
-
+function iccima_chmod_r($path) {
+    $dir = new DirectoryIterator($path);
+    foreach ($dir as $item) {
+        chmod($item->getPathname(), 0777);
+        if ($item->isDir() && !$item->isDot()) {
+            iccima_chmod_r($item->getPathname());
+        }
+    }
+}
 function ___rlic($index)
 {
+    include(base_path() . '/lang/' . iccima_get_sess_lang() . '.php');
+
     global $__GLABAL_LANG;
     return (string)@$__GLABAL_LANG[$index][iccima_get_sess_lang()];
 }
 function ___elic($index)
 {
     echo ___rlic($index);
+}
+function ___callLang()
+{
+    include(base_path() . '/lang/' . iccima_get_sess_lang() . '.php');
+
+    global $__GLABAL_LANG;
+    return $__GLABAL_LANG;
 }
