@@ -131,7 +131,8 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6 col-lg-4 col-sm-12 mt-4 InputS2">
+                        <div className='col-md-6 col-lg-1 col-sm-12 mt-4'></div>
+                        <div className="col-md-6 col-lg-3 col-sm-12 mt-4 InputS2">
                             <div style={{
                                 width: "100%",
                                 border: 0,

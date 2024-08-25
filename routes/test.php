@@ -18,7 +18,7 @@ Route::get('/test2', function () {
     // dd(iccima_lang_str('nav.home'));
     // iccima_change_sess_lang("Persian");
     // dd(MerchantUserModel::where("card_no","10260117348")->first()->toArray());
-    // dd($_data = CardsData::getDataByIndex("430930"));
+    // dd($_data = CardsData::getDataByIndex("558177"));
 });
 Route::get('/test', function () {
     

@@ -88,7 +88,7 @@ export default function TopArea() {
 
 
                                 <Link className="nav-link" href="#" onClick={handleNonDo}> <li className="select-opt text-dark">
-                                    <select value={iccima.user.lang} onChange={handleSelectLang} name="language" id="language">
+                                   <i className='fa fa-language'></i> <select value={iccima.user.lang} onChange={handleSelectLang} name="language" id="language">
                                         <option  value="Persian">فارسی</option>
                                         <option value="English">English</option>
                                     </select>

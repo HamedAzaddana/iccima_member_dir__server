@@ -145,10 +145,11 @@ a.nav-link:hover {
 .SelectProvince {
     padding: 0;
     margin: 0;
-    text-align: right;
+    text-align: center;
     height: 100%;
     border-radius: 0;
     cursor: pointer;
+    color: gray !important;
 }
 .app-lang-English .SelectProvince {
     padding: 0;
@@ -157,6 +158,7 @@ a.nav-link:hover {
     height: 100%;
     border-radius: 0;
     cursor: pointer;
+    color: gray !important;
 }
 
 
@@ -271,7 +273,14 @@ img.user-profile-cr {
     border-radius: 5%;
     height: 140px !important;
 }
-
+.modal-body p{
+    color:black !important;
+}
+#captcha-img-iccima{
+    width: 90px;
+    height: 60px;
+    display: none;
+}
 @media only screen and (max-width:995px) {
     .welcome-hero {
         height: 750px;
@@ -332,7 +341,7 @@ img.user-profile-cr {
     .SelectProvince {
         height: 74px !important;
         width: 95% !important;
-        text-align: right;
+        text-align: center;
     }
 }
 
