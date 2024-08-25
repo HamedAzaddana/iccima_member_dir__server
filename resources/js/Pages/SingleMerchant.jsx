@@ -47,9 +47,9 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                 let status_code = res?.status;
                 if (status_code == 200 || status_code == 201) {
                     setUploadedBrImg("");
-                    toast.success(`اطلاعات با موفقیت به روز شد. `);
+                    toast.success(`${_GL['toast.edited_success']}`);
                 } else {
-                    toast.error(`خطایی رخ داد !`);
+                    toast.error(`${_GL['toast.error']}`);
                 }
             })
             .catch((err) => {
@@ -89,9 +89,9 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                     if (res?.data?.data?.brand_image) {
                         setUploadedBrImg(res?.data?.data?.brand_image);
                     }
-                    toast.success(`اطلاعات با موفقیت به روز شد. `);
+                    toast.success(`${_GL['toast.edited_success']}`);
                 } else {
-                    toast.error(`خطایی رخ داد !`);
+                    toast.error(`${_GL['toast.error']}`);
                 }
             })
             .catch((err) => {
@@ -156,36 +156,36 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                     <div className="card-body text-dark">
                                                         <div className="row">
                                                             <div className="col-lg-12 col-md-12 col-sm-12">
-                                                                <h3 className='text-primary font-weight-bold'>فرم خوداظهاری بازرگان</h3>
+                                                                <h3 className='text-primary font-weight-bold'>{_GL['singlePage.form.title']}</h3>
                                                                 {
                                                                     !forms?.confirmed ? (
                                                                         <div className="alert alert-danger m-3" role="alert">
-                                                                            اطلاعات شما در دست بررسی و تایید است !
+                                                                            {_GL['singlePage.un_confirmed']}
                                                                         </div>
                                                                     ) : (
                                                                         <div className="alert alert-success m-3" role="alert">
-                                                                            اطلاعات شما تایید شده است !
+                                                                            {_GL['singlePage.confirmed']}
                                                                         </div>
                                                                     )
                                                                 }
                                                                 <div className='p-2 mt-1'>
                                                                     <div className="mb-3 row">
                                                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-2">
-                                                                            <label className="form-label">نام برند تجاری</label>
+                                                                            <label className="form-label"> {_GL['singlePage.form.brand_title']} </label>
                                                                             <input onChange={handleChangeVs} value={forms?.brand_title?.toString()} type="text" className="form-control" id="brand_title" />
                                                                         </div>
                                                                         <div className="col-lg-6 col-md-6 col-sm-12 mt-2">
-                                                                            <label className="form-label">لوگو برند تجاری</label>
+                                                                            <label className="form-label"> {_GL['singlePage.form.brand_logo']} </label>
                                                                             <input onChange={handleChangeFile} type="file" className="form-control" id="brand_file" />
-                                                                            <div className="form-text">فرمت های قابل قبول: png, jpg, jpeg</div>
-                                                                            <div className="form-text">حداکثر حجم قابل قبول: 1MB </div>
+                                                                            <div className="form-text">{_GL['singlePage.form.brand_logo_valid_size']} </div>
+                                                                            <div className="form-text">{_GL['singlePage.form.brand_logo_valid_types']}</div>
                                                                             <br />
 
                                                                             {
                                                                                  !uploadedBrImg ?
                                                                                     (
                                                                                         <p>
-                                                                                            فایلی تاکنون آپلود نشده است !
+                                                                                            
                                                                                         </p>
                                                                                     ) :
                                                                                     (
@@ -203,39 +203,39 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                                     </div>
                                                                     <div className="mb-3 row">
                                                                         <div className="col-lg-4 col-md-4 col-sm-12 mt-2">
-                                                                            <label className="form-label">تلفن شرکت</label>
+                                                                            <label className="form-label">{_GL['singlePage.form.phone']}</label>
                                                                             <input onChange={handleChangeVs} value={forms?.co_phone?.toString()} type="text" className="form-control" id="co_phone" />
                                                                         </div>
                                                                         <div className="col-lg-4 col-md-4 col-sm-12 mt-2">
-                                                                            <label className="form-label">فکس شرکت</label>
+                                                                            <label className="form-label">{_GL['singlePage.form.fax']}</label>
                                                                             <input onChange={handleChangeVs} value={forms?.co_fax?.toString()} type="text" className="form-control" id="co_fax" />
                                                                         </div>
                                                                         <div className="col-lg-4 col-md-4 col-sm-12 mt-2">
-                                                                            <label className="form-label">وب سایت شرکت</label>
+                                                                            <label className="form-label"> {_GL['singlePage.form.website']}</label>
                                                                             <input onChange={handleChangeVs} value={forms?.co_website?.toString()} type="text" className="form-control" id="co_website" />
                                                                         </div>
                                                                     </div>
                                                                     <div className="mb-3">
-                                                                        <label className="form-label">آدرس شرکت</label>
+                                                                        <label className="form-label">{_GL['singlePage.form.address']}</label>
                                                                         <textarea onChange={handleChangeVs} className="form-control iccima_met" id="co_main_address" rows="5"
                                                                             defaultValue={forms?.co_main_address?.toString()}></textarea>
                                                                     </div>
                                                                     <div className="mb-3">
-                                                                        <label className="form-label">اتاق های مشترک</label>
+                                                                        <label className="form-label">{_GL['singlePage.form.otash_moshtarak']}</label>
                                                                         <textarea onChange={handleChangeVs} className="form-control iccima_met" id="shared_chambers" rows="5"
                                                                             defaultValue={forms?.shared_chambers?.toString()}></textarea>
                                                                     </div>
                                                                     <div className="mb-3">
-                                                                        <label className="form-label">کمیسیون های تخصصی</label>
+                                                                        <label className="form-label">{_GL['singlePage.form.commis_takh']}</label>
                                                                         <textarea onChange={handleChangeVs} className="form-control iccima_met" id="specialized_committees" rows="5"
                                                                             defaultValue={forms?.specialized_committees?.toString()}></textarea>
                                                                     </div>
                                                                     <div className="mb-3">
-                                                                        <label className="form-label">تشکل ها</label>
+                                                                        <label className="form-label">{_GL['singlePage.form.tashakol']}</label>
                                                                         <textarea onChange={handleChangeVs} className="form-control iccima_met" id="guild_types" rows="5"
                                                                             defaultValue={forms?.guild_types?.toString()}></textarea>
                                                                     </div>
-                                                                    <button onClick={handleSubmitForm} type='button' className='btn btn-success m-3'> <i className='fa fa-pencil-square-o'></i> ثبت تغییرات</button>
+                                                                    <button onClick={handleSubmitForm} type='button' className='btn btn-success m-3'> <i className='fa fa-pencil-square-o'></i>  {_GL['singlePage.form.btnSave']} </button>
                                                                 </div>
                                                             </div>
                                                         </div>

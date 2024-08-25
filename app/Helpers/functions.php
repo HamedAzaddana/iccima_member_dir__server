@@ -200,6 +200,7 @@ function iccima_get_validate_user_token($token)
     $clientIP = request()->ip();
     $is_valid_token_duration = (int)Cache::get("_utokenValid_" . $clientIP, 0);
     $continue_token_check = 0;
+    $user_id_logged_in = iccima_get_current_user_id();
     if ((int)env('ICCIM_AUTH_WEB_INTERNAL')) {
         $user_id = iccima_get_current_user_id();
         $user_type = iccima_get_current_user_type();
@@ -245,7 +246,7 @@ function iccima_get_validate_user_token($token)
                     $user_id = $merchant['id'];
                 }
             }
-            if(!iccima_get_current_user_id()){
+            if(!$user_id_logged_in){
                 Auth::guard($guard)
                 ->loginUsingId($user_id);
             }

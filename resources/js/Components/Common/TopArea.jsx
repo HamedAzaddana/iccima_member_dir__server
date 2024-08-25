@@ -30,7 +30,7 @@ export default function TopArea() {
                 if (status_code == 200 || status_code == 201) {
                     window.location.reload();
                 } else {
-                    toast.error(`خطایی رخ داد !`);
+                    toast.error(`${_GL['toast.error']}`);
                 }
             })
             .catch((err) => {
