@@ -17,20 +17,10 @@ export default function FooterBottom() {
                                         borderRadius: "20%",
                                         filter: "contrast(180%)",
                                     }} src="/images/iccima_iran.png" alt="" />
-                                    <span style={{
-                                        fontSize: "15px",
-                                        padding: "5px",
-                                        margin: "10px",
-                                        color: "black",
-                                    }}>دایرکتوری اعضای اتاق بازرگانی، صنایع، معادن و کشاورزی ایران</span>
+                                  
                                 </div>
                             </div>
-                            <div className="col-lg-6 col-md-6 col-sm-12">
-                                <ul className="footer-menu-item">
-                                    <li className="scroll"><Link className="nav-link" href={`${appUrl}/#`}>خانه</Link></li>
-                                    <li className="scroll"><Link className="nav-link" href={`${appUrl}/#`}>راهنما</Link></li>
-                                </ul>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

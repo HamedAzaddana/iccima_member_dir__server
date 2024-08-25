@@ -5,7 +5,7 @@ import { iterate_prepare_data } from '../../Utils/IccObjArr';
 import { usePage } from '@inertiajs/react'
 
 export default function CardResult({ info }) {
-    const { iccima } = usePage().props;
+    const { iccima,_GL } = usePage().props;
 
     const handleNonDo = (e) => {
         e.preventDefault();
@@ -53,10 +53,10 @@ export default function CardResult({ info }) {
                         <div className="col-md-6 col-lg-6 col-sm-12 mt-3">
                             <h6 className='mt-1 pt-1 text-danger'><strong>{co_title[iccima.user.lang.toString()]}</strong></h6>
                             <p className='mt-1 pt-1 text-dark'><strong>{owner_fullname[iccima.user.lang.toString()] ? owner_fullname[iccima.user.lang.toString()] : co_title[iccima.user.lang.toString()]}</strong></p>
-                            <p className='mt-1 pt-1 text-dark'><strong>{co_type[iccima.user.lang.toString()]} {jalali_year ? `تاسیس ${jalali_year}` : ""}</strong></p>
+                            <p className='mt-1 pt-1 text-dark'><strong>{co_type[iccima.user.lang.toString()]} {jalali_year ? `${_GL['cardResult.establish']} ${jalali_year}` : ""}</strong></p>
                             <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: biz_activities_html }} ></p>
                             <br />
-                            <strong> <i className='fa fa-map-marker'></i> {city[iccima.user.lang.toString()]}</strong> &nbsp; | &nbsp; <strong> <i className='fa fa-id-card-o'></i> {card_type_id == 2 ? `عضویت`:`بازرگانی`}</strong>
+                            <strong> <i className='fa fa-map-marker'></i> {city[iccima.user.lang.toString()]}</strong> &nbsp; | &nbsp; <strong> <i className='fa fa-id-card-o'></i> {card_type_id == 2 ? `${_GL['cardResult.ozviat']}`:`${_GL['cardResult.bazargani']}`}</strong>
                         </div>
                         <div className="col-md-3 col-lg-3 col-sm-12 mt-3 ContactsPartCardRs">
                             {co_phone ? (
@@ -73,7 +73,7 @@ export default function CardResult({ info }) {
                                 fontSize: "12px",
                                 padding: "5px",
                             }} className="btn btn-sm btn-outline-secondary" href={spl}> <i className='fa fa-exclamation-circle'></i> &nbsp;
-                                اطلاعات بیشتر</Link>
+                                {_GL['cardResult.btnDetail']} </Link>
                         </div>
                     </div>
                 </div>

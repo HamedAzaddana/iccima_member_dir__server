@@ -48,7 +48,7 @@ export default function TopArea() {
     const handleNonDo = (e) => {
         e.preventDefault();
     }
-    console.log(_GL)
+   
     return (
         <div>
             <section className="top-area">

@@ -4,19 +4,22 @@ import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import toast, { Toaster } from 'react-hot-toast';
-import { event } from 'jquery';
+import { usePage } from '@inertiajs/react'
 
 export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToIndex }) {
+    const { iccima,_GL } = usePage().props; 
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
-    const SubmitBtn = useRef(null);
+    const [filters, setFilters] = useState([]);
     let default_filters = {
         kws: "",
         province: "",
         group_act_type: "",
     };
-    const [filters, setFilters] = useState([]);
     const [values, setValues] = useState(default_filters);
+    const SubmitBtn = useRef(null);
+   
+    
     const fetchDatafilters = async () => {
         try {
             const response = await axios.post(`${ws_search_get_fv}`, {}, {
@@ -101,7 +104,6 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
     }
     useEffect(() => {
         fetchDatafilters();
-
     }, []);
     return (
         <div>
@@ -109,26 +111,20 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                 <button onClick={getMoreRApi} id='getMoreApiBtn' className='d-none'></button>
                 <div className="container">
                     <div className="welcome-hero-txt">
-                        <h2>به سادگی یک کلیک، با اعضای اتاق ایران آشنا شوید. </h2>
+                        <h2> {_GL["welocom.tip"]} </h2>
                         <p>
-                            بستر ارتباط آنلاین دارندگان کارت های عضویت و بازرگانی
+                        {_GL["welocom.title"]}
                         </p>
                     </div>
                     <div className="welcome-hero-serch-box row">
                         <div className="col-md-6 col-lg-6 col-sm-12 InputS1" onClick={focusInputS1}>
-                            <div style={{
-                                width: "100%",
-                                border: 0
-                            }} className="single-welcome-hero-form">
-                                <input style={{
-                                    position: "relative",
-                                    right: "30px",
-                                }}
+                            <div  className="single-welcome-hero-form">
+                                <input
                                     id="kws"
                                     className='text-dark'
                                     value={values.kws} onChange={handleChangeVs}
                                     onKeyDown={handleKeyType}
-                                    type="text" placeholder="نام، رشته فعالیت، نام کالا ... " />
+                                    type="text" placeholder={_GL["welocom.plchldrInput"]} />
 
                                 <div className="welcome-hero-form-icon">
                                     <i className="flaticon-list-with-dots"></i>
@@ -142,7 +138,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
 
                             }} className="single-welcome-hero-form">
                                 <Form.Select className='without-icon SelectProvince' onChange={handleChangeVs} defaultValue="null" id="province">
-                                    <option value={"all"}> استان </option>
+                                    <option value={"all"}> {_GL["welocom.plchldrProvince"]} </option>
                                     {(filters?.provinces?.length) ?
                                         (
                                             <>
@@ -166,7 +162,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
 
                         </div>
                         <div className="col-md-2 col-lg-2 col-sm-12 mt-4 InputS3">
-                            <button onClick={handleSearch} id='btn-do-search' ref={SubmitBtn} type="submit" className="form-control btn btn-danger mb-4"> جستجو <i className='fa fa-search'></i></button>
+                            <button onClick={handleSearch} id='btn-do-search' ref={SubmitBtn} type="submit" className="form-control btn btn-danger mb-4"> {_GL["welocom.btnSearch"]} <i className='fa fa-search'></i></button>
                         </div>
                     </div>
                 </div>
@@ -181,12 +177,12 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-cogs"></i>
                                     </div>
-                                    <h2>صنعت</h2>
+                                    <h2>{_GL["welocom.boxIndustry"]}</h2>
                                     <div className="form-check form-switch">
                                         <input className="form-check-input group_act_type_v1" type="radio"
                                             id="group_act_type"
                                             name="group_act_type"
-                                            value="صنعت"
+                                            value={_GL["welocom.boxIndustry"]}
                                             onChange={handleChangeVsReactive}
                                         />
                                     </div>
@@ -198,11 +194,11 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-address-card"></i>
                                     </div>
-                                    <h2>بازرگانی</h2>
+                                    <h2>{_GL["welocom.boxCommerce"]}</h2>
                                     <div className="form-check form-switch">
                                         <input className="form-check-input group_act_type_v2" type="radio"
                                             id="group_act_type"
-                                            value="بازرگانی"
+                                            value={_GL["welocom.boxCommerce"]}
                                             name="group_act_type"
                                             onChange={handleChangeVsReactive}
                                         />
@@ -215,11 +211,11 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-leaf"></i>
                                     </div>
-                                    <h2>کشاورزی</h2>
+                                    <h2>{_GL["welocom.boxAgri"]}</h2>
                                     <div className="form-check form-switch">
                                         <input className="form-check-input group_act_type_v3" type="radio"
                                             id="group_act_type"
-                                            value="کشاورزی"
+                                            value={_GL["welocom.boxAgri"]}
                                             name="group_act_type"
                                             onChange={handleChangeVsReactive}
                                         />
@@ -232,11 +228,11 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-diamond"></i>
                                     </div>
-                                    <h2>معدن</h2>
+                                    <h2>{_GL["welocom.boxMine"]}</h2>
                                     <div className="form-check form-switch">
                                         <input className="form-check-input group_act_type_v4" type="radio"
                                             id="group_act_type"
-                                            value="معدن"
+                                            value={_GL["welocom.boxMine"]}
                                             name="group_act_type"
                                             onChange={handleChangeVsReactive}
                                         />

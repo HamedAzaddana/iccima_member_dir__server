@@ -13,6 +13,7 @@ body .app-lang-Persian {
     text-align: right;
     direction: rtl !important;
 }
+
 body .app-lang-English {
     font-family: "iran_sans" !important;
     text-align: left;
@@ -35,7 +36,12 @@ option {
     font-family: "iran_sans" !important;
     text-transform: capitalize !important;
 }
-h1 *,h2 *,h3 *,h4 *,h5 *{
+
+h1 *,
+h2 *,
+h3 *,
+h4 *,
+h5 * {
     text-transform: capitalize !important;
 }
 
@@ -144,6 +150,15 @@ a.nav-link:hover {
     border-radius: 0;
     cursor: pointer;
 }
+.app-lang-English .SelectProvince {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    height: 100%;
+    border-radius: 0;
+    cursor: pointer;
+}
+
 
 .InputS2 .single-welcome-hero-form {
     width: 100%;
@@ -153,6 +168,17 @@ a.nav-link:hover {
     margin: 0;
     padding: 0;
     margin-top: -3px;
+}
+
+.InputS1 .single-welcome-hero-form {
+    width: 100%;
+    border: 0;
+}
+
+
+ .InputS1 .single-welcome-hero-form input[type="text"] {
+    position: relative;
+    right: 30px;
 }
 
 .InputS2 .welcome-hero-form-icon {
@@ -216,27 +242,32 @@ a.nav-link:hover {
 .single-list-topics-content input {
     cursor: pointer;
 }
-.single-list-topics-content .form-check-input{
-visibility: hidden;
+
+.single-list-topics-content .form-check-input {
+    visibility: hidden;
 }
+
 .single-list-topics-icon .fa {
     font-size: 30px !important;
     color: #746d6d;
     padding: 9px !important;
 }
-.iccima-brand-img img{
+
+.iccima-brand-img img {
     width: 100px;
     height: 100px;
     border-radius: 5%;
 }
 
-textarea.iccima_met,input.iccima_met {
+textarea.iccima_met,
+input.iccima_met {
     font-size: 14px !important;
     padding: 7px !important;
     margin: 0 !important;
     line-height: 1.6 !important;
 }
-img.user-profile-cr{
+
+img.user-profile-cr {
     border-radius: 5%;
     height: 140px !important;
 }

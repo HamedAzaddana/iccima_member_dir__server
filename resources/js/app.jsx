@@ -1,6 +1,5 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client'
-import { usePage } from '@inertiajs/react'
 
 const appNameFa = import.meta.env.VITE_APP_NAME || 'Laravel';
 const appNameEn = import.meta.env.VITE_APP_NAME_EN || 'Laravel';

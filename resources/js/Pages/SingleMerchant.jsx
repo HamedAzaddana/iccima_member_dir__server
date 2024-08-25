@@ -13,7 +13,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     const [uploadedBrImg, setUploadedBrImg] = useState("");
     const [forms, setForms] = useState(null);
     const [dataSingle, setDataSingle] = useState([]);
-    const { iccima } = usePage().props;
+    const { iccima,_GL } = usePage().props;
     const handleChangeVs = (e) => {
         const key = e.target.id;
         const value = e?.target?.value?.toString();
@@ -256,7 +256,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                         <strong>  {dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} </strong>
                                                     </h2>
                                                     <h3 className='text-dark mt-2'>
-                                                        <strong>{dataSingle.co_type[iccima.user.lang.toString()]} {dataSingle.jalali_year ? `تاسیس ${dataSingle.jalali_year}` : ""}</strong>
+                                                        <strong>{dataSingle.co_type[iccima.user.lang.toString()]} {dataSingle.jalali_year ? `${_GL['singlePage.establish']} ${dataSingle.jalali_year}` : ""}</strong>
                                                     </h3>
                                                     <h4 className='text-dark mt-2'>
                                                         {dataSingle?.province?.[iccima.user.lang.toString()]} {dataSingle?.city?.[iccima.user.lang.toString()]}
@@ -275,17 +275,17 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                         <div className="card-body text-dark">
                                             <div className="row">
                                                 <div className="col-lg-6 col-md-6 col-sm-12">
-                                                    <h5 className='text-primary'> نشانی </h5>
+                                                    <h5 className='text-primary'> {_GL['singlePage.address']} </h5>
                                                     <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.co_main_address[iccima.user.lang.toString()] }} ></p>
                                                     <br />
-                                                    <h5 className='text-primary'> وب سایت </h5>
+                                                    <h5 className='text-primary'>  {_GL['singlePage.website']} </h5>
                                                     <p className='text-dark font-weight-bold mt-2'>{dataSingle.co_website ? dataSingle.co_website : "---"}</p>
                                                 </div>
                                                 <div className="col-lg-6 col-md-6 col-sm-12">
-                                                    <h5 className='text-primary'> تلفن </h5>
+                                                    <h5 className='text-primary'> {_GL['singlePage.phone']} </h5>
                                                     <p className='text-dark font-weight-bold mt-2'>{dataSingle.co_phone ? dataSingle.co_phone : "---"}</p>
                                                     <br />
-                                                    <h5 className='text-primary'> فکس </h5>
+                                                    <h5 className='text-primary'> {_GL['singlePage.fax']} </h5>
                                                     <p className='text-dark font-weight-bold mt-2'>{dataSingle.co_fax ? dataSingle.co_fax : "---"}</p>
                                                 </div>
                                             </div>
@@ -295,25 +295,25 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                         <div className="card-body text-dark">
                                             <div className="row">
                                                 <div className="col-lg-12 col-md-12 col-sm-12">
-                                                    <h5 className='text-primary'> رشته فعالیت </h5>
+                                                    <h5 className='text-primary'> {_GL['singlePage.reshte_faaliat']} </h5>
                                                     <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
-                                                    <h5 className='text-primary'> نوع فعالیت </h5>
+                                                    <h5 className='text-primary'> {_GL['singlePage.noe_faaliat']} </h5>
                                                     <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
-                                                    <h5 className='text-primary'> گواهی های مبدا صادر شده</h5>
+                                                    <h5 className='text-primary'>  {_GL['singlePage.govahi_mabda']} </h5>
                                                     <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
-                                                    <h5 className='text-primary'> کد های HS تجاری</h5>
+                                                    <h5 className='text-primary'> {_GL['singlePage.hs_codes']} </h5>
                                                     <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
-                                                    <h5 className='text-primary'> اتاق های مشترک </h5>
+                                                    <h5 className='text-primary'>  {_GL['singlePage.otash_moshtarak']}</h5>
                                                     <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
-                                                    <h5 className='text-primary'> کمیسیون های تخصصی </h5>
+                                                    <h5 className='text-primary'> {_GL['singlePage.commis_takh']} </h5>
                                                     <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                     <br />
-                                                    <h5 className='text-primary'> تشکل ها</h5>
+                                                    <h5 className='text-primary'> {_GL['singlePage.tashakol']} </h5>
                                                     <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" }} ></p>
                                                 </div>
                                             </div>
