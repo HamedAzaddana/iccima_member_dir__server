@@ -320,7 +320,7 @@ function ___rlic($index)
     include(base_path() . '/global_lang/' . iccima_get_sess_lang() . '.php');
 
     global $__GLABAL_LANG;
-    return (string)@$__GLABAL_LANG[$index][iccima_get_sess_lang()];
+    return (string)@$__GLABAL_LANG[$index];
 }
 function ___elic($index)
 {

@@ -25,8 +25,40 @@ export default function ExploreArea({ dataSearch, req_params }) {
     // handleValidateCaptcha
     const handleValidateCaptcha = (e) => {
         //after axios success request ...
-        handleClickMore(e); //TODO: ...
-        handleCloseCaptcha(e);
+        let continue_code = document.getElementById('field-captcha-text').value;
+        let _post_data = {
+            continue_code
+        };
+        axios.post(`${iccima.links.validate_captcha}`, _post_data, {
+            headers: {
+                'ICCIMA-AUTH-USERNAME': `${ws_username}`,
+                'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
+            }
+        })
+            .then(res => {
+                console.log(res)
+                let status_code = res?.status;
+                if ((status_code == 200 || status_code == 201)) {
+                    handleClickMore(e); 
+                    handleCloseCaptcha(e);
+                } else {
+                    handleMakeCaptcha(e);
+                    toast.error(`${_GL['toast.error']}`);
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                let errors = err?.response?.data?.data;
+                if (Array.isArray(errors) && errors) {
+                    errors.forEach((error_item) => {
+                        toast.error(`${error_item}`);
+                    });
+                } else {
+                    toast.error(`${err?.response?.data?.data?.msg}`);
+                }
+                handleMakeCaptcha(e);
+            });
+
     }
     const handleMakeCaptcha = (e) => {
         axios.post(`${iccima.links.get_captcha}`, {}, {
@@ -55,7 +87,7 @@ export default function ExploreArea({ dataSearch, req_params }) {
                         toast.error(`${error_item}`);
                     });
                 } else {
-                    toast.error(`${err.message} : ${err?.response?.data?.data?.msg}`);
+                    toast.error(`${err?.response?.data?.data?.msg}`);
                 }
             });
     }
@@ -91,7 +123,7 @@ export default function ExploreArea({ dataSearch, req_params }) {
                                                                     <Modal dir={`${iccima.user.lang == 'Persian' ? 'rtl' : 'ltr'}`} show={showCaptcha} onHide={handleCloseCaptcha}>
                                                                         <Modal.Body>
                                                                             <p>
-                                                                                کد امنیتی را لطفا وارد کنید.
+                                                                                {_GL['explore.captcha.label']}
                                                                             </p>
                                                                             <br />
                                                                             <center>
@@ -109,10 +141,10 @@ export default function ExploreArea({ dataSearch, req_params }) {
                                                                         </Modal.Body>
                                                                         <Modal.Footer>
                                                                             <Button variant="secondary" onClick={handleCloseCaptcha}>
-                                                                                بستن
+                                                                            {_GL['explore.captcha.btnClose']}
                                                                             </Button>
                                                                             <Button onClick={handleValidateCaptcha} className="btn btn-success">
-                                                                                تایید
+                                                                            {_GL['explore.captcha.btnSubmit']}
                                                                             </Button>
                                                                         </Modal.Footer>
                                                                     </Modal>

@@ -21,7 +21,8 @@ Route::get('/test2', function () {
     // dd($_data = CardsData::getDataByIndex("558177"));
 });
 Route::get('/test', function () {
-    
+    $records_load = MerchantUser::get_data_els_filter([], 10);
+    dd($records_load);
     // dd($current_merchant_e_lv = MerchantUserModel::find(1)->toArray());
     // dd(json_decode("vsdvdfb"));
     // dd(iccima_get_current_user());

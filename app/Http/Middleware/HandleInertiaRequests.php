@@ -53,6 +53,7 @@ class HandleInertiaRequests extends Middleware
             'iccima.links.login' => env("LOGIN_URL_SSO"),
             'iccima.links.logout' => route("auth.logout"),
             'iccima.links.get_captcha' => route("ws.captcha.reload"),
+            'iccima.links.validate_captcha' => route("ws.captcha.validate"),
             'iccima.links.ch_lang' => route("ws.change.lang"),
         ]);
     }

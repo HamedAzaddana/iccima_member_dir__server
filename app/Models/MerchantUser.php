@@ -361,7 +361,7 @@ class MerchantUser extends Authenticatable
             "size" => $size,
         ];
         //process $filters_req to add filters
-        $filters_req['province'] = $filters_req['province'] == "all" ? "" : $filters_req['province'];
+        $filters_req['province'] = @$filters_req['province'] == "all" ? "" : @$filters_req['province'];
         if (@$filters_req['kws']) {
             $params['body']['query']['bool']['must']['multi_match'] = [
                 'query' => (string)$filters_req['kws'],
@@ -384,6 +384,14 @@ class MerchantUser extends Authenticatable
         if (@$filters_req['group_act_type']) {
             $params['body']['query']['bool']['filter'][] = ["match" => ["group_activity_type" => (string)$filters_req['group_act_type']]];
         }
+
+        // $params['body']['sort'] = [
+        //     "_script" => [
+        //         "script" => ["5436546"],
+        //         "type" => "number",
+        //         "order" => "desc"
+        //     ]
+        // ];
         $response = $client->search($params);
         $result_array = iccima_prepare_get_db_elastic($response->asArray());
         shuffle($result_array);

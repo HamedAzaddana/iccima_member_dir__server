@@ -140,6 +140,7 @@ a.nav-link:hover {
 .InputS2 {
     padding: 0 !important;
     margin: 0 !important;
+    margin-right: -55px !important;
 }
 
 .SelectProvince {
@@ -285,7 +286,9 @@ img.user-profile-cr {
     .welcome-hero {
         height: 750px;
     }
-
+    .InputS2 {
+        margin-right: 0 !important;
+    }
 }
 
 @media only screen and (max-width:770px) {

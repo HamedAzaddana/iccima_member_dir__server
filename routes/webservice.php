@@ -9,8 +9,10 @@ use App\Http\Controllers\WebService\CaptchaController;
 
 
 Route::middleware('is_api_user')->prefix("webservice")->group(function () {
-
-    Route::post('/reload-captch', [CaptchaController::class, 'reloadCaptcha'])->name('ws.captcha.reload');
+    Route::middleware(['throttle:25,1'])->group(function () {
+        Route::post('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('ws.captcha.reload');
+        Route::post('/validate-captcha', [CaptchaController::class, 'validateCaptcha'])->name('ws.captcha.validate');    
+    });
 
     Route::post('/merchants/get/index', [MerchantController::class, 'index'])->name('ws.search.index');
     Route::post('/merchants/get/single', [MerchantController::class, 'single'])->name('ws.search.single');
