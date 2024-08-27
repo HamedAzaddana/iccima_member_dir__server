@@ -384,10 +384,10 @@ class MerchantUser extends Authenticatable
         if (@$filters_req['group_act_type']) {
             $params['body']['query']['bool']['filter'][] = ["match" => ["group_activity_type" => (string)$filters_req['group_act_type']]];
         }
-
+        $rnd_number_php = random_int(100, 99999999);
         $params['body']['sort']["_script"] =
             [
-                "script" => "Math.random()",
+                "script" => "Math.random() + $rnd_number_php",
                 "type" => "number",
                 "order" => "desc"
             ];
