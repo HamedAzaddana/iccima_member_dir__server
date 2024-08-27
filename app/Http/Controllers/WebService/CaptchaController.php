@@ -14,9 +14,11 @@ class CaptchaController extends Controller
     }
     public function validateCaptcha()
     {
+        $input = request()->all();
+        $input['continue_code'] = iccima_make_en_numbers($input['continue_code']);
         $response = [];
         $rules = ['continue_code' => 'required|captcha'];
-        $validator = validator()->make(request()->all(), $rules);
+        $validator = validator()->make($input, $rules);
         $errors = $validator->errors();
         if ($errors && count($errors) != 0) {
             $response = response()->json([

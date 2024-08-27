@@ -5,7 +5,12 @@ use App\Models\MerchantUser;
 use App\Helpers\Logger;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\IccString;
 
+function iccima_make_en_numbers($str)
+{
+    return IccString::make_en($str);
+}
 function iccima_prepareSelect($arr)
 {
     $output = [];
@@ -246,9 +251,9 @@ function iccima_get_validate_user_token($token)
                     $user_id = $merchant['id'];
                 }
             }
-            if(!$user_id_logged_in){
+            if (!$user_id_logged_in) {
                 Auth::guard($guard)
-                ->loginUsingId($user_id);
+                    ->loginUsingId($user_id);
             }
         }
     }
