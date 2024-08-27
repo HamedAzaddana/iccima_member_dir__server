@@ -72,7 +72,7 @@ export default function TopArea() {
                                 <Link className="nav-link" href={`${appUrl}`}> <i className='fa fa-home'></i> {_GL["nav.home"]}</Link>
                                 <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-info-circle'></i> {_GL["nav.hint"]}</Link>
                                 {
-                                    iccima.user.__id ?
+                                    (iccima.user.__id && iccima.user.type=="merchant") ?
                                         (
                                             <>
                                                 <Link className="nav-link" style={{

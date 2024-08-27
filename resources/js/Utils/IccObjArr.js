@@ -14,7 +14,7 @@ export function iterate_jsonify_data(object) {
     let new_obj = {};
     Object.keys(object).forEach(key => {
         let _val = object[key];
-        if ( typeof _val === 'object') {
+        if (typeof _val === 'object') {
             _val = JSON.stringify(_val);
         }
         new_obj[key] = _val;
@@ -79,4 +79,7 @@ export function iterate_prepare_data(object) {
         new_obj[key] = _val;
     });
     return new_obj;
+}
+export function format_at_email_str(email) {
+    return email.replace("@", ' [at] ')
 }

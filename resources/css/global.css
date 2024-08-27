@@ -137,10 +137,17 @@ a.nav-link:hover {
 }
 
 
+
 .InputS2 {
     padding: 0 !important;
     margin: 0 !important;
     margin-right: -55px !important;
+}
+.app-lang-English .InputS2 {
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-top: 25px !important;
+    margin-right: 0 !important;
 }
 
 .SelectProvince {
@@ -220,14 +227,15 @@ a.nav-link:hover {
 }
 
 .cover-img-single {
-    width: 100%;
-    height: 210px;
+    width: 50%;
+    height: 100px;
 }
 
 
 #list-topics {
     padding: 0;
     margin-bottom: -140px;
+    margin-top: 65px;
 }
 
 .welcome-hero-serch-box input,
@@ -282,6 +290,24 @@ img.user-profile-cr {
     height: 60px;
     display: none;
 }
+.title-single-page{
+    font-size: 13px !important;
+}
+.label-single-page{
+    font-size: 12px;
+}
+.card-box-single-page{
+    background-color: rgb(237 252 255) !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+.p-single-page-content{
+    font-size: 12px !important;
+}
+.icon-box-single-page{
+    font-size: 45px;
+    color: #5b5ba4;
+}
 @media only screen and (max-width:995px) {
     .welcome-hero {
         height: 750px;
@@ -298,8 +324,8 @@ img.user-profile-cr {
     }
 
     .cover-img-single {
-        width: 100% !important;
-        height: 300px !important;
+        width: 50%;
+        height: 100px;
     }
 
     .navbar-title-site {
