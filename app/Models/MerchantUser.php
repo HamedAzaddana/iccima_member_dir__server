@@ -395,14 +395,14 @@ class MerchantUser extends Authenticatable
             $params['body']['query']['bool']['filter'][] = ["match" => ["group_activity_type" => (string)$filters_req['group_act_type']]];
         }
         $params['body']['query']['bool']['must_not'][] = ["term" => ["show_in_index" => "0"]];
-        
+
         $rnd_number_php = random_int(100, 99999999);
-        $params['body']['sort']["_script"] =
-            [
-                "script" => "Math.random() + $rnd_number_php",
-                "type" => "number",
-                "order" => "desc"
-            ];
+        // $params['body']['sort']["_script"] =
+        //     [
+        //         "script" => "Math.random() + $rnd_number_php",
+        //         "type" => "number",
+        //         "order" => "desc"
+        //     ];
 
         $response = $client->search($params);
         $result_array = iccima_prepare_get_db_elastic($response->asArray());

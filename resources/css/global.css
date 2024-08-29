@@ -32,7 +32,7 @@ h4,
 h5,
 h6,
 button,
-option {
+option,.offcanvas {
     font-family: "iran_sans" !important;
     text-transform: capitalize !important;
 }
@@ -332,13 +332,20 @@ img.user-profile-cr {
     padding: 5px;
 }
 #iccima-main-content-layout{
-    min-height: 400px !important;
+    min-height: 100vh !important;
 }
 #iccima-footer{
     background: #cadbf3  !important;
 }
 .top-area{
     background: #e9eef4;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    height: max-content !important;
 }
 @media only screen and (max-width:985px) {
     .welcome-hero {

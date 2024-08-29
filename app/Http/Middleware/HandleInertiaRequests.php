@@ -37,14 +37,14 @@ class HandleInertiaRequests extends Middleware
     {
         $user_array = iccima_get_current_user();
         $_GL = ___callLang();
-        return array_merge(parent::share($request), [
+        $shared_data = [
             '_GL' => $_GL,
             'iccima.user.lang' => iccima_get_sess_lang(),
             'iccima.user.obj' => iccima_get_current_user_safe(),
             'iccima.user.type' => iccima_get_current_user_type(),
-            'iccima.user.__token' => request()->session()->get('sso_token',""),
+            'iccima.user.__token' => request()->session()->get('sso_token', ""),
             'iccima.user.__id' =>
-               iccima_get_current_user_id() ? iccima_hashid_encode(iccima_get_current_user_id()) : "",
+            iccima_get_current_user_id() ? iccima_hashid_encode(iccima_get_current_user_id()) : "",
             'iccima.user.spl' => route("home.single.view", [
                 'hash_id' =>
                 iccima_hashid_encode(iccima_get_current_user_id()),
@@ -56,6 +56,13 @@ class HandleInertiaRequests extends Middleware
             'iccima.links.validate_captcha' => route("ws.captcha.validate"),
             'iccima.links.ch_lang' => route("ws.change.lang"),
             'iccima.links.inc_view' => route("ws.merchant.inc_view"),
-        ]);
+        ];
+        if (iccima_get_current_user_id() && iccima_get_current_user_type() == "admin") {
+            $shared_data["iccima.adminPanel.dashboard"] = route("admin.dashboard.view");
+            $shared_data["iccima.adminPanel.forms"] = route("admin.forms.view");
+            $shared_data["iccima.ws.admin.dashboard"] = route("ws.admin.dashboard");
+            $shared_data["iccima.ws.admin.forms"] = route("ws.admin.forms");
+        }
+        return array_merge(parent::share($request),  $shared_data);
     }
 }

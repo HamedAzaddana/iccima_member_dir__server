@@ -66,13 +66,19 @@ class AuthenticationController extends Controller
                     $admin_object->update([
                         'last_login' => Pdate::persianTimeStampNow()
                     ]);
+                    return redirect()->route('admin.dashboard.view');
                 }
                 if ($merchant) {
+                    $spl = route("home.single.view", [
+                        'hash_id' =>
+                        iccima_hashid_encode(iccima_get_current_user_id()),
+                        'slug' => 'profile'
+                    ]);
                     $merchant_object->update([
                         'last_login' => Pdate::persianTimeStampNow()
                     ]);
+                    return redirect()->away($spl);
                 }
-                return redirect()->route('home.index.view');
             } else {
                 return redirect()->away(env('LOGIN_URL_SSO'));
             }
@@ -111,18 +117,24 @@ class AuthenticationController extends Controller
 
         Auth::guard($guard)
             ->loginUsingId($user_id);
-            
+
         if ($admin) {
             $admin_object->update([
                 'last_login' => Pdate::persianTimeStampNow()
             ]);
+            return redirect()->route('admin.dashboard.view');
         }
         if ($merchant) {
+            $spl = route("home.single.view", [
+                'hash_id' =>
+                iccima_hashid_encode(iccima_get_current_user_id()),
+                'slug' => 'profile'
+            ]);
             $merchant_object->update([
                 'last_login' => Pdate::persianTimeStampNow()
             ]);
+            return redirect()->away($spl);
         }
-        return redirect()->route('home.index.view');
     }
     public function logout()
     {

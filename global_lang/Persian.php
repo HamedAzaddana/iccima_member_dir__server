@@ -3,6 +3,10 @@
 global $__GLABAL_LANG;
 $__GLABAL_LANG = [
     "nav.home" => "خانه",
+    "nav.admin" => "مدیریت",
+    "nav.admin.ofc.title" => "منوی مدیریت",
+    "nav.admin.ofc.dashboard" => "داشبورد",
+    "nav.admin.ofc.forms_confirm" => "فرم های خود اظهاری",
     "nav.login" => "ورود",
     "nav.hint" => "راهنما",
     "nav.logout" => "خروج",

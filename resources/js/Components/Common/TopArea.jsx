@@ -3,8 +3,11 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from '@inertiajs/react'
-import { usePage } from '@inertiajs/react'
+import { usePage} from '@inertiajs/react'
 import axios from 'axios';
+import { useState,useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 export default function TopArea() {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
@@ -12,6 +15,8 @@ export default function TopArea() {
     const { iccima, _GL } = usePage().props;
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     const loginSsoUrl = import.meta.env.VITE_LOGIN_URL_SSO || 'http://127.0.0.1:8000/loginSso';
+    const [showOfCanv, setShowOfCanc] = useState(false);
+    const [placementOfCanc ,setPlacementOfCanc] = useState("end");
     const handleSelectLang = (e) => {
         let _post_data = {
             lang: e.target.value
@@ -48,7 +53,18 @@ export default function TopArea() {
     const handleNonDo = (e) => {
         e.preventDefault();
     }
-
+    const handleCloseOfCanv = (e) => {
+        setShowOfCanc(false);
+    }
+    const handleShowOfCanv = (e) => {
+        e.preventDefault();
+        setShowOfCanc(true);
+    }
+    useEffect(() => {
+        if(iccima.user.lang=="English"){
+            setPlacementOfCanc("start");
+        }
+    },[]);
     return (
         <div>
             <section className="top-area">
@@ -69,6 +85,33 @@ export default function TopArea() {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto top_nav_app">
+                                {
+                                    (
+                                        iccima.user.__id && iccima.user.type == "admin" ?
+                                            (
+                                                <>
+                                                    <Link className="nav-link" style={{
+                                                        color: "rgb(155, 25, 25)"
+                                                    }} onClick={handleShowOfCanv} href="#"> <i className='fa fa-database'></i> {_GL["nav.admin"]}</Link>
+                                                    <Offcanvas show={showOfCanv} onHide={handleCloseOfCanv}
+                                                        backdrop={true}
+                                                        placement={placementOfCanc}
+                                                    >
+                                                        <Offcanvas.Header className='bg-secondary' closeButton>
+                                                            <Offcanvas.Title className='text-white'>{_GL['nav.admin.ofc.title']}</Offcanvas.Title>
+                                                        </Offcanvas.Header>
+                                                        <Offcanvas.Body>
+                                                            <Link className="nav-link " href={`${iccima.adminPanel.dashboard}`}> <i className='fa fa-tachometer'></i> {_GL["nav.admin.ofc.dashboard"]}</Link>
+                                                            <Link className="nav-link" href={`${iccima.adminPanel.forms}`}> <i className='fa fa-address-card'></i> {_GL["nav.admin.ofc.forms_confirm"]}</Link>
+
+                                                        </Offcanvas.Body>
+                                                    </Offcanvas>
+                                                </>
+                                            )
+                                            :
+                                            ("")
+                                    )
+                                }
                                 <Link className="nav-link" href={`${appUrl}`}> <i className='fa fa-home'></i> {_GL["nav.home"]}</Link>
                                 <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-info-circle'></i> {_GL["nav.hint"]}</Link>
                                 {
