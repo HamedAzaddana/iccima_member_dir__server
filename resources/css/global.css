@@ -331,7 +331,15 @@ img.user-profile-cr {
     font-size: 14px;
     padding: 5px;
 }
-
+#iccima-main-content-layout{
+    min-height: 400px !important;
+}
+#iccima-footer{
+    background: #cadbf3  !important;
+}
+.top-area{
+    background: #e9eef4;
+}
 @media only screen and (max-width:985px) {
     .welcome-hero {
         height: 750px;

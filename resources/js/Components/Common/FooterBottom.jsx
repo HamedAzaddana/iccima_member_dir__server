@@ -5,7 +5,7 @@ export default function FooterBottom() {
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     return (
         <div>
-            <footer id="footer" className="footer">
+            <footer id="iccima-footer" className="footer">
                 <div className="container">
                     <div className="footer-menu">
                         <div className="row">

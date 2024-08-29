@@ -22,7 +22,7 @@ Route::get('/test2', function () {
     // dd($_data = CardsData::getDataByIndex("558177"));
 });
 Route::get('/test', function () {
-
+    dd(iccima_get_current_user());
     // $tc = MerchantUser::find(6343);
     // $tc->update([
     //     'show_in_index' => 1

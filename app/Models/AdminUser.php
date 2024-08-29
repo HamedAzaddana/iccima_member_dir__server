@@ -21,7 +21,6 @@ class AdminUser extends Authenticatable
         'last_updated_at'
     ];
     protected $hidden = [
-        'id', 
         'password',
         'last_updated_at',
     ];

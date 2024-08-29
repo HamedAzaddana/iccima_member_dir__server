@@ -17,17 +17,25 @@ class WebserviceValid
         $username = $request->header('ICCIMA-AUTH-USERNAME');
         $password = $request->header('ICCIMA-AUTH-PASSWORD');
         $url_ref = @$_SERVER['HTTP_REFERER'];
-
+        $error_403 = "";
         if (
             $username != $username_key ||
             $password != $password_key
         ) {
-            return ErrorResponse::error_403_api("Access Forbidden !");
+            $error_403 = "Access Forbidden !";
         }
         if (request()->isJson()) {
-            return $this->goNext($request, $next);
+            if ($error_403) {
+                return ErrorResponse::error_403_api($error_403);
+            } else {
+                return $this->goNext($request, $next);
+            }
         }
-        return $next($request);
+        if ($error_403) {
+            abort(403);
+        } else {
+            return $next($request);
+        }
     }
     public function goNext(Request $request, Closure $next)
     {

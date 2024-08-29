@@ -394,12 +394,8 @@ class MerchantUser extends Authenticatable
         if (@$filters_req['group_act_type']) {
             $params['body']['query']['bool']['filter'][] = ["match" => ["group_activity_type" => (string)$filters_req['group_act_type']]];
         }
-        $params['body']['query']['bool']['filter'][] = ["term" => ["show_in_index" => "1"]];
-
-        // $params['body']['query'][] = ["term" => ["show_in_index" => 1]];
-        // $params['body']['query']['bool']['must']["term"] = ["show_in_index" => 1];
-
-        // show_in_index
+        $params['body']['query']['bool']['must_not'][] = ["term" => ["show_in_index" => "0"]];
+        
         $rnd_number_php = random_int(100, 99999999);
         $params['body']['sort']["_script"] =
             [

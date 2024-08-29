@@ -17,16 +17,25 @@ class CheckIsGuest
         $token = (int)$request->header('ICCIMA-AUTH-USER-TOKEN');
         $ui = iccima_get_validate_user_token($token);
         $ui_id = $ui['user_id'];
+        $error_403 ="";
         if (
             $ui_id
         ) {
-            return ErrorResponse::error_403_api("Access Forbidden Guest User !");
+            $error_403 = "Access Forbidden Guest User !";
         }
 
         if (request()->isJson()) {
-            return $this->goNext($request, $next);
+            if ($error_403) {
+                return ErrorResponse::error_403_api($error_403);
+            } else {
+                return $this->goNext($request, $next);
+            }
         }
-        return $next($request);
+        if ($error_403) {
+            abort(403);
+        } else {
+            return $next($request);
+        }
     }
     public function goNext(Request $request, Closure $next)
     {

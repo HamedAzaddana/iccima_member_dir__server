@@ -61,6 +61,8 @@ $__GLABAL_LANG = [
     "singlePage.form.commis_takh" => "Specialized Commissions",
     "singlePage.form.tashakol" => "Guild Types",
     "singlePage.form.btnSave" => "Save Changes",
+    "singlePage.no_show_index" => "The information about this representative is not available !",
+
     "singlePage.confirmed" => "Your data confirmed !",
     "toast.error" => "Error occurred !",
     "toast.edited_success" => "Your data updated successfully !",

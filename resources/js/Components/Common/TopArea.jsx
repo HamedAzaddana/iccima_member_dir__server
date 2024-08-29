@@ -48,7 +48,7 @@ export default function TopArea() {
     const handleNonDo = (e) => {
         e.preventDefault();
     }
-   
+
     return (
         <div>
             <section className="top-area">
@@ -84,9 +84,11 @@ export default function TopArea() {
                                                     </>
                                                 ) :
                                                 (
-                                                    <a className="nav-link" href={loginSsoUrl}> <i className="fa fa-user-circle-o"></i> {_GL["nav.login"]} </a>
+                                                    <></>
                                                 )
-                                        ) : (<></>)
+                                        ) : (<>
+                                            <a className="nav-link" href={loginSsoUrl}> <i className="fa fa-user-circle-o"></i> {_GL["nav.login"]} </a>
+                                        </>)
                                     )
 
                                 }

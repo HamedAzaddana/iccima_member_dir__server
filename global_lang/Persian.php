@@ -62,7 +62,8 @@ $__GLABAL_LANG = [
     "singlePage.form.commis_takh" => "کمیسیون های تخصصی",
     "singlePage.form.tashakol" => "تشکل ها",
     "singlePage.form.btnSave" => "ثبت تغییرات",
-    //
+    "singlePage.no_show_index" => "اطلاعات این عضو قابل نمایش نیست !",
+ 
     "toast.error" => "خطایی رخ داد !",
     "toast.edited_success" => "اطلاعات با موفقیت به روز شد. ",
 

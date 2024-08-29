@@ -17,13 +17,14 @@ import LoadingTop from '../Components/Common/LoadingTop';
 
 export default function Main({ children }) {
     const { iccima } = usePage().props;
-    
+
     return (
         <div className={`app-lang-${iccima.user.lang}`}>
             <HeaderTop />
             <TopArea />
-
-            {children}
+            <div id='iccima-main-content-layout'>
+                {children}
+            </div>
             <FooterBottom />
             <LoadingTop />
         </div>

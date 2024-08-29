@@ -18,18 +18,28 @@ class CheckIsAdmin
         $ui = iccima_get_validate_user_token($token);
         $ui_id = $ui['user_id'];
         $ui_type = $ui['user_type'];
+        $error_403 = "";
         if (
-            !$ui_id || ($ui_id && $ui_type !="admin")
+            !$ui_id || ($ui_id && $ui_type != "admin")
         ) {
-            return ErrorResponse::error_403_api("Access Forbidden Authentication !");
+            $error_403 = "Access Forbidden Authentication !";
         }
         request()->session()->put('ws_iccima_user_id', $ui_id);
         request()->session()->put('ws_iccima_user_type', $ui_type);
         request()->session()->put('ws_iccima_user_current', iccima_user_by_params($ui_id, $ui_type));
+
         if (request()->isJson()) {
-            return $this->goNext($request, $next);
+            if ($error_403) {
+                return ErrorResponse::error_403_api($error_403);
+            } else {
+                return $this->goNext($request, $next);
+            }
         }
-        return $next($request);
+        if ($error_403) {
+            abort(403);
+        } else {
+            return $next($request);
+        }
     }
     public function goNext(Request $request, Closure $next)
     {
