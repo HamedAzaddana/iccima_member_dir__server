@@ -37,8 +37,10 @@ class MerchantUser extends Authenticatable
         "co_main_address",
         "co_email",
         "postal_code",
-        "biz_activities", // رشته فعالیت
+        "show_in_index",
+        "view_count",
 
+        "biz_activities", // رشته فعالیت
         "biz_activitiy_goods", // نوع فعالیت array
         "coo_biz_activities", // گواهی های مبدا صادر شده array
         "biz_act_goods_hs_codes", // کد های hs تجاری array
@@ -70,6 +72,145 @@ class MerchantUser extends Authenticatable
         'index_number',
         'last_updated_at',
     ];
+    public static function createIndexEls()
+    {
+        $client = iccima_els_client();
+        $params = [
+            'index' => 'iccima_cards_data_merchants',
+            'body' => [
+                "mappings" => [
+                    "properties" => [
+                        "owner_fullname" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "index_number" => [
+                            "type" => "keyword",
+                        ],
+                        "card_type_id" => [
+                            "type" => "keyword",
+                        ],
+                        "person_type_id" => [
+                            "type" => "keyword",
+                        ],
+                        "group_activity_type" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "card_no" => [
+                            "type" => "keyword",
+                        ],
+                        "show_in_index" => [
+                            "type" => "keyword",
+                        ],
+                        "co_title" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "co_type" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "co_establish_date" => [
+                            "type" => "keyword",
+                        ],
+                        "city" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "province" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "co_phone" => [
+                            "type" => "keyword",
+                        ],
+                        "view_count" => [
+                            "type" => "keyword",
+                        ],
+                        "co_fax" => [
+                            "type" => "keyword",
+                        ],
+                        "co_website" => [
+                            "type" => "keyword",
+                        ],
+                        "co_main_address" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "co_email" => [
+                            "type" => "keyword",
+                        ],
+                        "biz_activities" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "biz_activitiy_goods" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "coo_biz_activities" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "biz_act_goods_hs_codes" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "shared_chambers" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "specialized_committees" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                        "guild_types" => [
+                            "type" => "text",
+                            "analyzer" => "rebuilt_persian"
+                        ],
+                    ]
+                ],
+                "settings" => [
+                    "analysis" => [
+                        "char_filter" => [
+                            "zero_width_spaces" => [
+                                "type" => "mapping",
+                                "mappings" => [
+                                    "\u200C=>\u0020"
+                                ]
+                            ]
+                        ],
+                        "filter" => [
+                            "persian_stop" => [
+                                "type" => "stop",
+                                "stopwords" => "_persian_"
+                            ]
+                        ],
+                        "analyzer" => [
+                            "rebuilt_persian" => [
+                                "tokenizer" => "standard",
+                                "char_filter" => [
+                                    "zero_width_spaces"
+                                ],
+                                "filter" => [
+                                    "lowercase",
+                                    "decimal_digit",
+                                    "arabic_normalization",
+                                    "persian_normalization",
+                                    "persian_stop"
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+            ]
+        ];
+        $exists_index = $client->indices()->exists(['index' => 'iccima_cards_data_merchants'])->asBool();
+        if (!$exists_index) {
+            $client->indices()->create($params);
+        }
+    }
     public function editable_user(): HasOne
     {
         return $this->hasOne(MerchantEUser::class, 'card_no', 'card_no');
@@ -169,139 +310,6 @@ class MerchantUser extends Authenticatable
                 'data' => $errors_validation,
                 'status_code' => 422,
             ];
-        }
-    }
-    public static function createIndexEls()
-    {
-        $client = iccima_els_client();
-        $params = [
-            'index' => 'iccima_cards_data_merchants',
-            'body' => [
-                "mappings" => [
-                    "properties" => [
-                        "owner_fullname" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "index_number" => [
-                            "type" => "keyword",
-                        ],
-                        "card_type_id" => [
-                            "type" => "keyword",
-                        ],
-                        "person_type_id" => [
-                            "type" => "keyword",
-                        ],
-                        "group_activity_type" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "card_no" => [
-                            "type" => "keyword",
-                        ],
-                        "co_title" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "co_type" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "co_establish_date" => [
-                            "type" => "keyword",
-                        ],
-                        "city" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "province" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "co_phone" => [
-                            "type" => "keyword",
-                        ],
-                        "co_fax" => [
-                            "type" => "keyword",
-                        ],
-                        "co_website" => [
-                            "type" => "keyword",
-                        ],
-                        "co_main_address" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "co_email" => [
-                            "type" => "keyword",
-                        ],
-                        "biz_activities" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "biz_activitiy_goods" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "coo_biz_activities" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "biz_act_goods_hs_codes" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "shared_chambers" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "specialized_committees" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                        "guild_types" => [
-                            "type" => "text",
-                            "analyzer" => "rebuilt_persian"
-                        ],
-                    ]
-                ],
-                "settings" => [
-                    "analysis" => [
-                        "char_filter" => [
-                            "zero_width_spaces" => [
-                                "type" => "mapping",
-                                "mappings" => [
-                                    "\u200C=>\u0020"
-                                ]
-                            ]
-                        ],
-                        "filter" => [
-                            "persian_stop" => [
-                                "type" => "stop",
-                                "stopwords" => "_persian_"
-                            ]
-                        ],
-                        "analyzer" => [
-                            "rebuilt_persian" => [
-                                "tokenizer" => "standard",
-                                "char_filter" => [
-                                    "zero_width_spaces"
-                                ],
-                                "filter" => [
-                                    "lowercase",
-                                    "decimal_digit",
-                                    "arabic_normalization",
-                                    "persian_normalization",
-                                    "persian_stop"
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-            ]
-        ];
-        $exists_index = $client->indices()->exists(['index' => 'iccima_cards_data_merchants'])->asBool();
-        if (!$exists_index) {
-            $client->indices()->create($params);
         }
     }
     public static function get_els_client()

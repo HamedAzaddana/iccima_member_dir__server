@@ -33,14 +33,32 @@ class MerchantController extends Controller
             'req' => $params,
         ], 200);
     }
+    public function increment_view()
+    {
+        $hid = request("hid");
+        $merchant_id = iccima_hashid_decode($hid);
+        $merchant = MerchantUserModel::find($merchant_id);
+        if (!$merchant || !$merchant_id || !$hid) {
+            return ErrorResponse::error_404_api("Not Found Resource Merchant !");
+        }
+
+        $cuid =  iccima_get_current_user_id();
+        if (
+            !$cuid || ($cuid && $cuid != $merchant_id)
+        ) {
+            $merchant->increment('view_count');
+        }
+        return response()->json([
+            'data' => $merchant->view_count,
+            'req' => request()->all(),
+        ], 200);
+    }
     public function single()
     {
         $hid = request("hid");
         $merchant_id = iccima_hashid_decode($hid);
         $merchant = MerchantUserModel::find($merchant_id);
-        $merchant_e = [];
         if ($merchant) {
-            $merchant_e = $merchant->editable_user ? $merchant->editable_user->toArray() : [];
             $form_vals = $merchant?->editable_form_vals();
         }
         if (!$merchant || !$merchant_id || !$hid) {

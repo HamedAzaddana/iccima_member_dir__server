@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'is_api_user' => \App\Http\Middleware\WebserviceValid::class,
         'is_admin_in'=>\App\Http\Middleware\CheckIsAdmin::class,
         'is_merchant_in'=>\App\Http\Middleware\CheckIsMerchant::class,
+        'is_guest_iccima'=>\App\Http\Middleware\CheckIsGuest::class,
         'is_auth_iccima_in'=>\App\Http\Middleware\WebserviceAuthUser::class,
     ];
 }

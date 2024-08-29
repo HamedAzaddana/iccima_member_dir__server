@@ -55,6 +55,7 @@ class HandleInertiaRequests extends Middleware
             'iccima.links.get_captcha' => route("ws.captcha.reload"),
             'iccima.links.validate_captcha' => route("ws.captcha.validate"),
             'iccima.links.ch_lang' => route("ws.change.lang"),
+            'iccima.links.inc_view' => route("ws.merchant.inc_view"),
         ]);
     }
 }

@@ -9,12 +9,12 @@ import axios from 'axios';
 export default function TopArea() {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
-    const { iccima,_GL } = usePage().props;
+    const { iccima, _GL } = usePage().props;
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     const loginSsoUrl = import.meta.env.VITE_LOGIN_URL_SSO || 'http://127.0.0.1:8000/loginSso';
     const handleSelectLang = (e) => {
         let _post_data = {
-            lang:e.target.value
+            lang: e.target.value
         };
         document.getElementById('loading-page-iccima').style.display = "inline-flex";
 
@@ -72,24 +72,29 @@ export default function TopArea() {
                                 <Link className="nav-link" href={`${appUrl}`}> <i className='fa fa-home'></i> {_GL["nav.home"]}</Link>
                                 <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-info-circle'></i> {_GL["nav.hint"]}</Link>
                                 {
-                                    (iccima.user.__id && iccima.user.type=="merchant") ?
-                                        (
-                                            <>
-                                                <Link className="nav-link" style={{
-                                                    color: "rgb(155, 25, 25)"
-                                                }} href={iccima.user.spl}> <i className='fa fa-user-circle-o'></i>  {_GL["nav.profile"]}</Link>
-                                                <Link className="nav-link" href={iccima.links.logout}> <i className='fa fa-sign-out'></i> {_GL["nav.logout"]}</Link>
-                                            </>
-                                        ) :
-                                        (
-                                            <a className="nav-link" href={loginSsoUrl}> <i className="fa fa-user-circle-o"></i> {_GL["nav.login"]} </a>
-                                        )
+                                    (
+                                        iccima.user.__id ? (
+                                            (iccima.user.type == "merchant") ?
+                                                (
+                                                    <>
+                                                        <Link className="nav-link" style={{
+                                                            color: "rgb(155, 25, 25)"
+                                                        }} href={iccima.user.spl}> <i className='fa fa-user-circle-o'></i>  {_GL["nav.profile"]}</Link>
+                                                        <Link className="nav-link" href={iccima.links.logout}> <i className='fa fa-sign-out'></i> {_GL["nav.logout"]}</Link>
+                                                    </>
+                                                ) :
+                                                (
+                                                    <a className="nav-link" href={loginSsoUrl}> <i className="fa fa-user-circle-o"></i> {_GL["nav.login"]} </a>
+                                                )
+                                        ) : (<></>)
+                                    )
+
                                 }
 
 
                                 <Link className="nav-link" href="#" onClick={handleNonDo}> <li className="select-opt text-dark">
-                                   <i className='fa fa-language'></i> <select value={iccima.user.lang} onChange={handleSelectLang} name="language" id="language">
-                                        <option  value="Persian">فارسی</option>
+                                    <i className='fa fa-language'></i> <select value={iccima.user.lang} onChange={handleSelectLang} name="language" id="language">
+                                        <option value="Persian">فارسی</option>
                                         <option value="English">English</option>
                                     </select>
                                 </li>

@@ -13,7 +13,7 @@ Route::middleware('is_api_user')->prefix("webservice")->group(function () {
         Route::post('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('ws.captcha.reload');
         Route::post('/validate-captcha', [CaptchaController::class, 'validateCaptcha'])->name('ws.captcha.validate');    
     });
-
+    Route::post('/merchants/view/increment', [MerchantController::class, 'increment_view'])->name('ws.merchant.inc_view');
     Route::post('/merchants/get/index', [MerchantController::class, 'index'])->name('ws.search.index');
     Route::post('/merchants/get/single', [MerchantController::class, 'single'])->name('ws.search.single');
     Route::post('/change/lang/user', [MerchantController::class, 'change_lang'])->name('ws.change.lang');

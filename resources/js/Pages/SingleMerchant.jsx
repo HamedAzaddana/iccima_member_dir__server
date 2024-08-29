@@ -64,6 +64,37 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                 }
             });
     }
+    const handleIncView = () => {
+        let _post_data = {
+            hid
+        };
+        axios.post(`${iccima.links.inc_view}`, _post_data, {
+            headers: {
+                'ICCIMA-AUTH-USERNAME': `${ws_username}`,
+                'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
+            }
+        })
+            .then(res => {
+
+                let status_code = res?.status;
+                if (status_code == 200 || status_code == 201) {
+                    // success
+                } else {
+                    toast.error(`${_GL['toast.error']}`);
+                }
+            })
+            .catch((err) => {
+
+                let errors = err?.response?.data?.data;
+                if (Array.isArray(errors) && errors) {
+                    errors.forEach((error_item) => {
+                        toast.error(`${error_item}`);
+                    });
+                } else {
+                    toast.error(`${err.message} : ${err?.response?.data?.data?.msg}`);
+                }
+            });
+    }
     const handleSubmitForm = (e) => {
         document.getElementById('loading-page-iccima').style.display = "inline-flex";
         let _post_data = forms;
@@ -137,7 +168,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     };
     useEffect(() => {
         fetchSingleData();
-
+        handleIncView();
     }, []);
 
     return (
@@ -308,8 +339,10 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                             </div>
                                         </div>
                                         <div className="col-lg-6 col-md-6 col-sm-12">
-                                            <center className='icon-box-single-page'><i className='fa fa-volume-control-phone'></i></center>
-
+                                            <center className='icon-box-single-page'>
+                                                <i className='fa fa-volume-control-phone'></i>
+                                                <strong className='text-dark view-count-eye-single-page'>  {dataSingle?.view_count}  <i className='fa fa-eye'></i></strong>
+                                            </center>
                                             <div className="card card-box-single-page  p-3 mb-5  rounded">
                                                 <div className="card-body text-dark">
                                                     <div className='mt-1'>
