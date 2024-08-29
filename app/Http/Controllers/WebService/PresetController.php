@@ -17,6 +17,7 @@ class PresetController extends Controller
             ->get()->toArray();
         $province = [];
         $en_province = [];
+        $activity_str_search = [];
         foreach ($presets as $preset) {
             $_type = $preset['type'];
             switch ($_type) {
@@ -25,6 +26,9 @@ class PresetController extends Controller
                     break;
                 case "en_province":
                     $en_province[$preset['value']] = $preset['title'];
+                    break;
+                case "activity_str_search":
+                    $activity_str_search[$preset['value']] = $preset['title'];
                     break;
                 default:
                     //Do Nothing !
@@ -36,6 +40,7 @@ class PresetController extends Controller
         return response()->json([
             'data' => [
                 'provinces' => iccima_prepareSelect($province),
+                'activity_str_search' => iccima_prepareSelect($activity_str_search),
             ],
         ], 200);
     }

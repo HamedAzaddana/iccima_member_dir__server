@@ -13,6 +13,7 @@ $__GLABAL_LANG = [
     "welocom.title" => "Find thousands of businesses ready to cater for your needs right at your fingertips",
     "welocom.plchldrInput" => "Title,Major or goods ... ",
     "welocom.plchldrProvince" => "province",
+    "welocom.plchldrActivityStr" => "Activity Fields",
     "welocom.btnSearch" => "Search",
     "welocom.boxIndustry" => "Industry",
     "welocom.boxCommerce" => "Commercial",

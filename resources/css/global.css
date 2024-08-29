@@ -149,15 +149,15 @@ a.nav-link:hover {
 .InputS2 {
     padding: 0 !important;
     margin: 0 !important;
-    margin-right: -55px !important;
+    margin-right: 5px !important;
 }
 
 .app-lang-English .InputS2 {
     padding: 0 !important;
-    margin: 0 !important;
-    margin-top: 25px !important;
-    margin-right: 0 !important;
+    margin-left: 5px !important;
 }
+
+
 
 .SelectProvince {
     padding: 0;
@@ -251,7 +251,7 @@ a.nav-link:hover {
 .welcome-hero-serch-box input,
 .welcome-hero-serch-box select,
 .welcome-hero-serch-box select option {
-    font-size: 15px !important;
+    font-size: 11px !important;
 }
 
 .navbar-title-site-mobile {

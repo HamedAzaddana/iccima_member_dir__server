@@ -370,9 +370,11 @@ class MerchantUser extends Authenticatable
         ];
         //process $filters_req to add filters
         $filters_req['province'] = @$filters_req['province'] == "all" ? "" : @$filters_req['province'];
-        if (@$filters_req['kws']) {
+        $filters_req['activity_str'] = @$filters_req['activity_str'] == "all" ? "" : @$filters_req['activity_str'];
+        if (@$filters_req['kws'] || @$filters_req['activity_str']) {
+            $S = (string)$filters_req['kws'].(string)$filters_req['activity_str'];
             $params['body']['query']['bool']['must']['multi_match'] = [
-                'query' => (string)$filters_req['kws'],
+                'query' => $S,
                 'fields' => [
                     'owner_fullname',
                     'co_title',

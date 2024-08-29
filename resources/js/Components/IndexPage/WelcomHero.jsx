@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { usePage } from '@inertiajs/react'
 
 export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToIndex }) {
-    const { iccima,_GL } = usePage().props; 
+    const { iccima, _GL } = usePage().props;
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
     const [filters, setFilters] = useState([]);
@@ -18,8 +18,8 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
     };
     const [values, setValues] = useState(default_filters);
     const SubmitBtn = useRef(null);
-   
-    
+
+
     const fetchDatafilters = async () => {
         try {
             const response = await axios.post(`${ws_search_get_fv}`, {}, {
@@ -67,7 +67,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
     const handleSearch = (e) => {
         getDataPrepare(e);
     }
-    const handleClickTopicV = (e)=>{
+    const handleClickTopicV = (e) => {
         let fiv = e?.currentTarget?.getAttribute('fiv')?.toString();
         document.querySelector(`.single-list-topics-content .form-switch input.${fiv}`)?.click();
     }
@@ -113,12 +113,12 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                     <div className="welcome-hero-txt">
                         <h2> {_GL["welocom.tip"]} </h2>
                         <p>
-                        {_GL["welocom.title"]}
+                            {_GL["welocom.title"]}
                         </p>
                     </div>
                     <div className="welcome-hero-serch-box row">
-                        <div className="col-md-6 col-lg-6 col-sm-12 InputS1" onClick={focusInputS1}>
-                            <div  className="single-welcome-hero-form">
+                        <div className="col-md-4 col-lg-4 col-sm-12 InputS1" onClick={focusInputS1}>
+                            <div className="single-welcome-hero-form">
                                 <input
                                     id="kws"
                                     className='text-dark'
@@ -131,8 +131,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                 </div>
                             </div>
                         </div>
-                        <div className='col-md-6 col-lg-1 col-sm-12 mt-4'></div>
-                        <div className="col-md-6 col-lg-3 col-sm-12 mt-4 InputS2">
+                        <div className="col-md-3 col-lg-3 col-sm-12 mt-4 InputS2">
                             <div style={{
                                 width: "100%",
                                 border: 0,
@@ -162,7 +161,36 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             </div>
 
                         </div>
-                        <div className="col-md-2 col-lg-2 col-sm-12 mt-4 InputS3">
+                        <div className="col-md-3 col-lg-3 col-sm-12 mt-4 InputS2">
+                            <div style={{
+                                width: "100%",
+                                border: 0,
+                            }} className="single-welcome-hero-form">
+                                <Form.Select className='without-icon SelectProvince' onChange={handleChangeVs} defaultValue="null" id="activity_str">
+                                    <option value={"all"}> {_GL["welocom.plchldrActivityStr"]} </option>
+                                    {(filters?.activity_str_search?.length) ?
+                                        (
+                                            <>
+                                                {filters?.activity_str_search?.map((item, item_index) => (
+                                                    <option key={item_index} value={item.value}>{item.label}</option>
+                                                ))}
+                                            </>
+                                        )
+                                        :
+                                        (
+                                            <></>
+                                        )
+                                    }
+                                </Form.Select>
+                                <div className="welcome-hero-form-icon" style={{
+                                    right: '42px',
+                                }}>
+                                    <i className="fa fa-quote-right"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="col-md-1 col-lg-1 col-sm-12 mt-4 InputS3">
                             <button onClick={handleSearch} id='btn-do-search' ref={SubmitBtn} type="submit" className="form-control btn btn-danger mb-4"> {_GL["welocom.btnSearch"]} <i className='fa fa-search'></i></button>
                         </div>
                     </div>
@@ -173,8 +201,8 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                     <div className="list-topics-content">
                         <ul>
                             <li>
-                                <div className="single-list-topics-content" fiv="group_act_type_v1" 
-                                 onClick={handleClickTopicV}>
+                                <div className="single-list-topics-content" fiv="group_act_type_v1"
+                                    onClick={handleClickTopicV}>
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-cogs"></i>
                                     </div>
@@ -191,7 +219,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             </li>
                             <li>
                                 <div className="single-list-topics-content" fiv="group_act_type_v2"
-                                onClick={handleClickTopicV}>
+                                    onClick={handleClickTopicV}>
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-address-card"></i>
                                     </div>
@@ -208,7 +236,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             </li>
                             <li>
                                 <div className="single-list-topics-content" fiv="group_act_type_v3"
-                                onClick={handleClickTopicV}>
+                                    onClick={handleClickTopicV}>
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-leaf"></i>
                                     </div>
@@ -225,7 +253,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             </li>
                             <li>
                                 <div className="single-list-topics-content" fiv="group_act_type_v4"
-                                onClick={handleClickTopicV}>
+                                    onClick={handleClickTopicV}>
                                     <div className="single-list-topics-icon">
                                         <i className="fa fa-diamond"></i>
                                     </div>

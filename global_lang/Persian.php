@@ -13,6 +13,7 @@ $__GLABAL_LANG = [
     "welocom.title" => "بستر ارتباط آنلاین دارندگان کارت های عضویت و بازرگانی",
     "welocom.plchldrInput" => "نام، رشته فعالیت، نام کالا ... ",
     "welocom.plchldrProvince" => "استان",
+    "welocom.plchldrActivityStr" => "رشته فعالیت",
     "welocom.btnSearch" => "جستجو",
     "welocom.boxIndustry" => "صنعت",
     "welocom.boxCommerce" => "بازرگانی",
