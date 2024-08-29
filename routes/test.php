@@ -23,6 +23,11 @@ Route::get('/test2', function () {
 });
 Route::get('/test', function () {
 
+    // $tc = MerchantUser::find(6343);
+    // $tc->update([
+    //     'show_in_index' => 1
+    // ]);
+    // dd($tc);
     // $activity_str_search = [
     //     "مواد غذایی، حیوانی، نباتی، آشامیدنی، محصولات وابسته، نباتات و حیوانات زنده",
     //     "مواد معدنی، سنگ، گچ، سیمان، شیشه و پنبه نسوز، سنگ‌ها و فلزات گران‌بها و مصنوعات وابسته ",
@@ -50,8 +55,11 @@ Route::get('/test', function () {
     // };
 
 
-    // $records_load = MerchantUser::get_data_els_filter([], 10);
-    // dd($records_load);
+    $records_load = MerchantUser::get_data_els_filter([
+        "kws" => "زعفران",
+        // "kws"=>"sss",
+    ], 10);
+    dd($records_load);
     // dd($current_merchant_e_lv = MerchantUserModel::find(1)->toArray());
     // dd(json_decode("vsdvdfb"));
     // dd(iccima_get_current_user());

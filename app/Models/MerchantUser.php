@@ -372,7 +372,7 @@ class MerchantUser extends Authenticatable
         $filters_req['province'] = @$filters_req['province'] == "all" ? "" : @$filters_req['province'];
         $filters_req['activity_str'] = @$filters_req['activity_str'] == "all" ? "" : @$filters_req['activity_str'];
         if (@$filters_req['kws'] || @$filters_req['activity_str']) {
-            $S = (string)$filters_req['kws'].(string)$filters_req['activity_str'];
+            $S = (string)$filters_req['kws'] . (string)$filters_req['activity_str'];
             $params['body']['query']['bool']['must']['multi_match'] = [
                 'query' => $S,
                 'fields' => [
@@ -394,6 +394,12 @@ class MerchantUser extends Authenticatable
         if (@$filters_req['group_act_type']) {
             $params['body']['query']['bool']['filter'][] = ["match" => ["group_activity_type" => (string)$filters_req['group_act_type']]];
         }
+        $params['body']['query']['bool']['filter'][] = ["term" => ["show_in_index" => "1"]];
+
+        // $params['body']['query'][] = ["term" => ["show_in_index" => 1]];
+        // $params['body']['query']['bool']['must']["term"] = ["show_in_index" => 1];
+
+        // show_in_index
         $rnd_number_php = random_int(100, 99999999);
         $params['body']['sort']["_script"] =
             [

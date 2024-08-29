@@ -245,7 +245,7 @@ a.nav-link:hover {
 #list-topics {
     padding: 0;
     margin-bottom: -140px;
-    margin-top: 65px;
+    margin-top: 115px;
 }
 
 .welcome-hero-serch-box input,
@@ -332,7 +332,7 @@ img.user-profile-cr {
     padding: 5px;
 }
 
-@media only screen and (max-width:995px) {
+@media only screen and (max-width:985px) {
     .welcome-hero {
         height: 750px;
     }
@@ -340,7 +340,11 @@ img.user-profile-cr {
     .InputS2 {
         margin-right: 0 !important;
     }
+    #btn-do-search{
+        margin-right: -30px !important;
+    }
 }
+
 
 @media only screen and (max-width:770px) {
     #list-topics {

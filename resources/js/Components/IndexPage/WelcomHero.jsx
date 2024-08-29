@@ -131,7 +131,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-3 col-lg-3 col-sm-12 mt-4 InputS2">
+                        <div className="col-md-4 col-lg-3 col-sm-12 mt-4 InputS2">
                             <div style={{
                                 width: "100%",
                                 border: 0,
@@ -161,7 +161,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             </div>
 
                         </div>
-                        <div className="col-md-3 col-lg-3 col-sm-12 mt-4 InputS2">
+                        <div className="col-md-4 col-lg-3 col-sm-12 mt-4 InputS2">
                             <div style={{
                                 width: "100%",
                                 border: 0,
@@ -188,10 +188,11 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                                     <i className="fa fa-quote-right"></i>
                                 </div>
                             </div>
-
                         </div>
                         <div className="col-md-1 col-lg-1 col-sm-12 mt-4 InputS3">
-                            <button onClick={handleSearch} id='btn-do-search' ref={SubmitBtn} type="submit" className="form-control btn btn-danger mb-4"> {_GL["welocom.btnSearch"]} <i className='fa fa-search'></i></button>
+                            <center>
+                                <button onClick={handleSearch} id='btn-do-search' ref={SubmitBtn} type="submit" className="form-control btn btn-danger mb-4"> {_GL["welocom.btnSearch"]} <i className='fa fa-search'></i></button>
+                            </center>
                         </div>
                     </div>
                 </div>
