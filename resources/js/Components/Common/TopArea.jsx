@@ -3,9 +3,9 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from '@inertiajs/react'
-import { usePage} from '@inertiajs/react'
+import { usePage } from '@inertiajs/react'
 import axios from 'axios';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
@@ -16,7 +16,7 @@ export default function TopArea() {
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     const loginSsoUrl = import.meta.env.VITE_LOGIN_URL_SSO || 'http://127.0.0.1:8000/loginSso';
     const [showOfCanv, setShowOfCanc] = useState(false);
-    const [placementOfCanc ,setPlacementOfCanc] = useState("end");
+    const [placementOfCanc, setPlacementOfCanc] = useState("end");
     const handleSelectLang = (e) => {
         let _post_data = {
             lang: e.target.value
@@ -61,10 +61,10 @@ export default function TopArea() {
         setShowOfCanc(true);
     }
     useEffect(() => {
-        if(iccima.user.lang=="English"){
+        if (iccima.user.lang == "English") {
             setPlacementOfCanc("start");
         }
-    },[]);
+    }, []);
     return (
         <div>
             <section className="top-area">
@@ -97,8 +97,10 @@ export default function TopArea() {
                                                         backdrop={true}
                                                         placement={placementOfCanc}
                                                     >
-                                                        <Offcanvas.Header className='bg-secondary' closeButton>
-                                                            <Offcanvas.Title className='text-white'>{_GL['nav.admin.ofc.title']}</Offcanvas.Title>
+                                                        <Offcanvas.Header closeButton>
+                                                            <img className='img-offcanvas-site' src="" alt="" />
+                                                            <Offcanvas.Title className='text-primary'>{_GL['nav.admin.ofc.title']}
+                                                            </Offcanvas.Title>
                                                         </Offcanvas.Header>
                                                         <Offcanvas.Body>
                                                             <Link className="nav-link " href={`${iccima.adminPanel.dashboard}`}> <i className='fa fa-tachometer'></i> {_GL["nav.admin.ofc.dashboard"]}</Link>

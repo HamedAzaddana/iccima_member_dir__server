@@ -119,11 +119,11 @@ select.without-icon {
 }
 
 .single-list-topics-content h2 {
-    font-size: 14px !important;
+    font-size: 15px !important;
 }
 
 .app-lang-English .single-list-topics-content h2 {
-    font-size: 12px !important;
+    font-size: 13px !important;
 }
 
 .ContactsPartCardRs p {
@@ -335,10 +335,10 @@ img.user-profile-cr {
     min-height: 100vh !important;
 }
 #iccima-footer{
-    background: #cadbf3  !important;
+    background: #e9f2ff !important;
 }
 .top-area{
-    background: #e9eef4;
+    background: #e6f6f6;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -346,6 +346,24 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
     height: max-content !important;
+}
+.img-offcanvas-site{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    visibility: hidden;
+}
+.offcanvas-body a.nav-link{
+    padding: 20px;
+    border-top: 1px solid gray;
+}
+.explore-parent-div{
+    height: 0 !important;
+}
+.table-iccima-center-all table thead tr th,
+.table-iccima-center-all table tbody tr td
+{
+text-align: center;
 }
 @media only screen and (max-width:985px) {
     .welcome-hero {

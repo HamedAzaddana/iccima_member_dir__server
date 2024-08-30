@@ -22,9 +22,7 @@ export default function ExploreArea({ dataSearch, req_params }) {
     const handleClickMore = (e) => {
         document.getElementById('getMoreApiBtn').click();
     }
-    // handleValidateCaptcha
     const handleValidateCaptcha = (e) => {
-        //after axios success request ...
         let continue_code = document.getElementById('field-captcha-text').value;
         let _post_data = {
             continue_code
@@ -92,8 +90,8 @@ export default function ExploreArea({ dataSearch, req_params }) {
             });
     }
     return (
-        <div>
-            <section id="explore" className="explore">
+        <div id="explore" className={(!dataSearch?.length) ? 'explore-parent-div':''}>
+            <section className="explore">
                 <div className="container">
                     <div className="explore-content">
                         {

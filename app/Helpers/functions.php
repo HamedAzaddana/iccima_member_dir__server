@@ -6,6 +6,7 @@ use App\Helpers\Logger;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\IccString;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 function iccima_make_en_numbers($str)
 {
@@ -310,6 +311,12 @@ function iccima_upload_public_src($file, $path_public)
         $file_name_path
     );
     return $url_path_public;
+}
+function iccima_get_db_data_locale($data)
+{
+    $lang = iccima_get_sess_lang();
+    foreach ($data as $k_item => $v_item) {
+    }
 }
 function iccima_get_rnd_str($l = 4)
 {

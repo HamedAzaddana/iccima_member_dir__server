@@ -66,7 +66,11 @@ $__GLABAL_LANG = [
   "singlePage.form.tashakol" => "Guild Types",
   "singlePage.form.btnSave" => "Save Changes",
   "singlePage.no_show_index" => "The information about this representative is not available !",
-
+  "admin.forms.tbl.fullname" => "Fullname/Corp. title",
+  "admin.forms.tbl.show_form" => "Show form data",
+  "admin.forms.tbl.show_original" => "Show original data",
+  "admin.forms.tbl.show_date" => "Last updated at",
+  "admin.forms.tbl.operation" => "Operation",
   "singlePage.confirmed" => "Your data confirmed !",
   "toast.error" => "Error occurred !",
   "toast.edited_success" => "Your data updated successfully !",

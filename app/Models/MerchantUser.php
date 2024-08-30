@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class MerchantUser extends Authenticatable
 {
+
     use HasFactory;
     protected $table = "merchants";
     public $timestamps = false;
@@ -50,13 +51,29 @@ class MerchantUser extends Authenticatable
 
         "last_updated_at"
     ];
-    public $multi_lang_fields = [
+    private static $multi_lang_fields = [
         "shared_chambers", // اتاق های مشترک
         "specialized_committees", // کمیسیون های تخصصی
         "guild_types", // تشکل ها
         'brand_title', //برند تجاری
         'co_main_address', //آدرس
     ];
+    private static $multi_lang_original_fields = [
+        "owner_fullname",
+        "group_activity_type",
+        "co_title",
+        "co_type",
+        "city",
+        "province",
+        "co_main_address",
+        "biz_activities",
+        "coo_biz_activities",
+        "specialized_committees",
+        "guild_types",
+        "shared_chambers",
+        "biz_activitiy_goods",
+    ];
+
     public $save_indexes = [
         "brand_title",
         "co_phone",
@@ -239,7 +256,7 @@ class MerchantUser extends Authenticatable
         $editable_user = $this->editable_user ? $this->editable_user->toArray() : [];
         $current_lang = iccima_get_sess_lang();
         foreach ($editable_user as $keu_item => $veu_item) {
-            if (in_array($keu_item, $this->multi_lang_fields)) {
+            if (in_array($keu_item, self::get_multi_lang_fields())) {
                 $veu_item = (array)json_decode($veu_item);
                 $form_vals[$keu_item] = @$veu_item[$current_lang];
             } else {
@@ -265,7 +282,7 @@ class MerchantUser extends Authenticatable
         $old_brand_image_path = $current_merchant_e_lv['brand_image'];
         foreach ($this->save_indexes as $save_index) {
             $new_val_lang =  @$input[$save_index];
-            if (in_array($save_index, $this->multi_lang_fields)) {
+            if (in_array($save_index, self::get_multi_lang_fields())) {
                 $lv_me_json_decode = json_decode(@$current_merchant_e_lv[$save_index]) ? (array)json_decode(@$current_merchant_e_lv[$save_index]) : [];
                 $lv_me_json_decode[$current_lang] = $new_val_lang;
                 $updated_merchant_e_lv[$save_index] = json_encode($lv_me_json_decode, JSON_UNESCAPED_UNICODE);
@@ -311,6 +328,14 @@ class MerchantUser extends Authenticatable
                 'status_code' => 422,
             ];
         }
+    }
+    public static function get_multi_lang_fields()
+    {
+        return self::$multi_lang_fields;
+    }
+    public static function get_multi_lang_original_fields()
+    {
+        return self::$multi_lang_original_fields;
     }
     public static function get_els_client()
     {
@@ -371,14 +396,13 @@ class MerchantUser extends Authenticatable
         //process $filters_req to add filters
         $filters_req['province'] = @$filters_req['province'] == "all" ? "" : @$filters_req['province'];
         $filters_req['activity_str'] = @$filters_req['activity_str'] == "all" ? "" : @$filters_req['activity_str'];
-        if (@$filters_req['kws'] || @$filters_req['activity_str']) {
-            $S = (string)$filters_req['kws'] . (string)$filters_req['activity_str'];
+        if (@$filters_req['kws']) {
+            $S = (string)$filters_req['kws'];
             $params['body']['query']['bool']['must']['multi_match'] = [
                 'query' => $S,
                 'fields' => [
                     'owner_fullname',
                     'co_title',
-                    'biz_activities',
                     'biz_activitiy_goods',
                     'coo_biz_activities',
                     'biz_act_goods_hs_codes',
@@ -394,22 +418,31 @@ class MerchantUser extends Authenticatable
         if (@$filters_req['group_act_type']) {
             $params['body']['query']['bool']['filter'][] = ["match" => ["group_activity_type" => (string)$filters_req['group_act_type']]];
         }
+        if (@$filters_req['activity_str']) {
+            $params['body']['query']['bool']['filter'][] = [
+                "match" => [
+                    "biz_activities" => [
+                        "query" =>  (string)$filters_req['activity_str'],
+                        "operator" => "and"
+                    ],
+                ],
+
+            ];
+        }
         $params['body']['query']['bool']['must_not'][] = ["term" => ["show_in_index" => "0"]];
 
         $rnd_number_php = random_int(100, 99999999);
-        // $params['body']['sort']["_script"] =
-        //     [
-        //         "script" => "Math.random() + $rnd_number_php",
-        //         "type" => "number",
-        //         "order" => "desc"
-        //     ];
+        $params['body']['sort']["_script"] = [
+            "script" => "Math.random() + $rnd_number_php",
+            "type" => "number",
+            "order" => "desc"
+        ];
 
         $response = $client->search($params);
         $result_array = iccima_prepare_get_db_elastic($response->asArray());
         // shuffle($result_array);
         return $result_array;
     }
-
     public static function sync_data_indexes()
     {
         //called evenry 5 seconds !
