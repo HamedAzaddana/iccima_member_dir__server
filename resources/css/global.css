@@ -32,7 +32,8 @@ h4,
 h5,
 h6,
 button,
-option,.offcanvas {
+option,
+.offcanvas {
     font-family: "iran_sans" !important;
     text-transform: capitalize !important;
 }
@@ -331,40 +332,52 @@ img.user-profile-cr {
     font-size: 14px;
     padding: 5px;
 }
-#iccima-main-content-layout{
+
+#iccima-main-content-layout {
     min-height: 100vh !important;
 }
-#iccima-footer{
+
+#iccima-footer {
     background: #e9f2ff !important;
 }
-.top-area{
-    background: #e6f6f6;
+
+.top-area {
+    background: #e6eaf6;
 }
+
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
     height: max-content !important;
 }
-.img-offcanvas-site{
+
+.img-offcanvas-site {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     visibility: hidden;
 }
-.offcanvas-body a.nav-link{
+
+.offcanvas-body a.nav-link {
     padding: 20px;
     border-top: 1px solid gray;
 }
-.explore-parent-div{
+
+.explore-parent-div {
     height: 0 !important;
 }
+
 .table-iccima-center-all table thead tr th,
-.table-iccima-center-all table tbody tr td
-{
-text-align: center;
+.table-iccima-center-all table tbody tr td {
+    text-align: center;
 }
+
+.page-item .page-link {
+    border-radius: 40% !important;
+}
+
 @media only screen and (max-width:985px) {
     .welcome-hero {
         height: 750px;
@@ -373,13 +386,18 @@ text-align: center;
     .InputS2 {
         margin-right: 0 !important;
     }
-    #btn-do-search{
+
+    #btn-do-search {
         margin-right: -30px !important;
     }
 }
 
 
 @media only screen and (max-width:770px) {
+    #btn-do-search {
+        margin-right: 0px !important;
+    }
+
     #list-topics {
         padding: 0;
         margin-bottom: 0 !important;

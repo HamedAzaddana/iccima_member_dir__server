@@ -71,8 +71,14 @@ $__GLABAL_LANG = [
   "admin.forms.tbl.show_original" => "Show original data",
   "admin.forms.tbl.show_date" => "Last updated at",
   "admin.forms.tbl.operation" => "Operation",
+  "admin.forms.tbl.confirm" => "Confirm data",
+  "admin.forms.tbl.unconfirm" => "Reject data",
+
   "singlePage.confirmed" => "Your data confirmed !",
   "toast.error" => "Error occurred !",
+  "toast.params_error" => "Request parameters are not valid !",
+  "toast.error_file_type" => "File type is invalid !",
+  "toast.error_file_size" => "File size is invalid !",
   "toast.edited_success" => "Your data updated successfully !",
 
 ];

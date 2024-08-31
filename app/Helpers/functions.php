@@ -106,11 +106,7 @@ function iccima_get_sess_lang()
         request()->session()->get('current_browser_lang') :
         "Persian";
 }
-function iccima_get_lang_file_inc()
-{
-    // $lang : Persian , English
 
-}
 function iccima_sluggify($str)
 {
     $str = str_replace(" ", "-", $str);
@@ -273,7 +269,7 @@ function iccima_upload_validate_image($file, $allowedTypes, $maxFileSize)
     if (!in_array($fileType, $allowedTypes)) {
         return [
             'response' => 'error',
-            'msg' => 'نوع فایل آپلود شده مجاز نیست !',
+            'msg' => ___rlic("toast.error_file_type"),
         ];
     }
 
@@ -281,7 +277,7 @@ function iccima_upload_validate_image($file, $allowedTypes, $maxFileSize)
     if ($fileSize > $maxFileSize) {
         return [
             'response' => 'error',
-            'msg' => 'حجم فایل آپلود شده مجاز نیست !',
+            'msg' => ___rlic("toast.error_file_size"),
         ];
     }
     return [
@@ -312,12 +308,7 @@ function iccima_upload_public_src($file, $path_public)
     );
     return $url_path_public;
 }
-function iccima_get_db_data_locale($data)
-{
-    $lang = iccima_get_sess_lang();
-    foreach ($data as $k_item => $v_item) {
-    }
-}
+
 function iccima_get_rnd_str($l = 4)
 {
     $r1 = bin2hex(random_bytes($l));
@@ -327,6 +318,17 @@ function iccima_get_rnd_str($l = 4)
     return  $r1 . "-" . $r2 . "-" . $r3 . "-" . $r4 . "-" . time();
 }
 
+function iccima_get_str_date_from_db($dateTimeDb)
+{
+    $dateTimeStr = "";
+    $lang = iccima_get_sess_lang();
+    if ($lang == "Persian") {
+        $dateTimeStr = $dateTimeDb ? jdate($dateTimeDb)->format("Y/m/d , H:i") : "";
+    } else {
+        $dateTimeStr = $dateTimeDb ? \Carbon\Carbon::parse($dateTimeDb)->format('Y/m/d , H:i') : "";
+    }
+    return $dateTimeStr;
+}
 function ___rlic($index)
 {
     include(base_path() . '/global_lang/' . iccima_get_sess_lang() . '.php');

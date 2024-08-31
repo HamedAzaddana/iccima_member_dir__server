@@ -6,9 +6,11 @@ use App\Http\Controllers\MerchantController;
 use App\Services\CardsData;
 use App\Models\IndexNumberApi;
 use App\Models\MerchantUser;
+use App\Models\MerchantEUser;
 use App\Models\AdminUser;
 use App\Models\Preset;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\Pdate;
 
 
 
@@ -22,14 +24,35 @@ Route::get('/test2', function () {
     // dd($_data = CardsData::getDataByIndex("558177"));
 });
 Route::get('/test', function () {
-    $merchants = MerchantUser::paginate(20);
-    
-    dd($merchants->toArray());
+    dd(MerchantUser::$multi_lang_fields);
+    // $merchant = MerchantUser::find(2816);
+    // if (!$merchant?->editable_user) {
+    //     MerchantEUser::firstOrCreate(
+    //         ['card_no' => $merchant->card_no],
+    //         [
+    //             "last_updated_at" => Pdate::persianTimeStampNow(),
+    //             "confirmed" => 0,
+    //         ]
+    //     );
+    //     $merchant = MerchantUser::find(2816);
+    // }
+    // $merchant->editable_user->update([
+    //     'confirmed'=>1,
+    //     'last_updated_at'=>Pdate::persianTimeStampNow(),
+    // ]);
 
-    $records_load = MerchantUser::get_data_els_filter([
-        "kws" => "زعفران",
-        // "kws"=>"sss",
-    ], 10);
-    dd($records_load);
+    // $merchant->editable_user()->associate([
+    //     'confirmed'=>1
+    // ]);
+    // $merchant->save();
+    // $merchants = MerchantUser::paginate(20);
+    
+    // dd($merchants->toArray());
+
+    // $records_load = MerchantUser::get_data_els_filter([
+    //     "kws" => "زعفران",
+    //     // "kws"=>"sss",
+    // ], 10);
+    // dd($records_load);
 
 });

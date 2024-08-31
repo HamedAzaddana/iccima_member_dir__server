@@ -6,7 +6,7 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { iterate_prepare_data, format_at_email_str } from '../Utils/IccObjArr';
 
-export default function SingleMerchant({ hid, route_ws_get_single, route_404_page, route_ws_saveVals, route_ws_delBrImg }) {
+export default function SingleMerchant({ slug, hid, route_ws_get_single, route_404_page, route_ws_saveVals, route_ws_delBrImg }) {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
 
@@ -42,7 +42,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
             }
         })
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 document.getElementById('loading-page-iccima').style.display = "none";
                 let status_code = res?.status;
                 if (status_code == 200 || status_code == 201) {
@@ -113,7 +113,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
             }
         })
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 document.getElementById('loading-page-iccima').style.display = "none";
                 let status_code = res?.status;
                 if (status_code == 200 || status_code == 201) {
@@ -150,9 +150,9 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                 }
             });
             document.getElementById('loading-page-iccima').style.display = "none";
-            console.log(response.data.data)
             setDataSingle(iterate_prepare_data(response.data.data));
             setForms(iterate_prepare_data(response.data.data.__forms));
+            console.log(response.data.data)
             if (response?.data?.data?.__forms?.brand_image) {
                 setUploadedBrImg(response?.data?.data?.__forms?.brand_image);
             }
@@ -168,12 +168,12 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
     };
     useEffect(() => {
         fetchSingleData();
-        if(dataSingle?.show_in_index && dataSingle?.show_in_index == 1){
+        if (dataSingle?.show_in_index && dataSingle?.show_in_index == 1) {
             handleIncView();
         }
     }, []);
     useEffect(() => {
-        if(dataSingle?.show_in_index && dataSingle?.show_in_index == 1){
+        if (dataSingle?.show_in_index && dataSingle?.show_in_index == 1) {
             handleIncView();
         }
     }, [dataSingle]);
@@ -185,12 +185,12 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                 {
                     <>
                         {
-                            (dataSingle?.co_title && dataSingle?.show_in_index && dataSingle?.show_in_index == 1) ?
+                            (dataSingle?.co_title) ?
                                 (
                                     <div className='placeholder-single-content'>
                                         <div className="container">
                                             {
-                                                iccima.user.__id && iccima.user.__id == hid ?
+                                                (iccima.user.__id && iccima.user.__id == hid) || (iccima.user.__id && iccima.user.type == "admin" && slug == "viaAdminPanel") ?
                                                     (
                                                         <div>
                                                             <center className='icon-box-single-page'><i className='fa fa-id-card'></i></center>
@@ -277,7 +277,15 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                                                     <textarea onChange={handleChangeVs} className="form-control iccima_met" id="guild_types" rows="5"
                                                                                         defaultValue={forms?.guild_types?.toString()}></textarea>
                                                                                 </div>
-                                                                                <button onClick={handleSubmitForm} type='button' className='btn btn-success m-3'> <i className='fa fa-pencil-square-o'></i>  {_GL['singlePage.form.btnSave']} </button>
+                                                                                {
+                                                                                    (iccima.user.__id && iccima.user.__id == hid) ?
+                                                                                        (
+                                                                                            <button onClick={handleSubmitForm} type='button' className='btn btn-success m-3'> <i className='fa fa-pencil-square-o'></i>  {_GL['singlePage.form.btnSave']} </button>
+                                                                                        ) :
+                                                                                        (
+                                                                                            <span></span>
+                                                                                        )
+                                                                                }
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -289,91 +297,129 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                                     :
                                                     (<div></div>)
                                             }
-                                            <div className="row">
-                                                <div className="col-lg-6 col-md-6 col-sm-12">
-                                                    <center className='icon-box-single-page'><i className='fa fa-user-circle'></i></center>
-                                                    <div className="card  shadow-lg card-box-single-page p-3 mb-5 rounded">
-                                                        <div className="card-body text-dark">
-                                                            <center>
-                                                                {dataSingle.co_image_new ? (<img className='cover-img-single' src={dataSingle.co_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} />) : ("")}
-                                                                {dataSingle.owner_image_new ? (<img className='cover-img-single' src={dataSingle.owner_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} />) : ("")}
-                                                            </center>
+                                            {
+                                                (dataSingle?.show_in_index && dataSingle?.show_in_index == 1) ?
+                                                    (
+                                                        <div>
+                                                            <div className="row">
+                                                                <div className="col-lg-6 col-md-6 col-sm-12">
+                                                                    <center className='icon-box-single-page'><i className='fa fa-user-circle'></i></center>
+                                                                    <div className="card  shadow-lg card-box-single-page p-3 mb-5 rounded">
+                                                                        <div className="card-body text-dark">
+                                                                            <center>
+                                                                                {dataSingle.co_image_new ? (<img className='cover-img-single' src={dataSingle.co_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} />) : ("")}
+                                                                                {dataSingle.owner_image_new ? (<img className='cover-img-single' src={dataSingle.owner_image_new} alt={dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} />) : ("")}
+                                                                            </center>
 
-                                                            <br />
-                                                            <div className='mt-3'>
-                                                                <p className='label-single-page'> {_GL['singlePage.co_title']}</p>
-                                                                <h1 className='text-dark title-single-page'>
-                                                                    <strong> {(dataSingle.co_title)[iccima.user.lang.toString()]} </strong>
-                                                                </h1>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.user_title']}</p>
-                                                                <h2 className='text-dark title-single-page'>
-                                                                    <strong>  {dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} </strong>
-                                                                </h2>
-                                                                <br />
-                                                                <p className='label-single-page'>{_GL['singlePage.co_type']}</p>
-                                                                <h3 className='text-dark title-single-page'>
-                                                                    <strong>{dataSingle.co_type[iccima.user.lang.toString()]} {dataSingle.jalali_year ? `${_GL['singlePage.establish']} ${dataSingle.jalali_year}` : ""}</strong>
-                                                                </h3>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.city_province']} </p>
-                                                                <h3 className='text-dark title-single-page'>
-                                                                    <strong> {dataSingle?.province?.[iccima.user.lang.toString()]} {dataSingle?.city?.[iccima.user.lang.toString()]}</strong>
-                                                                </h3>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.reshte_faaliat']} </p>
-                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" }} ></p>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.noe_faaliat']} </p>
-                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" }} ></p>
-                                                                <br />
-                                                                <p className='label-single-page'>  {_GL['singlePage.govahi_mabda']} </p>
-                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" }} ></p>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.hs_codes']} </p>
-                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" }} ></p>
-                                                                <br />
-                                                                <p className='label-single-page'>  {_GL['singlePage.otash_moshtarak']}</p>
-                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" }} ></p>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.commis_takh']} </p>
-                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" }} ></p>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.tashakol']} </p>
-                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                                            <br />
+                                                                            <div className='mt-3'>
+                                                                                <p className='label-single-page'> {_GL['singlePage.co_title']}</p>
+                                                                                <h1 className='text-dark title-single-page'>
+                                                                                    <strong> {(dataSingle.co_title)[iccima.user.lang.toString()]} </strong>
+                                                                                </h1>
+                                                                                <br />
+                                                                                {
+                                                                                    dataSingle?.brand_title ?
+                                                                                        (
+                                                                                            <div>
+                                                                                                <p className='label-single-page'> {_GL['singlePage.form.brand_title']}</p>
+                                                                                                <h1 className='text-dark title-single-page'>
+                                                                                                    <strong> {dataSingle?.brand_title ? (dataSingle?.brand_title)[iccima.user.lang.toString()] : ''} </strong>
+                                                                                                </h1>
+                                                                                                <br />
+                                                                                            </div>
+                                                                                        ) :
+                                                                                        ("")
+                                                                                }
+
+                                                                                {
+                                                                                    dataSingle?.brand_image ?
+                                                                                        (
+                                                                                            <div>
+                                                                                                <p className='label-single-page'> {_GL['singlePage.form.brand_logo']}</p>
+                                                                                                <h1 className='text-dark title-single-page'>
+                                                                                                    <img className='cover-img-single' src={dataSingle.brand_image} alt={dataSingle.brand_title ? (dataSingle.brand_title)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} />
+                                                                                                </h1>
+                                                                                                <br />
+                                                                                            </div>
+                                                                                        ) :
+                                                                                        ("")
+                                                                                }
+
+                                                                               
+                                                                                <p className='label-single-page'> {_GL['singlePage.user_title']}</p>
+                                                                                <h2 className='text-dark title-single-page'>
+                                                                                    <strong>  {dataSingle.owner_fullname ? (dataSingle.owner_fullname)[iccima.user.lang.toString()] : (dataSingle.co_title)[iccima.user.lang.toString()]} </strong>
+                                                                                </h2>
+                                                                                <br />
+                                                                                <p className='label-single-page'>{_GL['singlePage.co_type']}</p>
+                                                                                <h3 className='text-dark title-single-page'>
+                                                                                    <strong>{dataSingle.co_type[iccima.user.lang.toString()]} {dataSingle.jalali_year ? `${_GL['singlePage.establish']} ${dataSingle.jalali_year}` : ""}</strong>
+                                                                                </h3>
+                                                                                <br />
+                                                                                <p className='label-single-page'> {_GL['singlePage.city_province']} </p>
+                                                                                <h3 className='text-dark title-single-page'>
+                                                                                    <strong> {dataSingle?.province?.[iccima.user.lang.toString()]} {dataSingle?.city?.[iccima.user.lang.toString()]}</strong>
+                                                                                </h3>
+                                                                                <br />
+                                                                                <p className='label-single-page'> {_GL['singlePage.reshte_faaliat']} </p>
+                                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" }} ></p>
+                                                                                <br />
+                                                                                <p className='label-single-page'> {_GL['singlePage.noe_faaliat']} </p>
+                                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                                                <br />
+                                                                                <p className='label-single-page'>  {_GL['singlePage.govahi_mabda']} </p>
+                                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                                                <br />
+                                                                                <p className='label-single-page'> {_GL['singlePage.hs_codes']} </p>
+                                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                                                <br />
+                                                                                <p className='label-single-page'>  {_GL['singlePage.otash_moshtarak']}</p>
+                                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                                                <br />
+                                                                                <p className='label-single-page'> {_GL['singlePage.commis_takh']} </p>
+                                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                                                <br />
+                                                                                <p className='label-single-page'> {_GL['singlePage.tashakol']} </p>
+                                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" }} ></p>
 
 
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-lg-6 col-md-6 col-sm-12">
+                                                                    <center className='icon-box-single-page'>
+                                                                        <i className='fa fa-volume-control-phone'></i>
+                                                                        <strong className='text-dark view-count-eye-single-page'>  {dataSingle?.view_count}  <i className='fa fa-eye'></i></strong>
+                                                                    </center>
+                                                                    <div className="card card-box-single-page  p-3 mb-5  rounded">
+                                                                        <div className="card-body text-dark">
+                                                                            <div className='mt-1'>
+                                                                                <p className='label-single-page'> {_GL['singlePage.address']} </p>
+                                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.co_main_address[iccima.user.lang.toString()] }} ></p>
+                                                                                <br />
+                                                                                <p className='label-single-page'>  {_GL['singlePage.website']} </p>
+                                                                                <p className='text-dark font-weight-bold mt-2 p-single-page-content'>{dataSingle.co_website ? dataSingle.co_website : "---"}</p>
+                                                                                <br />
+                                                                                <p className='label-single-page'> {_GL['singlePage.phone']} </p>
+                                                                                <p className='text-dark font-weight-bold mt-2 p-single-page-content'>{dataSingle.co_phone ? dataSingle.co_phone : "---"}</p>
+                                                                                <br />
+                                                                                <p className='label-single-page'> {_GL['singlePage.fax']} </p>
+                                                                                <p className='text-dark font-weight-bold mt-2 p-single-page-content'>{dataSingle.co_fax ? dataSingle.co_fax : "---"}</p>
+                                                                                <br />
+                                                                                <p className='label-single-page'> {_GL['singlePage.email']} </p>
+                                                                                <p className='text-dark font-weight-bold mt-2 p-single-page-content'>{dataSingle.co_email ? format_at_email_str(dataSingle.co_email) : "---"}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-lg-6 col-md-6 col-sm-12">
-                                                    <center className='icon-box-single-page'>
-                                                        <i className='fa fa-volume-control-phone'></i>
-                                                        <strong className='text-dark view-count-eye-single-page'>  {dataSingle?.view_count}  <i className='fa fa-eye'></i></strong>
-                                                    </center>
-                                                    <div className="card card-box-single-page  p-3 mb-5  rounded">
-                                                        <div className="card-body text-dark">
-                                                            <div className='mt-1'>
-                                                                <p className='label-single-page'> {_GL['singlePage.address']} </p>
-                                                                <p className='mt-1 pt-1 text-dark text-justify p-single-page-content' dangerouslySetInnerHTML={{ __html: dataSingle.co_main_address[iccima.user.lang.toString()] }} ></p>
-                                                                <br />
-                                                                <p className='label-single-page'>  {_GL['singlePage.website']} </p>
-                                                                <p className='text-dark font-weight-bold mt-2 p-single-page-content'>{dataSingle.co_website ? dataSingle.co_website : "---"}</p>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.phone']} </p>
-                                                                <p className='text-dark font-weight-bold mt-2 p-single-page-content'>{dataSingle.co_phone ? dataSingle.co_phone : "---"}</p>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.fax']} </p>
-                                                                <p className='text-dark font-weight-bold mt-2 p-single-page-content'>{dataSingle.co_fax ? dataSingle.co_fax : "---"}</p>
-                                                                <br />
-                                                                <p className='label-single-page'> {_GL['singlePage.email']} </p>
-                                                                <p className='text-dark font-weight-bold mt-2 p-single-page-content'>{dataSingle.co_email ? format_at_email_str(dataSingle.co_email) : "---"}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                    ) :
+                                                    (<></>)
+                                            }
+
                                         </div>
                                     </div>
                                 ) :
@@ -384,7 +430,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                 )
                         }
                     </>
-                        
+
                 }
 
 

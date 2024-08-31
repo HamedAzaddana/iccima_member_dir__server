@@ -72,8 +72,12 @@ $__GLABAL_LANG = [
     "admin.forms.tbl.show_original" => "مشاهده اطلاعات اصلی",
     "admin.forms.tbl.show_date" => "تاریخ آخرین ویرایش",
     "admin.forms.tbl.operation" => "عملیات",
+    "admin.forms.tbl.confirm" => "تایید اطلاعات",
+    "admin.forms.tbl.unconfirm" => "عدم تایید اطلاعات",
  
     "toast.error" => "خطایی رخ داد !",
+    "toast.error_file_type" => "نوع فایل آپلود شده مجاز نیست !",
+    "toast.error_file_size" => "حجم فایل آپلود شده مجاز نیست !",
+    "toast.params_error" => "پارامتر های ورودی شما صحیح نیستند !",
     "toast.edited_success" => "اطلاعات با موفقیت به روز شد. ",
-
 ];

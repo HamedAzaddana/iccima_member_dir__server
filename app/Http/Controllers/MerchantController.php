@@ -20,7 +20,7 @@ class MerchantController extends Controller
             'ws_search_get_fv' => $route_ws_search_get_fv,
         ]);
     }
-    public function singleView($hash_id)
+    public function singleView($hash_id,$slug='')
     {
         $route_ws_get_single = route("ws.search.single");
         $route_404_page = route("errors.404.view");
@@ -29,6 +29,7 @@ class MerchantController extends Controller
 
         return Inertia::render('SingleMerchant', [
             'hid' => $hash_id,
+            'slug' => $slug,
             'route_ws_get_single' => $route_ws_get_single,
             'route_404_page' => $route_404_page,
             'route_ws_saveVals' => $route_ws_saveVals,

@@ -83,3 +83,11 @@ export function iterate_prepare_data(object) {
 export function format_at_email_str(email) {
     return email.replace("@", ' [at] ')
 }
+export function get_query_param_url(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}

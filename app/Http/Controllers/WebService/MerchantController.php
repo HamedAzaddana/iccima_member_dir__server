@@ -55,6 +55,7 @@ class MerchantController extends Controller
     }
     public function single()
     {
+        $lang = iccima_get_sess_lang();
         $hid = request("hid");
         $merchant_id = iccima_hashid_decode($hid);
         $merchant = MerchantUserModel::find($merchant_id);
@@ -67,6 +68,27 @@ class MerchantController extends Controller
         $merchant = $merchant->toArray();
         $merchant['__id'] = $hid;
         $merchant['__forms'] = $form_vals;
+        if (@$form_vals['confirmed']) {
+            foreach ($form_vals as $form_key => $form_val) {
+                if (in_array($form_key, MerchantUserModel::get_multi_lang_fields())) {
+                    $json_object = [];
+                    if ($form_val) {
+                        if (@$merchant[$form_key]) {
+                            $merchant_object = @$merchant[$form_key] ? json_decode($merchant[$form_key], JSON_UNESCAPED_UNICODE) : null;
+                            $json_object[$lang] = $form_val ? $form_val : $merchant_object[$lang];
+                        } else {
+                            $json_object[$lang] = $form_val;
+                        }
+                        $json_object[$lang] = [
+                            $lang => nl2br($json_object[$lang] =="null" ? "":$json_object[$lang])
+                        ];
+                        $merchant[$form_key] = json_encode($json_object[$lang], JSON_UNESCAPED_UNICODE);
+                    }
+                } else {
+                    $merchant[$form_key] = $form_val ? $form_val : $merchant[$form_key];
+                }
+            }
+        }
         return response()->json([
             'data' => $merchant,
             'req' => request()->all(),
