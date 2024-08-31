@@ -35,7 +35,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: "iran_sans";
+            /* font-family: "iran_sans"; */
             position: relative;
             left: 6vmin;
             text-align: center;

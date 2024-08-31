@@ -35,7 +35,7 @@ class CheckIsMerchant
             }
         }
         if ($error_403) {
-            abort(403);
+            return iccima_abort_403();
         } else {
             return $next($request);
         }

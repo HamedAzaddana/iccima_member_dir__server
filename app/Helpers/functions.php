@@ -329,6 +329,14 @@ function iccima_get_str_date_from_db($dateTimeDb)
     }
     return $dateTimeStr;
 }
+function iccima_abort_403()
+{
+    if (iccima_get_current_user_id()) {
+        return abort(403);
+    } else {
+        return redirect()->away(env('LOGIN_URL_SSO'));
+    }
+}
 function ___rlic($index)
 {
     include(base_path() . '/global_lang/' . iccima_get_sess_lang() . '.php');

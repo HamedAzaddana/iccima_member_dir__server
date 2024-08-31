@@ -95,7 +95,11 @@ a{
   </div>
 </div>
 
-<p id="text">شما به این صفحه دسترسی ندارید !</p>
+<p id="text">شما به این صفحه دسترسی ندارید !
+<br>
+<a style="color:blue;" href="{{url('')}}">مشاهده سایت</a>
+</p>
+
 <script src="https://github.com/michaelvillar/dynamics.js/releases/download/1.1.5/dynamics.min.js"></script>
 <script>
     var lock = document.querySelector('#lock');
