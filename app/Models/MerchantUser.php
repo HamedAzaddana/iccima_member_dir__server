@@ -49,6 +49,7 @@ class MerchantUser extends Authenticatable
         "specialized_committees", // کمیسیون های تخصصی array
         "guild_types", // تشکل ها array
 
+        "last_login",
         "last_updated_at"
     ];
     private static $multi_lang_fields = [

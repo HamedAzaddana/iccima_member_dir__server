@@ -85,7 +85,7 @@ class MerchantController extends Controller
                         $merchant[$form_key] = json_encode($json_object[$lang], JSON_UNESCAPED_UNICODE);
                     }
                 } else {
-                    $merchant[$form_key] = $form_val ? $form_val : $merchant[$form_key];
+                    $merchant[$form_key] = $form_val ? $form_val : @$merchant[$form_key];
                 }
             }
         }

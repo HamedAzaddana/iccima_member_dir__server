@@ -63,6 +63,7 @@ class HandleInertiaRequests extends Middleware
             $shared_data["iccima.ws.admin.dashboard"] = route("ws.admin.dashboard");
             $shared_data["iccima.ws.admin.forms"] = route("ws.admin.forms");
             $shared_data["iccima.ws.admin.form_status"] = route("ws.admin.form_status");
+            $shared_data["iccima.ws.admin.form_show_in_index"] = route("ws.admin.form_show_in_index");
         }
         return array_merge(parent::share($request),  $shared_data);
     }

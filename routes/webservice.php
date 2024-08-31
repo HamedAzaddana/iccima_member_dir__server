@@ -25,5 +25,6 @@ Route::middleware('is_api_user')->prefix("webservice")->group(function () {
         Route::post('/dashboard', [PanelController::class, 'dashboard'])->name('ws.admin.dashboard');
         Route::post('/merchant/form/all', [PanelController::class, 'forms'])->name('ws.admin.forms');
         Route::post('/merchant/form/status', [PanelController::class, 'form_status'])->name('ws.admin.form_status');
+        Route::post('/merchant/form/show_in_index', [PanelController::class, 'form_show_in_index'])->name('ws.admin.form_show_in_index');
     });
 });

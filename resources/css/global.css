@@ -390,6 +390,12 @@ input:-webkit-autofill:active {
     #btn-do-search {
         margin-right: -30px !important;
     }
+    .welcome-hero-serch-box {
+        display: block !important;
+    }
+    .welcome-hero-serch-box > div{
+        width: 100% !important;
+    }
 }
 
 
@@ -416,7 +422,7 @@ input:-webkit-autofill:active {
     }
 
     .welcome-hero {
-        height: 600px;
+        height: 715px;
     }
 
     .InputS1 {

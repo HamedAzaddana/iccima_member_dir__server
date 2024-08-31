@@ -45,6 +45,9 @@ export default function Forms({ }) {
     const handleChangeConfirm = (e) => {
         changeStatus(e.currentTarget.getAttribute("data-hid"), e.currentTarget.getAttribute("data-status"))
     };
+    const handleChangeShowIndex = (e) => {
+        changeShowIndex(e.currentTarget.getAttribute("data-hid"), e.currentTarget.getAttribute("data-status"))
+    };
     const changeStatus = async (hid = "", status = 0) => {
         let _post_data = {
             status, hid
@@ -52,6 +55,29 @@ export default function Forms({ }) {
         document.getElementById('loading-page-iccima').style.display = "inline-flex";
         try {
             const response = await axios.post(`${iccima.ws.admin.form_status}`, _post_data, {
+                headers: {
+                    'ICCIMA-AUTH-USERNAME': `${ws_username}`,
+                    'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
+                }
+            });
+            document.getElementById('loading-page-iccima').style.display = "none";
+            toast.success(`${_GL['toast.edited_success']}`);
+            console.log(response.data.data)
+            fetchSingleData();
+        } catch (error) {
+            document.getElementById('loading-page-iccima').style.display = "none";
+            toast.error(`Error fetching single data : ${error.message}`);
+            let status_code = error.response.status;
+            console.log(error)
+        }
+    }
+    const changeShowIndex = async (hid = "", status = 0) => {
+        let _post_data = {
+            status, hid
+        };
+        document.getElementById('loading-page-iccima').style.display = "inline-flex";
+        try {
+            const response = await axios.post(`${iccima.ws.admin.form_show_in_index}`, _post_data, {
                 headers: {
                     'ICCIMA-AUTH-USERNAME': `${ws_username}`,
                     'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
@@ -87,6 +113,7 @@ export default function Forms({ }) {
                                             <th scope="col">{_GL['admin.forms.tbl.show_form']}</th>
                                             <th scope="col">{_GL['admin.forms.tbl.show_date']}</th>
                                             <th scope="col">{_GL['admin.forms.tbl.operation']}</th>
+                                            <th scope="col">{_GL['admin.forms.tbl.show_index']}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -119,6 +146,22 @@ export default function Forms({ }) {
                                                             ) :
                                                             (
                                                                 <button data-status={1} data-hid={itemRecord._id} onClick={handleChangeConfirm} title={_GL['admin.forms.tbl.confirm']} type="button" className="btn btn-success p-1">
+                                                                    <i className='fa fa-check'></i>
+                                                                </button>
+                                                            )
+
+                                                    }
+                                                </td>
+                                                <td>
+                                                    {
+                                                        itemRecord._show_in_index ?
+                                                            (
+                                                                <button data-status={0} data-hid={itemRecord._id} onClick={handleChangeShowIndex} title={_GL['admin.forms.tbl.unshow_index_title']} type="button" className="btn btn-outline-danger p-1">
+                                                                    <i className='fa fa-times'></i>
+                                                                </button>
+                                                            ) :
+                                                            (
+                                                                <button data-status={1} data-hid={itemRecord._id} onClick={handleChangeShowIndex} title={_GL['admin.forms.tbl.show_index_title']} type="button" className="btn btn-outline-success p-1">
                                                                     <i className='fa fa-check'></i>
                                                                 </button>
                                                             )

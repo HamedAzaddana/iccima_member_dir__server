@@ -18,7 +18,8 @@ class AdminUser extends Authenticatable
         'password',
         'cell_phone',
         'national_code',
-        'last_updated_at'
+        "last_login",
+        'last_updated_at',
     ];
     protected $hidden = [
         'password',

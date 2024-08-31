@@ -121,6 +121,7 @@ export default function SingleMerchant({ slug, hid, route_ws_get_single, route_4
                         setUploadedBrImg(res?.data?.data?.brand_image);
                     }
                     toast.success(`${_GL['toast.edited_success']}`);
+                    fetchSingleData();
                 } else {
                     toast.error(`${_GL['toast.error']}`);
                 }
