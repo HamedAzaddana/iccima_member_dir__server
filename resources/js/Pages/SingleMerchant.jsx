@@ -302,7 +302,7 @@ export default function SingleMerchant({ slug, hid, route_ws_get_single, route_4
                                                 (dataSingle?.show_in_index && dataSingle?.show_in_index == 1) ?
                                                     (
                                                         <div>
-                                                            <div className="row">
+                                                            <div className="row mt-4">
                                                                 <div className="col-lg-6 col-md-6 col-sm-12">
                                                                     <center className='icon-box-single-page'><i className='fa fa-user-circle'></i></center>
                                                                     <div className="card  shadow-lg card-box-single-page p-3 mb-5 rounded">
