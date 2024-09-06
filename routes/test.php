@@ -15,7 +15,7 @@ use App\Helpers\Pdate;
 
 
 Route::get('/test2', function () {
-
+    phpinfo();
     // dd(___callLang());
     // iccima_change_sess_lang("Persian");
     // dd(iccima_lang_str('nav.home'));
@@ -45,7 +45,7 @@ Route::get('/test', function () {
     // ]);
     // $merchant->save();
     $merchants = MerchantUser::paginate(20);
-    
+
     dd($merchants->toArray());
 
     // $records_load = MerchantUser::get_data_els_filter([

@@ -15,7 +15,7 @@ body .app-lang-Persian {
 }
 
 body .app-lang-English {
-    font-family: "iran_sans" !important;
+    font-family: system-ui !important;
     text-align: left;
     direction: ltr !important;
 }
@@ -252,7 +252,31 @@ a.nav-link:hover {
 .welcome-hero-serch-box input,
 .welcome-hero-serch-box select,
 .welcome-hero-serch-box select option {
-    font-size: 11px !important;
+    font-size: 14px !important;
+}
+
+::placeholder {
+    text-align: center !important;
+}
+
+/* or, for legacy browsers */
+
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    text-align: center;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    text-align: center;
+}
+
+:-ms-input-placeholder {
+    text-align: center;
 }
 
 .navbar-title-site-mobile {
@@ -378,9 +402,21 @@ input:-webkit-autofill:active {
     border-radius: 40% !important;
 }
 
+.container {
+    max-width: 900px !important;
+}
+
+.app-lang-English .InputS1{
+    padding-right: 7px !important;
+    padding-left: 16px !important;
+}
 @media only screen and (max-width:985px) {
+    .container {
+        max-width: 500px !important;
+    }
+
     .welcome-hero {
-        height: 750px;
+        height: 806px;
     }
 
     .InputS2 {
@@ -390,12 +426,15 @@ input:-webkit-autofill:active {
     #btn-do-search {
         margin-right: -30px !important;
     }
+
     .welcome-hero-serch-box {
         display: block !important;
     }
-    .welcome-hero-serch-box > div{
+
+    .welcome-hero-serch-box>div {
         width: 100% !important;
     }
+
 }
 
 

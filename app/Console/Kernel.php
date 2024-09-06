@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('index_data_cards:sync')
             ->everyFiveSeconds();
 
-        //iwi654yrtdh
+        //iwi654yrtdh6666
     }
 
     /**
