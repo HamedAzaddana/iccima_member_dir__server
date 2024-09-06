@@ -121,6 +121,7 @@ export function convert_number_to_fa(txt) {
     _txt = _txt.replaceAll("0", "۰");
     return _txt;
 }
+// zzxc
 export function browser_session_set(key, val) {
     ReactSession.setStoreType("sessionStorage");
     ReactSession.set(key, val);
