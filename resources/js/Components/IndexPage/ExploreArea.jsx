@@ -37,7 +37,7 @@ export default function ExploreArea({ dataSearch, req_params }) {
                 console.log(res)
                 let status_code = res?.status;
                 if ((status_code == 200 || status_code == 201)) {
-                    handleClickMore(e); 
+                    handleClickMore(e);
                     handleCloseCaptcha(e);
                 } else {
                     handleMakeCaptcha(e);
@@ -90,76 +90,80 @@ export default function ExploreArea({ dataSearch, req_params }) {
             });
     }
     return (
-        <div id="explore" className={(!dataSearch?.length) ? 'explore-parent-div':''}>
+        <div id="explore" className={(!dataSearch?.length) ? 'explore-parent-div' : ''}>
             <section className="explore">
                 <div className="container">
                     <div className="explore-content">
                         {
                             req_params ?
                                 (<div>
-                                    <div className="section-header">
-                                        <h2> {_GL['explore.listResults']} <span className="badge bg-finance rounded-pill ms-auto">{dataSearch.length}</span></h2>
-                                    </div>
+
                                     {(dataSearch.length) ?
                                         (
-                                            <div className="row">
+                                            <>
+                                                <div className="section-header">
+                                                    <h2> {_GL['explore.listResults']} <span className="badge bg-finance rounded-pill ms-auto">{dataSearch.length}</span></h2>
+                                                </div>
+                                                <div className="row">
 
-                                                {dataSearch.map((info, ik_loop) => (
-                                                    <CardResult key={ik_loop} info={info} />
-                                                ))}
-                                                {
-                                                    (req_params.show_more_btn ?
-                                                        (<div className="mt-5 p-2">
-                                                            <>
+                                                    {dataSearch.map((info, ik_loop) => (
+                                                        <CardResult key={ik_loop} info={info} />
+                                                    ))}
+                                                    {
+                                                        (req_params.show_more_btn ?
+                                                            (<div className="mt-5 p-2">
+                                                                <>
 
-                                                                <center>
-                                                                    <Button className="btn btn-warning MoreBtnCards" onClick={handleShowCaptcha}>
-                                                                        {_GL['explore.moreResult']}
-                                                                    </Button>
-                                                                </center>
-                                                                <div className="iccima-modal">
-                                                                    <Modal dir={`${iccima.user.lang == 'Persian' ? 'rtl' : 'ltr'}`} show={showCaptcha} onHide={handleCloseCaptcha}>
-                                                                        <Modal.Body>
-                                                                            <p>
-                                                                                {_GL['explore.captcha.label']}
-                                                                            </p>
-                                                                            <br />
-                                                                            <center>
-                                                                                <img id="captcha-img-iccima" src="" alt="" />
-                                                                            </center>
-                                                                            <br />
-                                                                            <div className="row">
-                                                                                <div className="col-lg-10 col-md-10 col-sm-10">
-                                                                                    <input id="field-captcha-text" type="text" className="text-dark form-control" />
+                                                                    <center>
+                                                                        <Button className="btn btn-warning MoreBtnCards" onClick={handleShowCaptcha}>
+                                                                            {_GL['explore.moreResult']}
+                                                                        </Button>
+                                                                    </center>
+                                                                    <div className="iccima-modal">
+                                                                        <Modal dir={`${iccima.user.lang == 'Persian' ? 'rtl' : 'ltr'}`} show={showCaptcha} onHide={handleCloseCaptcha}>
+                                                                            <Modal.Body>
+                                                                                <p>
+                                                                                    {_GL['explore.captcha.label']}
+                                                                                </p>
+                                                                                <br />
+                                                                                <center>
+                                                                                    <img id="captcha-img-iccima" src="" alt="" />
+                                                                                </center>
+                                                                                <br />
+                                                                                <div className="row">
+                                                                                    <div className="col-lg-10 col-md-10 col-sm-10">
+                                                                                        <input id="field-captcha-text" type="text" className="text-dark form-control" />
+                                                                                    </div>
+                                                                                    <div className="col-lg-2 col-md-2 col-sm-2">
+                                                                                        <button onClick={handleMakeCaptcha} type="button" className="btn "><i className="fa fa-refresh"></i></button>
+                                                                                    </div>
                                                                                 </div>
-                                                                                <div className="col-lg-2 col-md-2 col-sm-2">
-                                                                                    <button onClick={handleMakeCaptcha} type="button" className="btn "><i className="fa fa-refresh"></i></button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </Modal.Body>
-                                                                        <Modal.Footer>
-                                                                            <Button variant="secondary" onClick={handleCloseCaptcha}>
-                                                                            {_GL['explore.captcha.btnClose']}
-                                                                            </Button>
-                                                                            <Button onClick={handleValidateCaptcha} className="btn btn-success">
-                                                                            {_GL['explore.captcha.btnSubmit']}
-                                                                            </Button>
-                                                                        </Modal.Footer>
-                                                                    </Modal>
-                                                                </div>
-                                                            </>
+                                                                            </Modal.Body>
+                                                                            <Modal.Footer>
+                                                                                <Button variant="secondary" onClick={handleCloseCaptcha}>
+                                                                                    {_GL['explore.captcha.btnClose']}
+                                                                                </Button>
+                                                                                <Button onClick={handleValidateCaptcha} className="btn btn-success">
+                                                                                    {_GL['explore.captcha.btnSubmit']}
+                                                                                </Button>
+                                                                            </Modal.Footer>
+                                                                        </Modal>
+                                                                    </div>
+                                                                </>
 
 
-                                                        </div>) :
-                                                        ("")
-                                                    )
-                                                }
+                                                            </div>) :
+                                                            ("")
+                                                        )
+                                                    }
 
-                                            </div>
+                                                </div>
+                                            </>
+
                                         )
                                         :
                                         (<div>
-                                            <div className="alert alert-dark" role="alert">
+                                            <div className="alert alert-dark d-none" role="alert">
                                                 {_GL['explore.noResults']}
                                             </div>
                                         </div>)

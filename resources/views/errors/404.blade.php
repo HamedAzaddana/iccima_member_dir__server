@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+$font_family = iccima_get_sess_lang() == "Persian" ? "iran_sans" : "system-ui";
+$direction = iccima_get_sess_lang() == "Persian" ? "rtl" : "ltr";
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحه یافت نشد !</title>
+    <title>{{___elic("404.tab_title")}}</title>
     <link rel="shortcut icon" href="https://service.tccim.ir/css/favicon.png">
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet");
@@ -35,7 +38,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* font-family: "iran_sans"; */
+            font-family: "{{$font_family}}";
             position: relative;
             left: 6vmin;
             text-align: center;
@@ -153,19 +156,20 @@
         }
 
         .wrong-para {
-            font-family: "iran_sans";
+            font-family: "{{$font_family}}";
             position: absolute;
             bottom: 15vmin;
             padding: 3vmin 12vmin 3vmin 3vmin;
             font-weight: 600;
             color: #092532;
             text-align: center;
-            direction: rtl !important;
+            direction: {{$direction}} !important;
         }
 
         body {
             background: #f9f390;
         }
+
         .link_home {
             color: white;
             text-decoration: none;
@@ -208,10 +212,10 @@
         </div>
         <h1 class="second-four">4</h1>
         <p class="wrong-para">
-            صفحه مورد نظر یافت نشد ! <br>
-            امکان دارد آیتم یا فایل مورد نظر شما از دیتابیس پاک شده باشد یا اصلا آدرس مسیر فعلی موجود نباشد !
+            {{___elic("404.title_1")}} <br>
+            {{___elic("404.title_2")}}
             <br> <br>
-            <a class="link_home" href="{{url('')}}">خانه</a>
+            <a class="link_home" href="{{url('')}}">{{___elic("404.home")}}</a>
         </p>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/gsap.min.js"></script>

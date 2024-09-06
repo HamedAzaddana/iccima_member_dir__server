@@ -34,4 +34,5 @@ Route::middleware('is_admin_in')->prefix("administrator")->group(function () {
 });
 
 require __DIR__ . "/webservice.php";
+require __DIR__ . "/errors.php";
 require __DIR__ . "/test.php";

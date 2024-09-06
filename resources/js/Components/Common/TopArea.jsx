@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function TopArea() {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
@@ -151,6 +152,10 @@ export default function TopArea() {
                     </Container>
                 </Navbar>
             </section>
+            <Toaster
+                        position="top-left"
+                        reverseOrder={true}
+                    />
         </div>
     );
 }

@@ -7,7 +7,16 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\IccString;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Session;
 
+function iccima_session_put($key, $val)
+{
+    request()->session()->put($key, $val);
+}
+function iccima_session_get($key)
+{
+    return request()->session()->get($key);
+}
 function iccima_make_en_numbers($str)
 {
     return IccString::make_en($str);
@@ -97,13 +106,13 @@ function iccima_hashid_decode($hashed_id)
 function iccima_change_sess_lang($lang)
 {
     // $lang : Persian , English
-    request()->session()->put('current_browser_lang', $lang);
+    iccima_session_put('current_browser_lang', $lang);
 }
 function iccima_get_sess_lang()
 {
     // $lang : Persian , English
-    return request()->session()->get('current_browser_lang') ?
-        request()->session()->get('current_browser_lang') :
+    return iccima_session_get('current_browser_lang') ?
+        iccima_session_get('current_browser_lang') :
         "Persian";
 }
 

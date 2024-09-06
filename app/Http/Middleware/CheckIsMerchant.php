@@ -24,9 +24,9 @@ class CheckIsMerchant
         ) {
             $error_403 = "Access Forbidden Authentication !";
         }
-        request()->session()->put('ws_iccima_user_id', $ui_id);
-        request()->session()->put('ws_iccima_user_type', $ui_type);
-        request()->session()->put('ws_iccima_user_current', iccima_user_by_params($ui_id, $ui_type));
+        iccima_session_put('ws_iccima_user_id', $ui_id);
+        iccima_session_put('ws_iccima_user_type', $ui_type);
+        iccima_session_put('ws_iccima_user_current', iccima_user_by_params($ui_id, $ui_type));
         if (request()->isJson()) {
             if ($error_403) {
                 return ErrorResponse::error_403_api($error_403);

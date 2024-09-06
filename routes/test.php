@@ -15,6 +15,8 @@ use App\Helpers\Pdate;
 
 
 Route::get('/test2', function () {
+    // iccima_session_put('ss','bbbrg');
+    // dd(iccima_session_get('ss'));
 
     // dd(___callLang());
     // iccima_change_sess_lang("Persian");
@@ -24,6 +26,7 @@ Route::get('/test2', function () {
     // dd($_data = CardsData::getDataByIndex("558177"));
 });
 Route::get('/test', function () {
+    abort(404);
     // $merchant = MerchantUser::find(2816);
     // if (!$merchant?->editable_user) {
     //     MerchantEUser::firstOrCreate(
@@ -44,9 +47,9 @@ Route::get('/test', function () {
     //     'confirmed'=>1
     // ]);
     // $merchant->save();
-    $merchants = MerchantUser::paginate(20);
+    // $merchants = MerchantUser::paginate(20);
     
-    dd($merchants->toArray());
+    // dd($merchants->toArray());
 
     // $records_load = MerchantUser::get_data_els_filter([
     //     "kws" => "زعفران",

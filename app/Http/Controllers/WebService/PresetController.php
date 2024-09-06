@@ -12,7 +12,7 @@ class PresetController extends Controller
     public function get_filters_var()
     {
         $lang = iccima_get_sess_lang();
-        request()->session()->put('params_filter_user', []);
+        iccima_session_put('params_filter_user', []);
         $presets = PresetModel::select('value', 'title', 'type')
             ->get()->toArray();
         $province = [];

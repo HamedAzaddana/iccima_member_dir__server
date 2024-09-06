@@ -12,7 +12,7 @@ export default function CardResult({ info }) {
     }
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     let card_info = iterate_prepare_data(info);
-    // console.log(card_info)
+    console.log(card_info)
     let card_type_id = parseInt(card_info.card_type_id);
     //1 : بازرگانی
     //2 : عضویت
@@ -32,7 +32,7 @@ export default function CardResult({ info }) {
     let city = card_info.city;
     let cover_image = (!card_info.co_image || card_info.co_image == "null")
         ? owner_image : "data:image/png;base64, " + card_info.co_image;
-    let jalali_year = card_info.co_establish_date ? get_jalali_year(card_info.co_establish_date, 1, 1) : 0;
+    let jalali_year = card_info.year_establishing;
     let co_phone = card_info.co_phone;
     let co_fax = card_info.co_fax;
     let co_website = card_info.co_website;

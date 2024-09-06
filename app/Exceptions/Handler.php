@@ -41,6 +41,14 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
+        $this->renderable(function (\Exception $e, $request) {
+            if (method_exists($e, 'getStatusCode')) {
+                if ($e->getStatusCode() == 404) {
+                   //
+                }
+                //
+            }
+        });
         $this->reportable(function (Throwable $e) {
             //
         });

@@ -1,8 +1,13 @@
 
 import { Link } from '@inertiajs/react'
+import { browser_session_get } from '../../Utils/IccObjArr';
+import { useEffect } from 'react';
 
 export default function FooterBottom() {
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
+    useEffect(() => {
+    }, []);
+
     return (
         <div>
             <footer id="iccima-footer" className="footer">

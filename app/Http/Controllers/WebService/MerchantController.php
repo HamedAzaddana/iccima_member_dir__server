@@ -12,7 +12,7 @@ class MerchantController extends Controller
 {
     public function index()
     {
-        $last_params = (array)request()->session()->get('params_filter_user');
+        $last_params = (array)iccima_session_get('params_filter_user');
         $last_more_loaded = (int)@$last_params['loaded_cnt'];
         $load_more = (int)env("LOAD_MORE_DATA", 30);
         $params = request()->all();
@@ -23,7 +23,7 @@ class MerchantController extends Controller
         }
         $params['show_more_btn'] = 1;
         $params['loaded_cnt'] = $now_loading;
-        request()->session()->put('params_filter_user', $params);
+        iccima_session_put('params_filter_user', $params);
         $records_load = MerchantUserModel::get_data_els_filter($params, $now_loading);
         if ($now_loading > count($records_load)) {
             $params['show_more_btn'] = 0;
