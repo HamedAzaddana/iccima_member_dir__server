@@ -56,6 +56,7 @@ class HandleInertiaRequests extends Middleware
             'iccima.links.validate_captcha' => route("ws.captcha.validate"),
             'iccima.links.ch_lang' => route("ws.change.lang"),
             'iccima.links.inc_view' => route("ws.merchant.inc_view"),
+            'iccima.links.onlines' => route("ws.users.count_online"),
         ];
         if (iccima_get_current_user_id() && iccima_get_current_user_type() == "admin") {
             $shared_data["iccima.adminPanel.dashboard"] = route("admin.dashboard.view");
