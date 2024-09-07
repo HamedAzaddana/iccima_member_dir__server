@@ -124,8 +124,8 @@ export function convert_number_to_fa(txt) {
 // zzxc
 export function browser_session_set(key, val) {
     ReactSession.setStoreType("sessionStorage");
-    ReactSession.set(key, val);
+    ReactSession.set(key, JSON.stringify(val));
 }
 export function browser_session_get(key) {
-    return ReactSession.get(key);
+    return JSON.parse(ReactSession.get(key));
 }

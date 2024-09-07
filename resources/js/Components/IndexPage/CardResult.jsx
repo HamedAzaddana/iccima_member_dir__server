@@ -1,6 +1,5 @@
 
 import { Link } from '@inertiajs/react'
-import { get_jalali_year } from '../../Utils/IccDate';
 import { iterate_prepare_data } from '../../Utils/IccObjArr';
 import { usePage } from '@inertiajs/react'
 
@@ -32,7 +31,7 @@ export default function CardResult({ info }) {
     let city = card_info.city;
     let cover_image = (!card_info.co_image || card_info.co_image == "null")
         ? owner_image : "data:image/png;base64, " + card_info.co_image;
-    let jalali_year = card_info.co_establish_date ? get_jalali_year(card_info.co_establish_date, 1, 1) : 0;
+    let year_locale_established = card_info.year_establishing;
     let co_phone = card_info.co_phone;
     let co_fax = card_info.co_fax;
     let co_website = card_info.co_website;
@@ -53,7 +52,7 @@ export default function CardResult({ info }) {
                         <div className="col-md-6 col-lg-6 col-sm-12 mt-3">
                             <h6 className='mt-1 pt-1 text-danger'><strong>{co_title[iccima.user.lang.toString()]}</strong></h6>
                             <p className='mt-1 pt-1 text-dark'><strong>{owner_fullname[iccima.user.lang.toString()] ? owner_fullname[iccima.user.lang.toString()] : co_title[iccima.user.lang.toString()]}</strong></p>
-                            <p className='mt-1 pt-1 text-dark'><strong>{co_type[iccima.user.lang.toString()]} {jalali_year ? `${_GL['cardResult.establish']} ${jalali_year}` : ""}</strong></p>
+                            <p className='mt-1 pt-1 text-dark'><strong>{co_type[iccima.user.lang.toString()]} {year_locale_established ? ` , ${_GL['cardResult.establish']} ${year_locale_established}` : ""}</strong></p>
                             <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: biz_activities_html }} ></p>
                             <br />
                             <strong> <i className='fa fa-map-marker'></i> {city[iccima.user.lang.toString()]}</strong> &nbsp; | &nbsp; <strong> <i className='fa fa-id-card-o'></i> {card_type_id == 2 ? `${_GL['cardResult.ozviat']}`:`${_GL['cardResult.bazargani']}`}</strong>

@@ -97,11 +97,13 @@ export default function ExploreArea({ dataSearch, req_params }) {
                         {
                             req_params ?
                                 (<div>
-                                    <div className="section-header">
-                                        <h2> {_GL['explore.listResults']} <span className="badge bg-finance rounded-pill ms-auto">{dataSearch.length}</span></h2>
-                                    </div>
+                                    
                                     {(dataSearch.length) ?
                                         (
+                                        <>
+                                            <div className="section-header">
+                                        <h2> {_GL['explore.listResults']} <span className="badge bg-finance rounded-pill ms-auto">{dataSearch.length}</span></h2>
+                                    </div>
                                             <div className="row">
 
                                                 {dataSearch.map((info, ik_loop) => (
@@ -155,13 +157,12 @@ export default function ExploreArea({ dataSearch, req_params }) {
                                                     )
                                                 }
 
-                                            </div>
+                                            </div>ّ
+                                        </>
                                         )
                                         :
                                         (<div>
-                                            <div className="alert alert-dark" role="alert">
-                                                {_GL['explore.noResults']}
-                                            </div>
+                                            
                                         </div>)
                                     }
                                 </div>)

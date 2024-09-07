@@ -84,4 +84,12 @@ $__GLABAL_LANG = [
   "toast.error_file_size" => "File size is invalid !",
   "toast.edited_success" => "Your data updated successfully !",
 
+  "404.tab_title" => "Page not found !",
+  "404.title_1" => "Page not found !",
+  "404.title_2" => "It is possible that the item or file you want has been deleted from the database or the address of the current path is not available at all!",
+  "404.home" => "HomePage",
+
+  "403.tab_title" => "Access denied !",
+  "403.title_1" => "You'd not authorized to visit this page !",
+  "403.home" => "HomePage",
 ];

@@ -14,10 +14,14 @@ import TopArea from '../Components/Common/TopArea';
 
 import FooterBottom from '../Components/Common/FooterBottom';
 import LoadingTop from '../Components/Common/LoadingTop';
+import { useEffect } from 'react';
+import { browser_session_set } from '../Utils/IccObjArr';
 
 export default function Main({ children }) {
     const { iccima } = usePage().props;
-
+    useEffect(() => {
+        browser_session_set("lang_iccima_system", iccima.user.lang);
+    }, []);
     return (
         <div className={`app-lang-${iccima.user.lang}`}>
             <HeaderTop />

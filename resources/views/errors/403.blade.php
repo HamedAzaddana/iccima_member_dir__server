@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+<?php
+$font_family = iccima_get_sess_lang() == "Persian" ? "iran_sans" : "system-ui";
+$direction = iccima_get_sess_lang() == "Persian" ? "rtl" : "ltr";
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عدم دسترسی !</title>
+    <title>{{___elic("403.tab_title")}}</title>
     <link rel="shortcut icon" href="https://service.tccim.ir/css/favicon.png">
     <style>
         @font-face {
@@ -41,8 +45,8 @@ html,body{
   top:55%;
   width:100%;
   text-align:center;
-  font-family: "iran_sans";
-  direction: rtl !important;
+  font-family: "{{$font_family}}";
+  direction: {{$direction}}  !important;
   font-weight: bold;
 }
 
@@ -95,9 +99,9 @@ a{
   </div>
 </div>
 
-<p id="text">شما به این صفحه دسترسی ندارید !
+<p id="text">{{___elic("403.title_1")}}
 <br>
-<a style="color:blue;" href="{{url('')}}">مشاهده سایت</a>
+<a style="color:blue;" href="{{url('')}}"> {{___elic("403.home")}}</a>
 </p>
 
 <script src="https://github.com/michaelvillar/dynamics.js/releases/download/1.1.5/dynamics.min.js"></script>
