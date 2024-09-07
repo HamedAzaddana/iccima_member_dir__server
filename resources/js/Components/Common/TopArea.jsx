@@ -33,7 +33,10 @@ export default function TopArea() {
                 document.getElementById('loading-page-iccima').style.display = "none";
                 let status_code = res?.status;
                 if (status_code == 200 || status_code == 201) {
-                    window.location.href = appUrl + `/?lang=${_post_data['lang']}`;
+                    var queryParams = new URLSearchParams(window.location.search);
+                    queryParams.set("lang", _post_data['lang']);
+                    history.replaceState(null, null, "?" + queryParams.toString());
+                    window.location.reload();
                 } else {
                     toast.error(`${_GL['toast.error']}`);
                 }
