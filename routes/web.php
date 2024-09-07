@@ -31,6 +31,6 @@ Route::middleware('is_admin_in')->prefix("administrator")->group(function () {
     Route::get('/merchant/forms', [PanelController::class, 'forms'])->name('admin.forms.view');
 });
 
-require __DIR__ . "/webservice.php";
-require __DIR__ . "/pages_error.php";
-require __DIR__ . "/test.php";
+require_once __DIR__ . "/webservice.php";
+require_once __DIR__ . "/pages_error.php";
+require_once __DIR__ . "/test.php";
