@@ -28,7 +28,7 @@ export default function Index({ ws_s_route, ws_search_get_fv }) {
     return (
         <MainLayout>
             <div>
-                <Head title="خانه" />
+                <Head title="" />
                 <WelcomHero
                     sendDataToIndex={handleDataSearch}
                     ws_s_route={ws_s_route}

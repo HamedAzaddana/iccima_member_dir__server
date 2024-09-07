@@ -33,7 +33,7 @@ export default function TopArea() {
                 document.getElementById('loading-page-iccima').style.display = "none";
                 let status_code = res?.status;
                 if (status_code == 200 || status_code == 201) {
-                    window.location.reload();
+                    window.location.href = appUrl + `/?lang=${_post_data['lang']}`;
                 } else {
                     toast.error(`${_GL['toast.error']}`);
                 }
@@ -140,7 +140,7 @@ export default function TopArea() {
 
 
                                 <Link className="nav-link" href="#" onClick={handleNonDo}> <li className="select-opt text-dark">
-                                    <i className='fa fa-language'></i> <select value={iccima.user.lang} onChange={handleSelectLang} name="language" id="language">
+                                    <i className='fa fa-language'></i> <select value={iccima.user.lang} onInput={handleSelectLang} name="language" id="language">
                                         <option value="Persian">فارسی</option>
                                         <option value="English">English</option>
                                     </select>

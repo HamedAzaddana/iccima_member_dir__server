@@ -93,39 +93,34 @@ export function get_query_param_url(name, url = window.location.href) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-export function convert_number_to_en(txt) {
-    let _txt = new String(txt);
-    _txt = _txt.replaceAll("۱", "1");
-    _txt = _txt.replaceAll("۲", "2");
-    _txt = _txt.replaceAll("۳", "3");
-    _txt = _txt.replaceAll("۴", "4");
-    _txt = _txt.replaceAll("۵", "5");
-    _txt = _txt.replaceAll("۶", "6");
-    _txt = _txt.replaceAll("۷", "7");
-    _txt = _txt.replaceAll("۸", "8");
-    _txt = _txt.replaceAll("۹", "9");
-    _txt = _txt.replaceAll("۰", "0");
-    return _txt;
+export function toEnglishDigits(str) {
+    var e = '۰'.charCodeAt(0);
+    str = str.replace(/[۰-۹]/g, function(t) {
+        return t.charCodeAt(0) - e;
+    });
+
+    // convert arabic indic digits [٠١٢٣٤٥٦٧٨٩]
+    e = '٠'.charCodeAt(0);
+    str = str.replace(/[٠-٩]/g, function(t) {
+        return t.charCodeAt(0) - e;
+    });
+    return str;
 }
-export function convert_number_to_fa(txt) {
-    let _txt = new String(txt);
-    _txt = _txt.replaceAll("1", "۱");
-    _txt = _txt.replaceAll("2", "۲");
-    _txt = _txt.replaceAll("3", "۳");
-    _txt = _txt.replaceAll("4", "۴");
-    _txt = _txt.replaceAll("5", "۵");
-    _txt = _txt.replaceAll("6", "۶");
-    _txt = _txt.replaceAll("7", "۷");
-    _txt = _txt.replaceAll("8", "۸");
-    _txt = _txt.replaceAll("9", "۹");
-    _txt = _txt.replaceAll("0", "۰");
-    return _txt;
+export function toPersianDigits(str) {
+    const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+
+    return str
+        .toString()
+        .replace(/\d/g, x => farsiDigits[x]);
 }
-// zzxc
 export function browser_session_set(key, val) {
     ReactSession.setStoreType("sessionStorage");
     ReactSession.set(key, JSON.stringify(val));
 }
 export function browser_session_get(key) {
-    return JSON.parse(ReactSession.get(key));
+    if(typeof ReactSession.get(key) != undefined && ReactSession.get(key)){
+        return JSON.parse(ReactSession.get(key));
+    }else{
+        return null;
+    }
 }

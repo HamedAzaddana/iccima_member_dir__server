@@ -15,12 +15,20 @@ import TopArea from '../Components/Common/TopArea';
 import FooterBottom from '../Components/Common/FooterBottom';
 import LoadingTop from '../Components/Common/LoadingTop';
 import { useEffect } from 'react';
-import { browser_session_set } from '../Utils/IccObjArr';
+import { browser_session_set, get_query_param_url } from '../Utils/IccObjArr';
 
 export default function Main({ children }) {
     const { iccima } = usePage().props;
     useEffect(() => {
-        browser_session_set("lang_iccima_system", iccima.user.lang);
+        let lang_app_setter = (
+            get_query_param_url("lang") && typeof get_query_param_url("lang") != undefined
+        ) ? get_query_param_url("lang") : "";
+        let validated_lang_qp = "";
+        if (lang_app_setter && (lang_app_setter == "Persian" || lang_app_setter == "English")) {
+            validated_lang_qp = lang_app_setter;
+        }
+        let lang_set_app = iccima.user.lang ? iccima.user.lang : validated_lang_qp;
+        browser_session_set("lang_iccima_system", lang_set_app);
     }, []);
     return (
         <div className={`app-lang-${iccima.user.lang}`}>

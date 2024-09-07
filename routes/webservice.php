@@ -8,6 +8,8 @@ use App\Http\Controllers\WebService\CaptchaController;
 use App\Http\Controllers\WebService\Admin\PanelController;
 
 Route::middleware('is_api_user')->prefix("webservice")->group(function () {
+    Route::post('/users/count/online', [MerchantController::class, 'count_online_users'])->name('ws.users.count_online');
+
     Route::middleware(['throttle:25,1'])->group(function () {
         Route::post('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('ws.captcha.reload');
         Route::post('/validate-captcha', [CaptchaController::class, 'validateCaptcha'])->name('ws.captcha.validate');

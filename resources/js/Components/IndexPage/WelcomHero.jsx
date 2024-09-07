@@ -117,7 +117,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                         </p>
                     </div>
                     <div className="welcome-hero-serch-box row">
-                        <div className="col-md-4 col-lg-4 col-sm-12 InputS1" onClick={focusInputS1}>
+                        <div className="col-md-4 col-lg-3 col-sm-12 InputS1" onClick={focusInputS1}>
                             <div className="single-welcome-hero-form">
                                 <input
                                     id="kws"

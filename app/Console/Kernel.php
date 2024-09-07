@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('cleanup:inactive-users')->everyFiveMinutes();
         $schedule->command('tables:reset_iccima')
             ->dailyAt('1:00');
         $schedule->command('index_data_cards:sync')

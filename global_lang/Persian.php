@@ -26,7 +26,7 @@ $__GLABAL_LANG = [
     "explore.listResults" => "نتایج جستجو",
     "explore.noResults" => "نتیجه ای یافت نشد !",
     "explore.moreResult" => "نمایش بیشتر",
-    "explore.captcha.label" => "کد امنیتی را لطفا وارد کنید.",
+    "explore.captcha.label" => "برای مشاهده بیشتر، کد امنیتی را وارد کنید.",
     "explore.captcha.btnClose" => "بستن",
     "explore.captcha.btnSubmit" => "تایید",
     "explore.captcha.error" => "کد امنیتی وارد شده صحیح نیست !",
@@ -46,7 +46,7 @@ $__GLABAL_LANG = [
     "singlePage.city_province" => "استان و شهر",
     "singlePage.reshte_faaliat" => "رشته فعالیت",
     "singlePage.noe_faaliat" => "نوع فعالیت",
-    "singlePage.govahi_mabda" => "گواهی های مبدا صادر شده",
+    "singlePage.govahi_mabda" => "فهرست کالاهای صادراتی",
     "singlePage.hs_codes" => "کد های HS تجاری",
     "singlePage.otash_moshtarak" => "اتاق های مشترک",
     "singlePage.commis_takh" => "کمیسیون های تخصصی",
@@ -77,6 +77,11 @@ $__GLABAL_LANG = [
     "admin.forms.tbl.unconfirm" => "عدم تایید اطلاعات",
     "admin.forms.tbl.show_index_title" => "فعال سازی",
     "admin.forms.tbl.unshow_index_title" => "غیر فعال سازی",
+    "footer.title_1" => "
+     © کلیه حقوق مادی و معنوی این سامانه متعلق به اتاق بازرگانی، صنایع، معادن و کشاورزی ایران به نشانی " 
+     . "<a class='color-blue-link' href='https://iccima.ir/' target='_blank'>https://www.iccima.ir</a>" . 
+     " می باشد.
+    ",
 
     "toast.error" => "خطایی رخ داد !",
     "toast.error_file_type" => "نوع فایل آپلود شده مجاز نیست !",

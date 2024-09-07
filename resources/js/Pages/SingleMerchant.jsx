@@ -181,7 +181,7 @@ export default function SingleMerchant({ slug, hid, route_ws_get_single, route_4
     return (
         <MainLayout>
             <div>
-                <Head title={dataSingle?.co_title ? (dataSingle.co_title)[iccima.user.lang.toString()] : "اطلاعات"} />
+                <Head title={dataSingle?.co_title ? ((dataSingle.co_title)[iccima.user.lang.toString()]).toLowerCase() : "data"} />
 
                 {
                     <>

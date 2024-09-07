@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MerchantUser as MerchantUserModel;
 use App\Models\Preset as PresetModel;
 use App\Helpers\Pdate;
+use Klevze\OnlineUsers\Facades\OnlineUsers;
 
 class MerchantController extends Controller
 {
@@ -80,7 +81,7 @@ class MerchantController extends Controller
                             $json_object[$lang] = $form_val;
                         }
                         $json_object[$lang] = [
-                            $lang => nl2br($json_object[$lang] =="null" ? "":$json_object[$lang])
+                            $lang => nl2br($json_object[$lang] == "null" ? "" : $json_object[$lang])
                         ];
                         $merchant[$form_key] = json_encode($json_object[$lang], JSON_UNESCAPED_UNICODE);
                     }
@@ -135,6 +136,14 @@ class MerchantController extends Controller
         $merchant_model->delete_file_editable_val("brand_image");
         return response()->json([
             'data' => [],
+            'req' => request()->all(),
+        ], 200);
+    }
+    public function count_online_users()
+    {
+        $activeUsers = OnlineUsers::getActiveUsers();
+        return response()->json([
+            'data' => $activeUsers,
             'req' => request()->all(),
         ], 200);
     }

@@ -26,7 +26,7 @@ $__GLABAL_LANG = [
   "explore.listResults" => "Search Results ",
   "explore.noResults" => "No Results found !",
   "explore.moreResult" => "Show More",
-  "explore.captcha.label" => "Enter security code in image.",
+  "explore.captcha.label" => "Please enter the security code to view more information.",
   "explore.captcha.btnClose" => "Close",
   "explore.captcha.btnSubmit" => "Submit",
   "explore.captcha.error" => "Security code is not valid !",
@@ -46,7 +46,7 @@ $__GLABAL_LANG = [
   "singlePage.city_province" => "City & Province",
   "singlePage.reshte_faaliat" => "Major activity",
   "singlePage.noe_faaliat" => "Activity type",
-  "singlePage.govahi_mabda" => "Certificates of origin issued",
+  "singlePage.govahi_mabda" => "List of export goods",
   "singlePage.hs_codes" => "HS Codes",
   "singlePage.otash_moshtarak" => "Common Chambers",
   "singlePage.commis_takh" => "Specialized Commissions",
@@ -76,7 +76,11 @@ $__GLABAL_LANG = [
   "admin.forms.tbl.unconfirm" => "Reject data",
   "admin.forms.tbl.show_index_title" => "Activate",
   "admin.forms.tbl.unshow_index_title" => "Disactivate",
-
+  "footer.title_1" => "
+     © All material and intellectual rights of this system belong to the Chamber of Commerce, Industries, Mines and Agriculture of Iran at " .
+    "<a class='color-blue-link' href='https://iccima.ir/' target='_blank'>https://www.iccima.ir</a>"
+    . ".
+    ",
   "singlePage.confirmed" => "Your data confirmed !",
   "toast.error" => "Error occurred !",
   "toast.params_error" => "Request parameters are not valid !",

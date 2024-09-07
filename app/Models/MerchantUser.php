@@ -404,13 +404,15 @@ class MerchantUser extends Authenticatable
                 'fields' => [
                     'owner_fullname',
                     'co_title',
-                    'biz_activitiy_goods',
-                    'coo_biz_activities',
-                    'biz_act_goods_hs_codes',
-                    'shared_chambers',
-                    'specialized_committees',
-                    'guild_types',
+                    // 'biz_activitiy_goods',
+                    // 'coo_biz_activities',
+                    // 'biz_act_goods_hs_codes',
+                    // 'shared_chambers',
+                    // 'specialized_committees',
+                    // 'guild_types',
                 ],
+                'type' => "cross_fields",
+                'operator' => "OR",
             ];
         }
         if (@$filters_req['province']) {

@@ -160,7 +160,6 @@ $direction = iccima_get_sess_lang() == "Persian" ? "rtl" : "ltr";
             position: absolute;
             bottom: 15vmin;
             padding: 3vmin 12vmin 3vmin 3vmin;
-            font-weight: 600;
             color: #092532;
             text-align: center;
             direction: {{$direction}} !important;
@@ -212,7 +211,7 @@ $direction = iccima_get_sess_lang() == "Persian" ? "rtl" : "ltr";
         </div>
         <h1 class="second-four">4</h1>
         <p class="wrong-para">
-            {{___elic("404.title_1")}} <br>
+           <strong>{{___elic("404.title_1")}} </strong>  <br>
             {{___elic("404.title_2")}}
             <br> <br>
             <a class="link_home" href="{{url('')}}">{{___elic("404.home")}}</a>

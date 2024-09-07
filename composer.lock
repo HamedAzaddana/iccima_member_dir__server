@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cef8ca7f515ab1a1bce086a6d55e880",
+    "content-hash": "3faae1f2d4a01ea89cd42659690830e4",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1514,6 +1514,69 @@
                 }
             ],
             "time": "2024-08-16T14:57:26+00:00"
+        },
+        {
+            "name": "klevze/online-users",
+            "version": "v0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/klevze/online-users.git",
+                "reference": "6ac7a567d1aec4785273bc9328d5c882ad5579b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/klevze/online-users/zipball/6ac7a567d1aec4785273bc9328d5c882ad5579b0",
+                "reference": "6ac7a567d1aec4785273bc9328d5c882ad5579b0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^0.1.0",
+                "phpunit/phpunit": "^10.1"
+            },
+            "suggest": {
+                "illuminate/support": "Required for laravel service providers"
+            },
+            "type": "project",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Klevze\\OnlineUsers\\OnlineUsersServiceProvider"
+                    ],
+                    "aliases": []
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Klevze\\OnlineUsers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gregor Klevže",
+                    "email": "gregor@klevze.si",
+                    "homepage": "https://thewallpapers.net"
+                }
+            ],
+            "description": "Display online users on a webpage",
+            "homepage": "https://github.com/klevze/agent",
+            "keywords": [
+                "Users",
+                "count",
+                "laravel",
+                "online"
+            ],
+            "support": {
+                "issues": "https://github.com/klevze/online-users/issues",
+                "source": "https://github.com/klevze/online-users/tree/v0.1.2"
+            },
+            "time": "2024-01-11T07:30:22+00:00"
         },
         {
             "name": "laravel/framework",

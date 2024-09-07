@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import { toEnglishDigits } from "../../Utils/IccObjArr";
 
 export default function ExploreArea({ dataSearch, req_params }) {
     const { iccima, _GL } = usePage().props;
@@ -23,7 +24,8 @@ export default function ExploreArea({ dataSearch, req_params }) {
         document.getElementById('getMoreApiBtn').click();
     }
     const handleValidateCaptcha = (e) => {
-        let continue_code = document.getElementById('field-captcha-text').value;
+        
+        let continue_code = toEnglishDigits(document.getElementById('field-captcha-text').value);
         let _post_data = {
             continue_code
         };
