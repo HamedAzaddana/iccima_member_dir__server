@@ -198,7 +198,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                 </div>
             </section>
             <section id="list-topics" className="list-topics">
-                <div className="container">
+                <div>
                     <div className="list-topics-content">
                         <ul>
                             <li>

@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import toast, { Toaster } from 'react-hot-toast';
+import { get_query_param_url } from '../../Utils/IccObjArr';
 
 export default function TopArea() {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
@@ -18,10 +19,17 @@ export default function TopArea() {
     const loginSsoUrl = import.meta.env.VITE_LOGIN_URL_SSO || 'http://127.0.0.1:8000/loginSso';
     const [showOfCanv, setShowOfCanc] = useState(false);
     const [placementOfCanc, setPlacementOfCanc] = useState("end");
-    const handleSelectLang = (e) => {
-        let _post_data = {
-            lang: e.target.value
-        };
+    const handleSelectLang = (e, setter = '', redirect = '') => {
+        let _post_data = {};
+        if (setter) {
+            _post_data = {
+                lang: setter
+            };
+        } else {
+            _post_data = {
+                lang: e.target.value
+            };
+        }
         document.getElementById('loading-page-iccima').style.display = "inline-flex";
 
         axios.post(`${iccima.links.ch_lang}`, _post_data, {
@@ -37,7 +45,11 @@ export default function TopArea() {
                     var queryParams = new URLSearchParams(window.location.search);
                     queryParams.set("lang", _post_data['lang']);
                     history.replaceState(null, null, "?" + queryParams.toString());
-                    window.location.reload();
+                    if (redirect) {
+                        window.location.href = redirect;
+                    } else {
+                        window.location.reload();
+                    }
                 } else {
                     toast.error(`${_GL['toast.error']}`);
                 }
@@ -54,6 +66,7 @@ export default function TopArea() {
                 }
             });
     }
+
     const handleNonDo = (e) => {
         e.preventDefault();
     }
@@ -67,6 +80,11 @@ export default function TopArea() {
     useEffect(() => {
         if (iccima.user.lang == "English") {
             setPlacementOfCanc("start");
+        }
+        let lang_qp = get_query_param_url('lang');
+        let redirect_qp = get_query_param_url('redirect');
+        if ((lang_qp == "Persian" || lang_qp == "English") && (redirect_qp == "true")) {
+            handleSelectLang(null,lang_qp,appUrl);
         }
     }, []);
     return (
@@ -141,10 +159,8 @@ export default function TopArea() {
                                     )
 
                                 }
-
-
                                 <Link className="nav-link" href="#" onClick={handleNonDo}> <li className="select-opt text-dark">
-                                    <i className='fa fa-language'></i> <select value={iccima.user.lang} onInput={handleSelectLang} name="language" id="language">
+                                    <i className='fa fa-language'></i> <select value={iccima.user.lang} onInput={handleSelectLang} name="language" id="language-app-iccima">
                                         <option value="Persian">فارسی</option>
                                         <option value="English">English</option>
                                     </select>

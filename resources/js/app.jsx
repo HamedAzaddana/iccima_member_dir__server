@@ -1,17 +1,9 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client'
-import { browser_session_get } from './Utils/IccObjArr';
+import { browser_session_get,get_query_param_url } from './Utils/IccObjArr';
 const appNameFa = import.meta.env.VITE_APP_NAME || 'Laravel';
 const appNameEn = import.meta.env.VITE_APP_NAME_EN || 'Laravel';
 
-function get_query_param_url(name, url = window.location.href) {
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
 let locale_title_app = appNameFa;
 let lang_app_setter = (
     get_query_param_url("lang") && typeof get_query_param_url("lang") != undefined
