@@ -78,11 +78,11 @@ $__GLABAL_LANG = [
     "admin.forms.tbl.show_index_title" => "فعال سازی",
     "admin.forms.tbl.unshow_index_title" => "غیر فعال سازی",
     "footer.title_1" => "
-     © کلیه حقوق مادی و معنوی این سامانه متعلق به اتاق بازرگانی، صنایع، معادن و کشاورزی ایران به نشانی " 
-     . "<a class='color-blue-link' href='https://iccima.ir/' target='_blank'>https://www.iccima.ir</a>" . 
-     " می باشد.
+     © کلیه حقوق مادی و معنوی این سامانه متعلق به اتاق بازرگانی، صنایع، معادن و کشاورزی ایران به نشانی "
+        . "<a class='color-blue-link' href='https://iccima.ir/' target='_blank'>https://www.iccima.ir</a>" .
+        " می باشد.
     ",
-
+    "footer.online_users" => "تعداد کاربران آنلاین : ",
     "toast.error" => "خطایی رخ داد !",
     "toast.error_file_type" => "نوع فایل آپلود شده مجاز نیست !",
     "toast.error_file_size" => "حجم فایل آپلود شده مجاز نیست !",

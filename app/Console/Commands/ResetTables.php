@@ -31,6 +31,7 @@ class ResetTables extends Command
     {
         DB::table('jobs')->truncate();
         DB::table('failed_jobs')->truncate();
+        DB::table('user_activities')->truncate();
     }
  
 }

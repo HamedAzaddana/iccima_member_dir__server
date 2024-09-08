@@ -11,13 +11,16 @@ import { usePage } from '@inertiajs/react'
 
 import HeaderTop from '../Components/Common/HeaderTop';
 import TopArea from '../Components/Common/TopArea';
-
+import axios from 'axios';
 import FooterBottom from '../Components/Common/FooterBottom';
 import LoadingTop from '../Components/Common/LoadingTop';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { browser_session_set, get_query_param_url } from '../Utils/IccObjArr';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Main({ children }) {
+    const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
+    const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
     const { iccima } = usePage().props;
     const [onlines, setOnlines] = useState(0);
 
@@ -33,8 +36,31 @@ export default function Main({ children }) {
         browser_session_set("lang_iccima_system", lang_set_app);
     };
     const getOnlineUsers = () => {
-        //do the process and pass it to footer ...
-        setOnlines(16);
+        axios.post(`${iccima.links.onlines}`, {}, {
+            headers: {
+                'ICCIMA-AUTH-USERNAME': `${ws_username}`,
+                'ICCIMA-AUTH-PASSWORD': `${ws_password}`,
+            }
+        })
+            .then(res => {
+                let status_code = res?.status;
+                if (status_code == 200 || status_code == 201) {
+                    setOnlines(res?.data?.data);
+
+                } else {
+                    toast.error(`${_GL['toast.error']}`);
+                }
+            })
+            .catch((err) => {
+                let errors = err?.response?.data?.data;
+                if (Array.isArray(errors) && errors) {
+                    errors.forEach((error_item) => {
+                        toast.error(`${error_item}`);
+                    });
+                } else {
+                    toast.error(`${err.message} : ${err?.response?.data?.data?.msg}`);
+                }
+            });
     }
     useEffect(() => {
         setAppLang();
@@ -47,8 +73,12 @@ export default function Main({ children }) {
             <div id='iccima-main-content-layout'>
                 {children}
             </div>
-            <FooterBottom />
+            <FooterBottom cntOnlines={onlines} />
             <LoadingTop />
+            <Toaster
+                position="top-left"
+                reverseOrder={true}
+            />
         </div>
     );
 }

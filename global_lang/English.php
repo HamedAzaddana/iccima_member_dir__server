@@ -81,6 +81,8 @@ $__GLABAL_LANG = [
     "<a class='color-blue-link' href='https://iccima.ir/' target='_blank'>https://www.iccima.ir</a>"
     . ".
     ",
+  "footer.online_users" => "Online Users: ",
+
   "singlePage.confirmed" => "Your data confirmed !",
   "toast.error" => "Error occurred !",
   "toast.params_error" => "Request parameters are not valid !",
