@@ -17,13 +17,18 @@ import LoadingTop from '../Components/Common/LoadingTop';
 import { useEffect, useState } from 'react';
 import { browser_session_set, get_query_param_url } from '../Utils/IccObjArr';
 import toast, { Toaster } from 'react-hot-toast';
+import TagManager from 'react-gtm-module';
 
 export default function Main({ children }) {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
     const ws_password = import.meta.env.VITE_AUTH_WS_PASSWORD || '';
+    const gtm_google_id = import.meta.env.VITE_GTM_GOOGLE_ID || '';
     const { iccima } = usePage().props;
     const [onlines, setOnlines] = useState(0);
 
+    const tagManagerArgs = {
+        gtmId: gtm_google_id
+    }
     const setAppLang = () => {
         let lang_app_setter = (
             get_query_param_url("lang") && typeof get_query_param_url("lang") != undefined
@@ -65,6 +70,8 @@ export default function Main({ children }) {
     useEffect(() => {
         setAppLang();
         getOnlineUsers();
+        TagManager.initialize(tagManagerArgs);
+
     }, []);
     return (
         <div className={`app-lang-${iccima.user.lang}`}>

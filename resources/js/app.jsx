@@ -1,6 +1,6 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client'
-import { browser_session_get,get_query_param_url } from './Utils/IccObjArr';
+import { get_query_param_url } from './Utils/IccObjArr';
 const appNameFa = import.meta.env.VITE_APP_NAME || 'Laravel';
 const appNameEn = import.meta.env.VITE_APP_NAME_EN || 'Laravel';
 
