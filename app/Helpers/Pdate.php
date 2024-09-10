@@ -40,7 +40,12 @@ class Pdate
     {
         $days_of_month = 30;
         $month31days = [
-            1, 2, 3, 4, 5, 6
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
         ];
         $to_year_is_leap = self::sLeapYear($year);
         if ($to_year_is_leap && $month == 12) {
@@ -171,7 +176,7 @@ class Pdate
         }
         return $status;
     }
-    public static function compare2Gdate($gdate1,$gdate2)
+    public static function compare2Gdate($gdate1, $gdate2)
     {
         $status = 0;
         $t1 = strtotime($gdate1);
@@ -189,6 +194,16 @@ class Pdate
     {
         $y = jdate()->getYear();
         return $y;
+    }
+    public static function getYMDstandardDate($timestamp = 0)
+    {
+        if (!$timestamp) {
+            $timestamp = time();
+        }
+        $y = jdate($timestamp)->getYear();
+        $m = strlen(jdate($timestamp)->getMonth())==2 ? jdate($timestamp)->getMonth() : "0".jdate($timestamp)->getMonth();
+        $d = strlen(jdate($timestamp)->getDay())==2 ? jdate($timestamp)->getDay() : "0".jdate($timestamp)->getDay();
+        return "$y/$m/$d";
     }
 }
 

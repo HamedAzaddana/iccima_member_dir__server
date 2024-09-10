@@ -448,7 +448,6 @@ class MerchantUser extends Authenticatable
     }
     public static function sync_data_indexes()
     {
-        //called evenry 5 seconds !
         $start_process = microtime(true);
         self::createIndexEls();
         $row_index = IndexNumberApi::where('status', 0)->first()->toArray();
@@ -462,14 +461,13 @@ class MerchantUser extends Authenticatable
                 self::updateOrCreate([
                     self::$unique_base_orc   => $_data_sql[self::$unique_base_orc],
                 ], $_data_sql);
+                IndexNumberApi::where('index_number', $index_number_updated)->update([
+                    'status' => 1,
+                    'last_updated_at' => Pdate::persianTimeStampNow(),
+                ]);
             } else {
                 throw new \ErrorException("The Card no is null ! Index number : $index_number_updated");
             }
-
-            IndexNumberApi::where('index_number', $index_number_updated)->update([
-                'status' => 1,
-                'last_updated_at' => Pdate::persianTimeStampNow(),
-            ]);
         }
         $end_process = microtime(true);
         $elapsed_process = (int)($end_process - $start_process) + 1;
@@ -478,5 +476,9 @@ class MerchantUser extends Authenticatable
             'index_created' => $index_number_updated,
             'card_no' => @$_data_sql["card_no"],
         ];
+    }
+    public static function sync_get_indexes()
+    {
+        CardsDataService::saveIndexForDay();
     }
 }

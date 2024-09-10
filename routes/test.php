@@ -15,7 +15,7 @@ use Klevze\OnlineUsers\Facades\OnlineUsers;
 
 
 Route::get('/test2', function () {
-    dd($activeUsers = OnlineUsers::getActiveUsers(),request()->ip());
+    // dd($_SERVER);
     // dd(___callLang());
     // iccima_change_sess_lang("Persian");
     // dd(iccima_lang_str('nav.home'));
@@ -24,34 +24,21 @@ Route::get('/test2', function () {
     // dd($_data = CardsData::getDataByIndex("558177"));
 });
 Route::get('/test', function () {
-    // $merchant = MerchantUser::find(2816);
-    // if (!$merchant?->editable_user) {
-    //     MerchantEUser::firstOrCreate(
-    //         ['card_no' => $merchant->card_no],
-    //         [
-    //             "last_updated_at" => Pdate::persianTimeStampNow(),
-    //             "confirmed" => 0,
-    //         ]
-    //     );
-    //     $merchant = MerchantUser::find(2816);
-    // }
-    // $merchant->editable_user->update([
-    //     'confirmed'=>1,
-    //     'last_updated_at'=>Pdate::persianTimeStampNow(),
-    // ]);
+    // $from_ymd = Pdate::getYMDstandardDate(\Carbon\Carbon::now()->addDay(-7)->timestamp);
+    // $to_ymd = Pdate::getYMDstandardDate(\Carbon\Carbon::now()->addDay(-6)->timestamp);
 
-    // $merchant->editable_user()->associate([
-    //     'confirmed'=>1
-    // ]);
-    // $merchant->save();
-    $merchants = MerchantUser::paginate(20);
-
-    dd($merchants->toArray());
-
-    // $records_load = MerchantUser::get_data_els_filter([
-    //     "kws" => "زعفران",
-    //     // "kws"=>"sss",
-    // ], 10);
-    // dd($records_load);
-
+    // $route = env("CARDS_API_URL") . "memberDirectoryIndexes";
+    // $headers = [
+    //     "Content-Type" => "application/json",
+    //     "userName" => env("CARDS_API_USERNAME"),
+    //     "password" => env("CARDS_API_PASSWORD"),
+    // ];
+    // $body = [
+    //     "fromDate" => $from_ymd,
+    //     "toDate" => $to_ymd,
+    //     "lastIndex" => 1,
+    //     "pageSize" => 160000,
+    // ];
+    // $indexes = (array)@iccima_request_http($body, $route, "GET", $headers)['response_object']['memberDirectoryIndexes'];
+    // dd($indexes, $body);
 });

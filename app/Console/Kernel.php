@@ -12,6 +12,7 @@ class Kernel extends ConsoleKernel
         Commands\ResetTables::class,
         Commands\SyncDataIndex::class,
         Commands\MakeAdminUser::class,
+        Commands\GetDataIndex::class,
     ];
     /**
      * Define the application's command schedule.
@@ -22,9 +23,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('tables:reset_iccima')
             ->dailyAt('1:00');
         $schedule->command('index_data_cards:sync')
-            ->everyTwoSeconds();
+            ->everyTenSeconds();
+        $schedule->command('get_index_cards:sync')
+            ->dailyAt('2:00');
 
-        //iissIIOA98
+        //iqqoox09
     }
 
     /**

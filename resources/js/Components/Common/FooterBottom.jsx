@@ -12,7 +12,7 @@ export default function FooterBottom({ cntOnlines }) {
                 <div className="m-1 p-1">
                     <div className="footer-menu">
                         <div className="row">
-                            <div className="col-lg-2 col-md-2 col-sm-12 mb-2">
+                            <div className="col-lg-1 col-md-1 col-sm-12 mb-2">
                                 <div className="navbar-header">
                                     <center>
                                         <img style={{
@@ -24,14 +24,12 @@ export default function FooterBottom({ cntOnlines }) {
                                     </center>
                                 </div>
                             </div>
-                            {/* <div className="col-lg-3 col-md-3 col-sm-12 mb-2"></div> */}
                             <div
                                 dangerouslySetInnerHTML={{ __html: footer_title_1 }}
-                                className="col-lg-9 col-md-9 col-sm-12 mb-2 mt-3 text-dark">
+                                className="col-lg-9 col-md-9 col-sm-12  text-dark">
                             </div>
-                            <div className="col-lg-2 col-md-2 col-sm-12 mb-2"></div>
-                            <div className="col-lg-9 col-md-9 col-sm-12 mb-2 mt-3 text-success">
-                               <strong> {_GL["footer.online_users"]}  {cntOnlines} </strong>
+                            <div className="col-lg-2 col-md-2 col-sm-12 text-success">
+                                <strong> {_GL["footer.online_users"]}  {cntOnlines} </strong>
                             </div>
                         </div>
                     </div>

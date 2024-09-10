@@ -109,7 +109,7 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
         <div>
             <section id="home" className="welcome-hero">
                 <button onClick={getMoreRApi} id='getMoreApiBtn' className='d-none'></button>
-                <div className="container">
+                <div className="top-content-container">
                     <div className="welcome-hero-txt">
                         <h2> {_GL["welocom.tip"]} </h2>
                         <p>

@@ -8,6 +8,37 @@ use ErrorException;
 
 class CardsData
 {
+    
+    public static function saveIndexForDay()
+    {
+        $from_ymd_jalali = Pdate::getYMDstandardDate(\Carbon\Carbon::now()->addDay(-1)->timestamp);
+        $to_ymd_jalali = Pdate::getYMDstandardDate(\Carbon\Carbon::now()->timestamp);
+    
+        $route = env("CARDS_API_URL") . "memberDirectoryIndexes";
+        $headers = [
+            "Content-Type" => "application/json",
+            "userName" => env("CARDS_API_USERNAME"),
+            "password" => env("CARDS_API_PASSWORD"),
+        ];
+        $body = [
+            "fromDate" => $from_ymd_jalali,
+            "toDate" => $to_ymd_jalali,
+            "lastIndex" => 1,
+            "pageSize" => 160000,
+        ];
+        $indexes = (array)@iccima_request_http($body, $route, "GET", $headers)['response_object']['memberDirectoryIndexes'];
+        if ($indexes) {
+            foreach ($indexes as $index_number) {
+                IndexNumberApi::firstOrCreate(
+                    ['index_number' =>  $index_number],
+                    [
+                        'status' => 0,
+                        'last_updated_at' => Pdate::persianTimeStampNow(),
+                    ]
+                );
+            }
+        }
+    }
     public static function saveAllIndexes()
     {
         $route = env("CARDS_API_URL") . "memberDirectoryIndexes";
