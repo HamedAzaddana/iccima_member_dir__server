@@ -34,7 +34,8 @@ export default function CardResult({ info }) {
     let year_locale_established = card_info.year_establishing;
     let co_phone = card_info.co_phone;
     let co_fax = card_info.co_fax;
-    let co_website = card_info.co_website;
+    let co_website = card_info?.co_website;
+    console.log(co_website)
     let spl = card_info.spl;
     return (
         <div className="col-lg-12 col-md-12 col-sm-12 animate__animated animate__fadeIn animate__delay-0.7s wow">
@@ -59,13 +60,13 @@ export default function CardResult({ info }) {
                         </div>
                         <div className="col-md-3 col-lg-3 col-sm-12 mt-3 ContactsPartCardRs">
                             {co_phone ? (
-                                <p className='mt-1 p-1'><a className='text-dark' href="#" onClick={handleNonDo}> <i className='fa fa-phone'></i> <strong>{co_phone}</strong></a> </p>
+                                <p className='mt-1 p-1'><a className='text-dark' href={`tel:+${co_phone}`}> <i className='fa fa-phone'></i> <strong>{co_phone}</strong></a> </p>
                             ) : ""}
                             {co_fax ? (
-                                <p className='mt-1 p-1'><a className='text-dark' href="#" onClick={handleNonDo}> <i className='fa fa-fax'></i> <strong>{co_fax}</strong></a> </p>
+                                <p className='mt-1 p-1'><a className='text-dark' href={`fax:+${co_fax}`}> <i className='fa fa-fax'></i> <strong>{co_fax}</strong></a> </p>
                             ) : ""}
                             {co_website ? (
-                                <p className='mt-1 p-1'><a className='text-dark' href="#" onClick={handleNonDo}> <i className='fa fa-globe'></i> <strong>{co_website}</strong></a> </p>
+                                <p className='mt-1 p-1 card-result-website'><a className='text-dark toLowerCase-text' target='_blank' href={`${co_website}`}> <i className='fa fa-globe'></i> <strong>{co_website}</strong></a> </p>
                             ) : ""}
                             <Link style={{
                                 width: "max-content",

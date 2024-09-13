@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 import axios from 'axios';
-import Form from 'react-bootstrap/Form';
+import Form from 'react-bootstrap/cjs/Form.js';
 import toast, { Toaster } from 'react-hot-toast';
 import { usePage } from '@inertiajs/react'
 
@@ -116,83 +116,85 @@ export default function WelcomHero({ ws_s_route, ws_search_get_fv, sendDataToInd
                             {_GL["welocom.title"]}
                         </p>
                     </div>
-                    <div className="welcome-hero-serch-box row">
-                        <div className="col-md-4 col-lg-3 col-sm-12 InputS1" onClick={focusInputS1}>
-                            <div className="single-welcome-hero-form">
-                                <input
-                                    id="kws"
-                                    className='text-dark'
-                                    value={values.kws} onChange={handleChangeVs}
-                                    onKeyDown={handleKeyType}
-                                    type="text" placeholder={_GL["welocom.plchldrInput"]} />
+                    <div>
+                        <div className="welcome-hero-serch-box row">
+                            <div className="col-md-4 col-lg-3 col-sm-12 InputS1" onClick={focusInputS1}>
+                                <div className="single-welcome-hero-form">
+                                    <input
+                                        id="kws"
+                                        className='text-dark'
+                                        value={values.kws} onChange={handleChangeVs}
+                                        onKeyDown={handleKeyType}
+                                        type="text" placeholder={_GL["welocom.plchldrInput"]} />
 
-                                <div className="welcome-hero-form-icon">
-                                    <i className="flaticon-list-with-dots"></i>
+                                    <div className="welcome-hero-form-icon">
+                                        <i className="flaticon-list-with-dots"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-md-4 col-lg-3 col-sm-12 mt-4 InputS2">
-                            <div style={{
-                                width: "100%",
-                                border: 0,
+                            <div className="col-md-4 col-lg-3 col-sm-12 mt-4 InputS2">
+                                <div style={{
+                                    width: "100%",
+                                    border: 0,
 
-                            }} className="single-welcome-hero-form">
-                                <Form.Select className='without-icon SelectProvince' onChange={handleChangeVs} defaultValue="null" id="province">
-                                    <option value={"all"}> {_GL["welocom.plchldrProvince"]} </option>
-                                    {(filters?.provinces?.length) ?
-                                        (
-                                            <>
-                                                {filters?.provinces?.map((item, item_index) => (
-                                                    <option key={item_index} value={item.value}>{item.label}</option>
-                                                ))}
-                                            </>
-                                        )
-                                        :
-                                        (
-                                            <></>
-                                        )
-                                    }
-                                </Form.Select>
-                                <div className="welcome-hero-form-icon" style={{
-                                    right: '42px',
-                                }}>
-                                    <i className="flaticon-gps-fixed-indicator"></i>
+                                }} className="single-welcome-hero-form">
+                                    <Form.Select className='without-icon SelectProvince' onChange={handleChangeVs} defaultValue="null" id="province">
+                                        <option value={"all"}> {_GL["welocom.plchldrProvince"]} </option>
+                                        {(filters?.provinces?.length) ?
+                                            (
+                                                <>
+                                                    {filters?.provinces?.map((item, item_index) => (
+                                                        <option key={item_index} value={item.value}>{item.label}</option>
+                                                    ))}
+                                                </>
+                                            )
+                                            :
+                                            (
+                                                <></>
+                                            )
+                                        }
+                                    </Form.Select>
+                                    <div className="welcome-hero-form-icon" style={{
+                                        right: '42px',
+                                    }}>
+                                        <i className="flaticon-gps-fixed-indicator"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className="col-md-4 col-lg-3 col-sm-12 mt-4 InputS2">
+                                <div style={{
+                                    width: "100%",
+                                    border: 0,
+                                }} className="single-welcome-hero-form">
+                                    <Form.Select className='without-icon SelectProvince' onChange={handleChangeVs} defaultValue="null" id="activity_str">
+                                        <option value={"all"}> {_GL["welocom.plchldrActivityStr"]} </option>
+                                        {(filters?.activity_str_search?.length) ?
+                                            (
+                                                <>
+                                                    {filters?.activity_str_search?.map((item, item_index) => (
+                                                        <option key={item_index} value={item.value}>{item.label}</option>
+                                                    ))}
+                                                </>
+                                            )
+                                            :
+                                            (
+                                                <></>
+                                            )
+                                        }
+                                    </Form.Select>
+                                    <div className="welcome-hero-form-icon" style={{
+                                        right: '42px',
+                                    }}>
+                                        <i className="fa fa-quote-right"></i>
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
-                        <div className="col-md-4 col-lg-3 col-sm-12 mt-4 InputS2">
-                            <div style={{
-                                width: "100%",
-                                border: 0,
-                            }} className="single-welcome-hero-form">
-                                <Form.Select className='without-icon SelectProvince' onChange={handleChangeVs} defaultValue="null" id="activity_str">
-                                    <option value={"all"}> {_GL["welocom.plchldrActivityStr"]} </option>
-                                    {(filters?.activity_str_search?.length) ?
-                                        (
-                                            <>
-                                                {filters?.activity_str_search?.map((item, item_index) => (
-                                                    <option key={item_index} value={item.value}>{item.label}</option>
-                                                ))}
-                                            </>
-                                        )
-                                        :
-                                        (
-                                            <></>
-                                        )
-                                    }
-                                </Form.Select>
-                                <div className="welcome-hero-form-icon" style={{
-                                    right: '42px',
-                                }}>
-                                    <i className="fa fa-quote-right"></i>
-                                </div>
+                            <div className="col-md-1 col-lg-1 col-sm-12 mt-4 InputS3">
+                                <center>
+                                    <button onClick={handleSearch} id='btn-do-search' ref={SubmitBtn} type="submit" className="form-control btn btn-danger mb-4"> {_GL["welocom.btnSearch"]} <i className='fa fa-search'></i></button>
+                                </center>
                             </div>
-                        </div>
-                        <div className="col-md-1 col-lg-1 col-sm-12 mt-4 InputS3">
-                            <center>
-                                <button onClick={handleSearch} id='btn-do-search' ref={SubmitBtn} type="submit" className="form-control btn btn-danger mb-4"> {_GL["welocom.btnSearch"]} <i className='fa fa-search'></i></button>
-                            </center>
                         </div>
                     </div>
                 </div>

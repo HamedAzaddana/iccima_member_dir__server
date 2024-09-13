@@ -7,7 +7,7 @@ import ExploreArea from '../Components/IndexPage/ExploreArea'
 
 import MatchHeight from 'matchheight';
 import 'animate.css';
-import WOW from 'wow.js/src/WOW';
+// import WOW from 'wow.js/src/WOW';
 
 export default function Index({ ws_s_route, ws_search_get_fv }) {
 
@@ -23,7 +23,7 @@ export default function Index({ ws_s_route, ws_search_get_fv }) {
     useEffect(() => {
         document.getElementById('loading-page-iccima').style.display = "none";
         new MatchHeight();
-        new WOW().init();
+        // new WOW().init();
     }, [dataSearch]);
     return (
         <MainLayout>

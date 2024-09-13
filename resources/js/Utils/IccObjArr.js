@@ -124,3 +124,32 @@ export function browser_session_get(key) {
         return null;
     }
 }
+export function browser_storage_set(key, value, ttl){
+    //ttl is in milliseconds
+    const now = new Date()
+	const item = {
+		value: value,
+		expiry: now.getTime() + ttl,
+	}
+	localStorage.setItem(key, JSON.stringify(item))
+}
+export function browser_storage_get(key) {
+    const itemStr = localStorage.getItem(key)
+	if (!itemStr) {
+		return null
+	}
+    if(testJSON(itemStr)){
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+        if (now.getTime() > item.expiry) {
+            localStorage.removeItem(key)
+            return null
+        }
+        return item.value
+    }else{
+        return null;
+    }
+}
+export function get_validate_website(url) {
+
+}

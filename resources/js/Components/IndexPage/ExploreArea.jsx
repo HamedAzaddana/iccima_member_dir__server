@@ -1,8 +1,8 @@
 
 import CardResult from "./CardResult";
 import { usePage } from '@inertiajs/react'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/cjs/Button.js';
+import Modal from 'react-bootstrap/cjs/Modal.js';
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';

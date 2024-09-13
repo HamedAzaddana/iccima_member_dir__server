@@ -1,13 +1,13 @@
 
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/cjs/Container.js';
+import Nav from 'react-bootstrap/cjs/Nav.js';
+import Navbar from 'react-bootstrap/cjs/Navbar.js';
 import { Link } from '@inertiajs/react'
 import { usePage } from '@inertiajs/react'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import Button from 'react-bootstrap/cjs/Button.js';
+import Offcanvas from 'react-bootstrap/cjs/Offcanvas.js';
 import toast, { Toaster } from 'react-hot-toast';
 import { get_query_param_url } from '../../Utils/IccObjArr';
 
