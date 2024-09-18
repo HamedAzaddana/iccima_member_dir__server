@@ -276,7 +276,7 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                             <div className="row">
                                                 <div className="col-lg-6 col-md-6 col-sm-12">
                                                     <h5 className='text-primary'> {_GL['singlePage.address']} </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.co_main_address[iccima.user.lang.toString()] }} ></p>
+                                                    <div className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.co_main_address[iccima.user.lang.toString()] }} ></div>
                                                     <br />
                                                     <h5 className='text-primary'>  {_GL['singlePage.website']} </h5>
                                                     <p className='text-dark font-weight-bold mt-2'>{dataSingle.co_website ? dataSingle.co_website : "---"}</p>
@@ -296,25 +296,25 @@ export default function SingleMerchant({ hid, route_ws_get_single, route_404_pag
                                             <div className="row">
                                                 <div className="col-lg-12 col-md-12 col-sm-12">
                                                     <h5 className='text-primary'> {_GL['singlePage.reshte_faaliat']} </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" }} ></p>
+                                                    <div className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" }} ></div>
                                                     <br />
                                                     <h5 className='text-primary'> {_GL['singlePage.noe_faaliat']} </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                    <div className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" }} ></div>
                                                     <br />
                                                     <h5 className='text-primary'>  {_GL['singlePage.govahi_mabda']} </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                    <div className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" }} ></div>
                                                     <br />
                                                     <h5 className='text-primary'> {_GL['singlePage.hs_codes']} </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                    <div className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" }} ></div>
                                                     <br />
                                                     <h5 className='text-primary'>  {_GL['singlePage.otash_moshtarak']}</h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                    <div className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" }} ></div>
                                                     <br />
                                                     <h5 className='text-primary'> {_GL['singlePage.commis_takh']} </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                    <div className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" }} ></div>
                                                     <br />
                                                     <h5 className='text-primary'> {_GL['singlePage.tashakol']} </h5>
-                                                    <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" }} ></p>
+                                                    <div className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" }} ></div>
                                                 </div>
                                             </div>
                                         </div>

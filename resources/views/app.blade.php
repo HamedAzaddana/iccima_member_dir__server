@@ -12,7 +12,9 @@
 </head>
 
 <body>
-    @inertia
+    <div id="root-plus-parent">
+        @inertia
+    </div>
 </body>
 
 </html>

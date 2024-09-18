@@ -445,6 +445,10 @@ input:-webkit-autofill:active {
 .card-result-website{
     width: max-content !important;
 }
+.container-explore-area{
+    padding-right: 5%;
+    padding-left: 5%;
+}
 
 @media only screen and (max-width:985px) {
     .app-lang-Persian .top-content-container {
@@ -483,6 +487,10 @@ input:-webkit-autofill:active {
 
 
 @media only screen and (max-width:770px) {
+    .container-explore-area{
+        padding-right: 3%;
+        padding-left: 3%;
+    }
     #btn-do-search {
         margin-right: 0px !important;
     }

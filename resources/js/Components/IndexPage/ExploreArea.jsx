@@ -94,7 +94,7 @@ export default function ExploreArea({ dataSearch, req_params }) {
     return (
         <div id="explore" className={(!dataSearch?.length) ? 'explore-parent-div':''}>
             <section className="explore">
-                <div className="container">
+                <div className="container-explore-area">
                     <div className="explore-content">
                         {
                             req_params ?

@@ -878,7 +878,7 @@ function CardResult({ info }) {
         " ",
         year_locale_established ? ` , ${_GL2["cardResult.establish"]} ${year_locale_established}` : ""
       ] }) }),
-      /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: biz_activities_html } }),
+      /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: biz_activities_html } }),
       /* @__PURE__ */ jsx("br", {}),
       /* @__PURE__ */ jsxs("strong", { children: [
         " ",
@@ -1012,7 +1012,7 @@ function ExploreArea({ dataSearch, req_params }) {
     });
   };
   return /* @__PURE__ */ jsx("div", { id: "explore", className: !(dataSearch == null ? void 0 : dataSearch.length) ? "explore-parent-div" : "", children: /* @__PURE__ */ jsxs("section", { className: "explore", children: [
-    /* @__PURE__ */ jsx("div", { className: "container", children: /* @__PURE__ */ jsx("div", { className: "explore-content", children: req_params ? /* @__PURE__ */ jsx("div", { children: dataSearch.length ? /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx("div", { className: "container-explore-area", children: /* @__PURE__ */ jsx("div", { className: "explore-content", children: req_params ? /* @__PURE__ */ jsx("div", { children: dataSearch.length ? /* @__PURE__ */ jsxs(Fragment, { children: [
       /* @__PURE__ */ jsx("div", { className: "section-header", children: /* @__PURE__ */ jsxs("h2", { children: [
         " ",
         _GL2["explore.listResults"],
@@ -1451,48 +1451,48 @@ function SingleMerchant$1({ slug, hid, route_ws_get_single, route_404_page, rout
                 _GL2["singlePage.reshte_faaliat"],
                 " "
               ] }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" } }),
+              /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" } }),
               /* @__PURE__ */ jsx("br", {}),
               /* @__PURE__ */ jsxs("p", { className: "label-single-page", children: [
                 " ",
                 _GL2["singlePage.noe_faaliat"],
                 " "
               ] }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" } }),
+              /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" } }),
               /* @__PURE__ */ jsx("br", {}),
               /* @__PURE__ */ jsxs("p", { className: "label-single-page", children: [
                 "  ",
                 _GL2["singlePage.govahi_mabda"],
                 " "
               ] }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" } }),
+              /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" } }),
               /* @__PURE__ */ jsx("br", {}),
               /* @__PURE__ */ jsxs("p", { className: "label-single-page", children: [
                 " ",
                 _GL2["singlePage.hs_codes"],
                 " "
               ] }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" } }),
+              /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" } }),
               /* @__PURE__ */ jsx("br", {}),
               /* @__PURE__ */ jsxs("p", { className: "label-single-page", children: [
                 "  ",
                 _GL2["singlePage.otash_moshtarak"]
               ] }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" } }),
+              /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" } }),
               /* @__PURE__ */ jsx("br", {}),
               /* @__PURE__ */ jsxs("p", { className: "label-single-page", children: [
                 " ",
                 _GL2["singlePage.commis_takh"],
                 " "
               ] }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" } }),
+              /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" } }),
               /* @__PURE__ */ jsx("br", {}),
               /* @__PURE__ */ jsxs("p", { className: "label-single-page", children: [
                 " ",
                 _GL2["singlePage.tashakol"],
                 " "
               ] }),
-              /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" } })
+              /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" } })
             ] })
           ] }) })
         ] }),
@@ -1512,7 +1512,7 @@ function SingleMerchant$1({ slug, hid, route_ws_get_single, route_404_page, rout
               _GL2["singlePage.address"],
               " "
             ] }),
-            /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.co_main_address[iccima.user.lang.toString()] } }),
+            /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify p-single-page-content", dangerouslySetInnerHTML: { __html: dataSingle.co_main_address[iccima.user.lang.toString()] } }),
             /* @__PURE__ */ jsx("br", {}),
             /* @__PURE__ */ jsxs("p", { className: "label-single-page", children: [
               "  ",
@@ -1833,7 +1833,7 @@ function SingleMerchant({ hid, route_ws_get_single, route_404_page, route_ws_sav
             _GL2["singlePage.address"],
             " "
           ] }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.co_main_address[iccima.user.lang.toString()] } }),
+          /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.co_main_address[iccima.user.lang.toString()] } }),
           /* @__PURE__ */ jsx("br", {}),
           /* @__PURE__ */ jsxs("h5", { className: "text-primary", children: [
             "  ",
@@ -1864,48 +1864,48 @@ function SingleMerchant({ hid, route_ws_get_single, route_404_page, route_ws_sav
           _GL2["singlePage.reshte_faaliat"],
           " "
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" } }),
+        /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.biz_activities[iccima.user.lang.toString()] ? dataSingle.biz_activities[iccima.user.lang.toString()] : "---" } }),
         /* @__PURE__ */ jsx("br", {}),
         /* @__PURE__ */ jsxs("h5", { className: "text-primary", children: [
           " ",
           _GL2["singlePage.noe_faaliat"],
           " "
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" } }),
+        /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] ? dataSingle.biz_activitiy_goods__merged[iccima.user.lang.toString()] : "---" } }),
         /* @__PURE__ */ jsx("br", {}),
         /* @__PURE__ */ jsxs("h5", { className: "text-primary", children: [
           "  ",
           _GL2["singlePage.govahi_mabda"],
           " "
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" } }),
+        /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] ? dataSingle.coo_biz_activities__merged[iccima.user.lang.toString()] : "---" } }),
         /* @__PURE__ */ jsx("br", {}),
         /* @__PURE__ */ jsxs("h5", { className: "text-primary", children: [
           " ",
           _GL2["singlePage.hs_codes"],
           " "
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" } }),
+        /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] ? dataSingle.biz_act_goods_hs_codes__merged[iccima.user.lang.toString()] : "---" } }),
         /* @__PURE__ */ jsx("br", {}),
         /* @__PURE__ */ jsxs("h5", { className: "text-primary", children: [
           "  ",
           _GL2["singlePage.otash_moshtarak"]
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" } }),
+        /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.shared_chambers__merged[iccima.user.lang.toString()] ? dataSingle.shared_chambers__merged[iccima.user.lang.toString()] : "---" } }),
         /* @__PURE__ */ jsx("br", {}),
         /* @__PURE__ */ jsxs("h5", { className: "text-primary", children: [
           " ",
           _GL2["singlePage.commis_takh"],
           " "
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" } }),
+        /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.specialized_committees__merged[iccima.user.lang.toString()] ? dataSingle.specialized_committees__merged[iccima.user.lang.toString()] : "---" } }),
         /* @__PURE__ */ jsx("br", {}),
         /* @__PURE__ */ jsxs("h5", { className: "text-primary", children: [
           " ",
           _GL2["singlePage.tashakol"],
           " "
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" } })
+        /* @__PURE__ */ jsx("div", { className: "mt-1 pt-1 text-dark text-justify", dangerouslySetInnerHTML: { __html: dataSingle.guild_types__merged[iccima.user.lang.toString()] ? dataSingle.guild_types__merged[iccima.user.lang.toString()] : "---" } })
       ] }) }) }) })
     ] }) }) : /* @__PURE__ */ jsx("div", { className: "placeholder-single-content", children: /* @__PURE__ */ jsx("img", { src: "/images/placeholder-loading-iccima-1.gif", alt: "در حال بازگذاری ..." }) }),
     /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx(

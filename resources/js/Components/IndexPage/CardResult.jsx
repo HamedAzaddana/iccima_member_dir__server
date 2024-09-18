@@ -54,7 +54,7 @@ export default function CardResult({ info }) {
                             <h6 className='mt-1 pt-1 text-danger'><strong>{co_title[iccima.user.lang.toString()]}</strong></h6>
                             <p className='mt-1 pt-1 text-dark'><strong>{owner_fullname[iccima.user.lang.toString()] ? owner_fullname[iccima.user.lang.toString()] : co_title[iccima.user.lang.toString()]}</strong></p>
                             <p className='mt-1 pt-1 text-dark'><strong>{co_type[iccima.user.lang.toString()]} {year_locale_established ? ` , ${_GL['cardResult.establish']} ${year_locale_established}` : ""}</strong></p>
-                            <p className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: biz_activities_html }} ></p>
+                            <div className='mt-1 pt-1 text-dark text-justify' dangerouslySetInnerHTML={{ __html: biz_activities_html }} ></div>
                             <br />
                             <strong> <i className='fa fa-map-marker'></i> {city[iccima.user.lang.toString()]}</strong> &nbsp; | &nbsp; <strong> <i className='fa fa-id-card-o'></i> {card_type_id == 2 ? `${_GL['cardResult.ozviat']}`:`${_GL['cardResult.bazargani']}`}</strong>
                         </div>

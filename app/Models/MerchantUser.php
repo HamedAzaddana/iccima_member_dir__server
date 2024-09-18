@@ -426,7 +426,7 @@ class MerchantUser extends Authenticatable
                 "match" => [
                     "biz_activities" => [
                         "query" =>  (string)$filters_req['activity_str'],
-                        "operator" => "and"
+                        "operator" => "OR"
                     ],
                 ],
 

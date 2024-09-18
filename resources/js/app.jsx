@@ -1,5 +1,5 @@
 import { createInertiaApp } from '@inertiajs/react'
-// import { createRoot } from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import { hydrateRoot } from 'react-dom/client'
 import { get_query_param_url,browser_storage_get,browser_storage_set } from './Utils/IccObjArr';
 const appNameFa = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -27,7 +27,7 @@ createInertiaApp({
         return pages[`./Pages/${name}.jsx`]
     },
     setup({ el, App, props }) {
-        hydrateRoot(el).render(<App {...props} />)
+        hydrateRoot(document.getElementById('root-plus-parent'),<App {...props} />).render(<App {...props} />)
         // createRoot(el).render(<App {...props} />)
     },
     progress: {
