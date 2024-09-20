@@ -20,6 +20,11 @@ body .app-lang-English {
     direction: ltr !important;
 }
 
+.app-lang-Persian .offcanvas-body a.nav-link{
+    text-align: right !important;
+    direction: rtl !important;
+}
+
 input[type="text"],
 span,
 .navbar-nav .nav-link,
@@ -385,8 +390,7 @@ input:-webkit-autofill:active {
 }
 
 .offcanvas-body a.nav-link {
-    padding: 20px;
-    border-top: 1px solid gray;
+    padding: 10px;
 }
 
 .explore-parent-div {
@@ -448,6 +452,10 @@ input:-webkit-autofill:active {
 .container-explore-area{
     padding-right: 5%;
     padding-left: 5%;
+}
+.container-single-merchant{
+    padding-right: 4%;
+    padding-left: 4%;
 }
 
 @media only screen and (max-width:985px) {

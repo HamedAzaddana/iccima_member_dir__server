@@ -6,10 +6,9 @@ import { Link } from '@inertiajs/react'
 import { usePage } from '@inertiajs/react'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/cjs/Button.js';
-import Offcanvas from 'react-bootstrap/cjs/Offcanvas.js';
 import toast, { Toaster } from 'react-hot-toast';
 import { get_query_param_url } from '../../Utils/IccObjArr';
+import MenuAdmin from './MenuAdmin';
 
 export default function TopArea() {
     const ws_username = import.meta.env.VITE_AUTH_WS_USERNAME || '';
@@ -17,8 +16,7 @@ export default function TopArea() {
     const { iccima, _GL } = usePage().props;
     const appUrl = import.meta.env.VITE_APP_URL || 'http://127.0.0.1:8000';
     const loginSsoUrl = import.meta.env.VITE_LOGIN_URL_SSO || 'http://127.0.0.1:8000/loginSso';
-    const [showOfCanv, setShowOfCanc] = useState(false);
-    const [placementOfCanc, setPlacementOfCanc] = useState("end");
+
     const handleSelectLang = (e, setter = '', redirect = '') => {
         let _post_data = {};
         if (setter) {
@@ -70,21 +68,12 @@ export default function TopArea() {
     const handleNonDo = (e) => {
         e.preventDefault();
     }
-    const handleCloseOfCanv = (e) => {
-        setShowOfCanc(false);
-    }
-    const handleShowOfCanv = (e) => {
-        e.preventDefault();
-        setShowOfCanc(true);
-    }
+
     useEffect(() => {
-        if (iccima.user.lang == "English") {
-            setPlacementOfCanc("start");
-        }
         let lang_qp = get_query_param_url('lang');
         let redirect_qp = get_query_param_url('redirect');
         if ((lang_qp == "Persian" || lang_qp == "English") && (redirect_qp == "true")) {
-            handleSelectLang(null,lang_qp,appUrl);
+            handleSelectLang(null, lang_qp, appUrl);
         }
     }, []);
     return (
@@ -107,37 +96,18 @@ export default function TopArea() {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto top_nav_app">
-                                {
-                                    (
-                                        iccima.user.__id && iccima.user.type == "admin" ?
-                                            (
-                                                <>
-                                                    <Link className="nav-link" style={{
-                                                        color: "rgb(155, 25, 25)"
-                                                    }} onClick={handleShowOfCanv} href="#"> <i className='fa fa-database'></i> {_GL["nav.admin"]}</Link>
-                                                    <Offcanvas show={showOfCanv} onHide={handleCloseOfCanv}
-                                                        backdrop={true}
-                                                        placement={placementOfCanc}
-                                                    >
-                                                        <Offcanvas.Header closeButton>
-                                                            <img className='img-offcanvas-site' src="" alt="" />
-                                                            <Offcanvas.Title className='text-primary'>{_GL['nav.admin.ofc.title']}
-                                                            </Offcanvas.Title>
-                                                        </Offcanvas.Header>
-                                                        <Offcanvas.Body>
-                                                            <Link className="nav-link " href={`${iccima.adminPanel.dashboard}`}> <i className='fa fa-tachometer'></i> {_GL["nav.admin.ofc.dashboard"]}</Link>
-                                                            <Link className="nav-link" href={`${iccima.adminPanel.forms}`}> <i className='fa fa-address-card'></i> {_GL["nav.admin.ofc.forms_confirm"]}</Link>
-
-                                                        </Offcanvas.Body>
-                                                    </Offcanvas>
-                                                </>
-                                            )
-                                            :
-                                            ("")
-                                    )
-                                }
+                                <MenuAdmin />
                                 <Link className="nav-link" href={`${appUrl}`}> <i className='fa fa-home'></i> {_GL["nav.home"]}</Link>
                                 <Link className="nav-link" href={`${appUrl}/#`}> <i className='fa fa-info-circle'></i> {_GL["nav.hint"]}</Link>
+                                {
+                                    (iccima.user.__id ?
+                                        (
+                                            <Link className="nav-link" href={iccima.links.logout}> <i className='fa fa-sign-out'></i> {_GL["nav.logout"]}</Link>
+                                        ) :
+                                        ("")
+                                    )
+                                }
+
                                 {
                                     (
                                         iccima.user.__id ? (
@@ -147,7 +117,6 @@ export default function TopArea() {
                                                         <Link className="nav-link" style={{
                                                             color: "rgb(155, 25, 25)"
                                                         }} href={iccima.user.spl}> <i className='fa fa-user-circle-o'></i>  {_GL["nav.profile"]}</Link>
-                                                        <Link className="nav-link" href={iccima.links.logout}> <i className='fa fa-sign-out'></i> {_GL["nav.logout"]}</Link>
                                                     </>
                                                 ) :
                                                 (

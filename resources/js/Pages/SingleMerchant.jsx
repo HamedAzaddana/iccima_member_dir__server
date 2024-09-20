@@ -189,7 +189,7 @@ export default function SingleMerchant({ slug, hid, route_ws_get_single, route_4
                             (dataSingle?.co_title) ?
                                 (
                                     <div className='placeholder-single-content'>
-                                        <div className="container">
+                                        <div className="container-single-merchant">
                                             {
                                                 (iccima.user.__id && iccima.user.__id == hid) || (iccima.user.__id && iccima.user.type == "admin" && slug == "viaAdminPanel") ?
                                                     (
