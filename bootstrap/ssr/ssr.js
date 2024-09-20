@@ -5,9 +5,9 @@ import Container from "react-bootstrap/cjs/Container.js";
 import Nav from "react-bootstrap/cjs/Nav.js";
 import Navbar from "react-bootstrap/cjs/Navbar.js";
 import axios from "axios";
-import Offcanvas from "react-bootstrap/cjs/Offcanvas.js";
 import toast, { Toaster } from "react-hot-toast";
 import { ReactSession } from "react-client-session";
+import Offcanvas from "react-bootstrap/cjs/Offcanvas.js";
 import TagManager from "react-gtm-module";
 import Form from "react-bootstrap/cjs/Form.js";
 import Button from "react-bootstrap/cjs/Button.js";
@@ -155,14 +155,68 @@ function browser_session_get(key) {
     return null;
   }
 }
+function MenuAdmin() {
+  const { iccima, _GL: _GL2 } = usePage().props;
+  const [showOfCanv, setShowOfCanc] = useState(false);
+  const [placementOfCanc, setPlacementOfCanc] = useState("end");
+  const handleCloseOfCanv = (e) => {
+    setShowOfCanc(false);
+  };
+  const handleShowOfCanv = (e) => {
+    e.preventDefault();
+    setShowOfCanc(true);
+  };
+  useEffect(() => {
+    if (iccima.user.lang == "English") {
+      setPlacementOfCanc("start");
+    }
+  }, []);
+  return /* @__PURE__ */ jsx("div", { children: iccima.user.__id && iccima.user.type == "admin" ? /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsxs(Link, { className: "nav-link", style: {
+      color: "rgb(155, 25, 25)"
+    }, onClick: handleShowOfCanv, href: "#", children: [
+      " ",
+      /* @__PURE__ */ jsx("i", { className: "fa fa-database" }),
+      " ",
+      _GL2["nav.admin"]
+    ] }),
+    /* @__PURE__ */ jsxs(
+      Offcanvas,
+      {
+        show: showOfCanv,
+        onHide: handleCloseOfCanv,
+        backdrop: true,
+        placement: placementOfCanc,
+        children: [
+          /* @__PURE__ */ jsxs(Offcanvas.Header, { closeButton: true, children: [
+            /* @__PURE__ */ jsx("img", { className: "img-offcanvas-site", src: "", alt: "" }),
+            /* @__PURE__ */ jsx(Offcanvas.Title, { className: "text-primary fw-bolder", children: _GL2["nav.admin.ofc.title"] })
+          ] }),
+          /* @__PURE__ */ jsx(Offcanvas.Body, { className: `app-lang-${iccima.user.lang}`, children: /* @__PURE__ */ jsx("div", { id: "sidebar-plus-iccima-admin", className: "border rounded", children: /* @__PURE__ */ jsxs("div", { className: "nav flex-column py-3", children: [
+            /* @__PURE__ */ jsxs(Link, { className: "nav-link ", href: `${iccima.adminPanel.dashboard}`, children: [
+              " ",
+              /* @__PURE__ */ jsx("i", { className: "fa fa-tachometer" }),
+              " ",
+              _GL2["nav.admin.ofc.dashboard"]
+            ] }),
+            /* @__PURE__ */ jsxs(Link, { className: "nav-link", href: `${iccima.adminPanel.forms}`, children: [
+              " ",
+              /* @__PURE__ */ jsx("i", { className: "fa fa-address-card" }),
+              " ",
+              _GL2["nav.admin.ofc.forms_confirm"]
+            ] })
+          ] }) }) })
+        ]
+      }
+    )
+  ] }) : "" });
+}
 function TopArea() {
   const ws_username = "H40MN?jcVE4(Z3LW-3WwZ4;G!wwQxe";
   const ws_password = "jR+VZu7%5beGbNq6TYYSBv&WwPATCuQeRGf4v8Wm%w7$(X#h4SpPEbXyqFweKB3V";
   const { iccima, _GL: _GL2 } = usePage().props;
   const appUrl = "https://plus.iccima.ir";
   const loginSsoUrl = "https://sso.iccima.ir/Login/?returnUrl=https://plus.iccima.ir/authentication/loginSso/&type=1";
-  const [showOfCanv, setShowOfCanc] = useState(false);
-  const [placementOfCanc, setPlacementOfCanc] = useState("end");
   const handleSelectLang = (e, setter = "", redirect = "") => {
     let _post_data = {};
     if (setter) {
@@ -211,17 +265,7 @@ function TopArea() {
   const handleNonDo = (e) => {
     e.preventDefault();
   };
-  const handleCloseOfCanv = (e) => {
-    setShowOfCanc(false);
-  };
-  const handleShowOfCanv = (e) => {
-    e.preventDefault();
-    setShowOfCanc(true);
-  };
   useEffect(() => {
-    if (iccima.user.lang == "English") {
-      setPlacementOfCanc("start");
-    }
     let lang_qp = get_query_param_url("lang");
     let redirect_qp = get_query_param_url("redirect");
     if ((lang_qp == "Persian" || lang_qp == "English") && redirect_qp == "true") {
@@ -240,45 +284,7 @@ function TopArea() {
       /* @__PURE__ */ jsx("span", { className: "navbar-title-site-mobile", children: _GL2["nav.brand_short"] }),
       /* @__PURE__ */ jsx(Navbar.Toggle, { "aria-controls": "responsive-navbar-nav" }),
       /* @__PURE__ */ jsx(Navbar.Collapse, { id: "responsive-navbar-nav", children: /* @__PURE__ */ jsxs(Nav, { className: "me-auto top_nav_app", children: [
-        iccima.user.__id && iccima.user.type == "admin" ? /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsxs(Link, { className: "nav-link", style: {
-            color: "rgb(155, 25, 25)"
-          }, onClick: handleShowOfCanv, href: "#", children: [
-            " ",
-            /* @__PURE__ */ jsx("i", { className: "fa fa-database" }),
-            " ",
-            _GL2["nav.admin"]
-          ] }),
-          /* @__PURE__ */ jsxs(
-            Offcanvas,
-            {
-              show: showOfCanv,
-              onHide: handleCloseOfCanv,
-              backdrop: true,
-              placement: placementOfCanc,
-              children: [
-                /* @__PURE__ */ jsxs(Offcanvas.Header, { closeButton: true, children: [
-                  /* @__PURE__ */ jsx("img", { className: "img-offcanvas-site", src: "", alt: "" }),
-                  /* @__PURE__ */ jsx(Offcanvas.Title, { className: "text-primary", children: _GL2["nav.admin.ofc.title"] })
-                ] }),
-                /* @__PURE__ */ jsxs(Offcanvas.Body, { children: [
-                  /* @__PURE__ */ jsxs(Link, { className: "nav-link ", href: `${iccima.adminPanel.dashboard}`, children: [
-                    " ",
-                    /* @__PURE__ */ jsx("i", { className: "fa fa-tachometer" }),
-                    " ",
-                    _GL2["nav.admin.ofc.dashboard"]
-                  ] }),
-                  /* @__PURE__ */ jsxs(Link, { className: "nav-link", href: `${iccima.adminPanel.forms}`, children: [
-                    " ",
-                    /* @__PURE__ */ jsx("i", { className: "fa fa-address-card" }),
-                    " ",
-                    _GL2["nav.admin.ofc.forms_confirm"]
-                  ] })
-                ] })
-              ]
-            }
-          )
-        ] }) : "",
+        /* @__PURE__ */ jsx(MenuAdmin, {}),
         /* @__PURE__ */ jsxs(Link, { className: "nav-link", href: `${appUrl}`, children: [
           " ",
           /* @__PURE__ */ jsx("i", { className: "fa fa-home" }),
@@ -291,22 +297,20 @@ function TopArea() {
           " ",
           _GL2["nav.hint"]
         ] }),
-        iccima.user.__id ? iccima.user.type == "merchant" ? /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsxs(Link, { className: "nav-link", style: {
-            color: "rgb(155, 25, 25)"
-          }, href: iccima.user.spl, children: [
-            " ",
-            /* @__PURE__ */ jsx("i", { className: "fa fa-user-circle-o" }),
-            "  ",
-            _GL2["nav.profile"]
-          ] }),
-          /* @__PURE__ */ jsxs(Link, { className: "nav-link", href: iccima.links.logout, children: [
-            " ",
-            /* @__PURE__ */ jsx("i", { className: "fa fa-sign-out" }),
-            " ",
-            _GL2["nav.logout"]
-          ] })
-        ] }) : /* @__PURE__ */ jsx(Fragment, {}) : /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs("a", { className: "nav-link", href: loginSsoUrl, children: [
+        iccima.user.__id ? /* @__PURE__ */ jsxs(Link, { className: "nav-link", href: iccima.links.logout, children: [
+          " ",
+          /* @__PURE__ */ jsx("i", { className: "fa fa-sign-out" }),
+          " ",
+          _GL2["nav.logout"]
+        ] }) : "",
+        iccima.user.__id ? iccima.user.type == "merchant" ? /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs(Link, { className: "nav-link", style: {
+          color: "rgb(155, 25, 25)"
+        }, href: iccima.user.spl, children: [
+          " ",
+          /* @__PURE__ */ jsx("i", { className: "fa fa-user-circle-o" }),
+          "  ",
+          _GL2["nav.profile"]
+        ] }) }) : /* @__PURE__ */ jsx(Fragment, {}) : /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs("a", { className: "nav-link", href: loginSsoUrl, children: [
           " ",
           /* @__PURE__ */ jsx("i", { className: "fa fa-user-circle-o" }),
           " ",
@@ -1263,7 +1267,7 @@ function SingleMerchant$1({ slug, hid, route_ws_get_single, route_404_page, rout
   }, [dataSingle]);
   return /* @__PURE__ */ jsx(Main, { children: /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsx(Head, { title: (dataSingle == null ? void 0 : dataSingle.co_title) ? dataSingle.co_title[iccima.user.lang.toString()].toLowerCase() : "data" }),
-    /* @__PURE__ */ jsx(Fragment, { children: (dataSingle == null ? void 0 : dataSingle.co_title) ? /* @__PURE__ */ jsx("div", { className: "placeholder-single-content", children: /* @__PURE__ */ jsxs("div", { className: "container", children: [
+    /* @__PURE__ */ jsx(Fragment, { children: (dataSingle == null ? void 0 : dataSingle.co_title) ? /* @__PURE__ */ jsx("div", { className: "placeholder-single-content", children: /* @__PURE__ */ jsxs("div", { className: "container-single-merchant", children: [
       iccima.user.__id && iccima.user.__id == hid || iccima.user.__id && iccima.user.type == "admin" && slug == "viaAdminPanel" ? /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("center", { className: "icon-box-single-page", children: /* @__PURE__ */ jsx("i", { className: "fa fa-id-card" }) }),
         /* @__PURE__ */ jsx("div", { className: "card card-box-single-page  p-3 mb-5 rounded", children: /* @__PURE__ */ jsx("div", { className: "card-body text-dark", children: /* @__PURE__ */ jsx("div", { className: "row", children: /* @__PURE__ */ jsxs("div", { className: "col-lg-12 col-md-12 col-sm-12", children: [
