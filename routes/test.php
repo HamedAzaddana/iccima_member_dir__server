@@ -15,6 +15,7 @@ use Klevze\OnlineUsers\Facades\OnlineUsers;
 
 
 Route::get('/test2', function () {
+    dd(request()->ip());
     // dd($_SERVER);
     // dd(___callLang());
     // iccima_change_sess_lang("Persian");
