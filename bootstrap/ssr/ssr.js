@@ -343,19 +343,19 @@ function FooterBottom({ cntOnlines }) {
   const { iccima, _GL: _GL2 } = usePage().props;
   let footer_title_1 = _GL2["footer.title_1"];
   return /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("footer", { id: "iccima-footer", className: "footer", children: /* @__PURE__ */ jsx("div", { className: "m-1 p-1", children: /* @__PURE__ */ jsx("div", { className: "footer-menu", children: /* @__PURE__ */ jsxs("div", { className: "row", children: [
+    /* @__PURE__ */ jsx("div", { className: "footer-menu-logo col-lg-1 col-md-1 col-sm-12 mb-2", children: /* @__PURE__ */ jsx("div", { className: "navbar-header", children: /* @__PURE__ */ jsx("center", { children: /* @__PURE__ */ jsx("img", { style: {
+      width: "65px",
+      height: "65px",
+      borderRadius: "20%",
+      filter: "contrast(180%)"
+    }, src: "/images/iccima_iran.png", alt: "" }) }) }) }),
     /* @__PURE__ */ jsx(
       "div",
       {
         dangerouslySetInnerHTML: { __html: footer_title_1 },
-        className: "col-lg-7 col-md-7 col-sm-12 mt-3  text-dark"
+        className: "footer-menu-text-1 col-lg-7 col-md-7 col-sm-12 mt-4  text-dark"
       }
     ),
-    /* @__PURE__ */ jsx("div", { className: "col-lg-1 col-md-1 col-sm-12 mb-2", children: /* @__PURE__ */ jsx("div", { className: "navbar-header", children: /* @__PURE__ */ jsx("center", { children: /* @__PURE__ */ jsx("img", { style: {
-      width: "60px",
-      height: "60px",
-      borderRadius: "20%",
-      filter: "contrast(180%)"
-    }, src: "/images/iccima_iran.png", alt: "" }) }) }) }),
     /* @__PURE__ */ jsx("div", { className: "col-lg-2 col-md-2 col-sm-12 text-success d-none", children: /* @__PURE__ */ jsxs("strong", { children: [
       " ",
       _GL2["footer.online_users"],
